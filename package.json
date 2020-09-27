@@ -1,0 +1,32 @@
+{
+  "name": "spiders",
+  "version": "1.0.0",
+  "description": "A web engineering log.",
+  "main": "src/index.js",
+  "scripts": {
+    "//": "⇣FIRE⇣",
+    "fire": "npm run build:s && NODE_ENV=prod pm2 start server/build/index.js --name sidiousvic.dev/oats",
+    "//": "⇣UI⇣",
+    "u:build": "webpack",
+    "u:dev": "webpack-dev-server",
+    "//": "⇣SERVER⇣",
+    "s:build": "tsc --project server/tsconfig.json",
+    "s:dev": "NODE_ENV=dev ts-node-dev server/src",
+    "//": "⇣DATABASE⇣",
+    "db:migrate": "",
+    "db:seed": "",
+    "db:rollback": "",
+    "//": "⇣LINT⇣",
+    "lint": "eslint --fix --ext .js,.jsx ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidiousvic/spiders.git"
+  },
+  "author": "sidiousvic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sidiousvic/spiders/issues"
+  },
+  "homepage": "https://github.com/sidiousvic/spiders#readme"
+}
