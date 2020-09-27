@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "//": "⇣LINT⇣",
-    "fire": "npm run s:build && NODE_ENV=prod pm2 start server/build/index.js --name sidiousvic.dev/oats",
+    "fire": "npm run s:build && NODE_ENV=prod pm2 start server/build/index.js --name /spiders",
     "u:build": "webpack",
     "u:dev": "webpack-dev-server",
     "s:build": "tsc --project server/tsconfig.json",
