@@ -4,7 +4,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: "./src/index.jsx",
+    app: "./src/index.tsx",
   },
   resolve: {
     alias: {
