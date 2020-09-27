@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     contentBase: "./build",
     proxy: {
-      "/": "http://localhost:9990",
+      "/": "http://localhost:9991",
     },
   },
   optimization: {

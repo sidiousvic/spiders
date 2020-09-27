@@ -3,6 +3,6 @@ const typeDefs = require("./graphql/schema");
 
 const server = new ApolloServer({ typeDefs });
 
-server.listen({ port: 9001 }).then(({ url }) => {
+server.listen({ port: 9991 }).then(({ url }) => {
   console.log(`🚀 Server launched at ${url}`);
 });
