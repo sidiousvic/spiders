@@ -30,6 +30,14 @@
     "graphql": "^15.3.0"
   },
   "devDependencies": {
-    "ts-node-dev": "^1.0.0-pre.63"
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^1.2.1",
+    "ts-node-dev": "^1.0.0-pre.63",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.44.2",
+    "webpack-dev-server": "^3.11.0"
   }
 }
