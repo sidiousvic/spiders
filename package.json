@@ -28,6 +28,7 @@
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
     "apollo-server": "^2.18.1",
+    "axios": "^0.20.0",
     "graphql": "^15.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
