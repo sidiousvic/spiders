@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./Login/Login.jsx";
+import Login from "./Login/Login";
 
 export default function Spiders() {
   return (

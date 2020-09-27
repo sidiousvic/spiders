@@ -10,21 +10,18 @@ export default function Login() {
     // auth request from here
   }
 
-  const usernameInputRef = useRef();
-  const passwordInputRef = useRef();
+  const usernameInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   function handleLoginInput() {
-    const {
-      current: { value: username },
-    } = usernameInputRef;
-    const {
-      current: { value: password },
-    } = passwordInputRef;
-    // console.log(username, password);
-    setLogin({
-      username,
-      password,
-    });
+    const usernameInput = usernameInputRef.current;
+    const passwordInput = passwordInputRef.current;
+    if (usernameInput && passwordInput) {
+      setLogin({
+        username: usernameInput.value,
+        password: passwordInput.value,
+      });
+    }
   }
 
   return (
