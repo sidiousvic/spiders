@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     contentBase: "./build",
     proxy: {
-      "/graphql": "http://localhost:9991",
+      "/": "http://localhost:9991",
     },
   },
   optimization: {
