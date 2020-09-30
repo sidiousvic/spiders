@@ -5,20 +5,20 @@ import Login from "./Login/Login";
 export default function Spiders() {
   return (
     <Router>
-      <li>
-        <Link to="/">home</Link>
-      </li>
-      <li>
-        <Link to="/weave">weave</Link>
-      </li>
       <Switch>
-        <Route path="/weave">
+        <Route path="/spiders/weave">
           <Weave />
         </Route>
-        <Route path="/">
+        <Route path="/spiders">
           <div id="spiders">
             <h1>Spiders 🕸</h1>
             <h2>A web engineering log.</h2>
+            <li>
+              <Link to="/spiders">home</Link>
+            </li>
+            <li>
+              <Link to="/spiders/weave">weave</Link>
+            </li>
           </div>
         </Route>
       </Switch>
