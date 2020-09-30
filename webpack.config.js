@@ -7,9 +7,6 @@ module.exports = {
     app: "./src/index.tsx",
   },
   resolve: {
-    alias: {
-      three$: path.resolve("./src/three.exports.js"),
-    },
     extensions: [".tsx", ".ts", ".js"],
   },
   mode: "development",
@@ -21,7 +18,7 @@ module.exports = {
   devServer: {
     contentBase: "./build",
     proxy: {
-      "/": "http://localhost:9991",
+      "/graphql": "http://localhost:9991",
     },
   },
   optimization: {
@@ -30,7 +27,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
-      filename: "./index.html",
+      filename: "index.html",
       favicon: "./public/favicon.ico",
     }),
   ],
@@ -44,7 +41,7 @@ module.exports = {
         },
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)$/,
         loader: "ts-loader",
         exclude: /node_modules/,
       },
