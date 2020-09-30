@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const { BaseHrefWebpackPlugin } = require("base-href-webpack-plugin"); // Or
 
 module.exports = {
   entry: {
@@ -31,9 +30,6 @@ module.exports = {
       template: "./public/index.html",
       filename: "index.html",
       favicon: "./public/favicon.ico",
-    }),
-    new BaseHrefWebpackPlugin({
-      baseHref: process.env.NODE_ENV === "dev" ? "/" : "/spiders",
     }),
   ],
   module: {
