@@ -35,40 +35,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var apollo_server_1 = require("apollo-server");
-var auth_1 = __importDefault(require("./auth"));
-var authenticated = auth_1.default.authenticated;
-var resolvers = {
-    Query: {
-        me: authenticated(function (_, __, _a) {
-            var user = _a.user;
-            return user;
-        }),
-    },
-    Mutation: {
-        signin: function (_, _a, _b) {
-            var login = _a.login;
-            var models = _b.models, _c = _b.auth, generateToken = _c.generateToken, verifyLogin = _c.verifyLogin;
-            return __awaiter(this, void 0, void 0, function () {
-                var user, verified, token;
-                return __generator(this, function (_d) {
-                    switch (_d.label) {
-                        case 0: return [4 /*yield*/, models.users.findUser(login)];
-                        case 1:
-                            user = (_d.sent()) || {};
-                            verified = verifyLogin(login, user);
-                            if (!verified)
-                                throw new apollo_server_1.AuthenticationError("Wrong login.");
-                            token = generateToken(user);
-                            return [2 /*return*/, { token: token, user: user }];
-                    }
-                });
-            });
-        },
-    },
-};
-exports.default = resolvers;
+exports.up = function (pgm) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, pgm.createTable("users", {
+                    id: "id",
+                    username: { type: "varchar(50)", notNull: true },
+                    password: { type: "varchar(50)", notNull: true },
+                    role: { type: "varchar(50)", notNull: true },
+                    createdAt: {
+                        type: "timestamp",
+                        notNull: true,
+                        default: pgm.func("current_timestamp"),
+                    },
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
