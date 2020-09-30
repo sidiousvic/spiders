@@ -4,13 +4,12 @@
   "description": "A web engineering log.",
   "main": "src/index.js",
   "scripts": {
-    "//": "⇣LINT⇣",
-    "fire": "npm run s:build && npm run u:build && NODE_ENV=prod pm2 start server/build/index.js --name /spiders",
+    "fire": "npm run s:build && npm run u:build && NODE_ENV=prod pm2 start server/build/index.js --name /spiders --exit-child",
     "u:build": "webpack",
     "u:dev": "webpack-dev-server",
     "s:build": "tsc --project server/tsconfig.json",
-    "s:dev": "NODE_ENV=dev ts-node-dev --project server/tsconfig.json server/src",
-    "db:migrate": "",
+    "s:dev": "NODE_ENV=dev ts-node-dev --project server/tsconfig.json server/src --exit-child",
+    "db:migrate": "node-pg-migrate -m server/src/db/migrations",
     "db:seed": "",
     "db:rollback": "",
     "lint": "eslint --fix --ext .js,.jsx ."
