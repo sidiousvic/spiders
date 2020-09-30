@@ -1,13 +1,34 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Dispatch, SetStateAction } from "react";
+import axios from "axios";
+import { signinQuery } from "../../../queries";
+import { logGraphQLErrors } from "../../../utils";
 
-export default function Login() {
+interface LoginProps {
+  setToken: Dispatch<SetStateAction<string>>;
+}
+
+export default function Login({ setToken }: LoginProps) {
   const [login, setLogin] = useState({
     username: "",
     password: "",
   });
 
-  function handleLogin() {
-    // auth request from here
+  async function handleLogin() {
+    const { username, password } = login;
+    const response = await axios.post("/graphql", {
+      query: signinQuery(username, password),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { data: graphqlData } = response;
+    if (graphqlData.errors) return logGraphQLErrors(graphqlData.errors);
+    const {
+      data: {
+        signin: { token },
+      },
+    } = graphqlData;
+    setToken(token);
   }
 
   const usernameInputRef = useRef<HTMLInputElement>(null);

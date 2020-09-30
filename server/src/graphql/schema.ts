@@ -1,53 +1,35 @@
-const { gql } = require("apollo-server");
+import { gql } from "apollo-server";
 
 const typeDefs = gql`
-  type Launch {
-    id: ID!
-    site: String
-    mission: Mission
-    rocket: Rocket
-    isBooked: Boolean!
-  }
-
-  type Rocket {
-    id: ID!
-    name: String
-    type: String
+  enum Role {
+    DARKLORD
+    GUEST
   }
 
   type User {
     id: ID!
-    email: String!
-    trips: [Launch]!
+    username: String!
+    password: String!
+    role: Role!
   }
 
-  type Mission {
-    name: String
-    missionPatch(size: PatchSize): String
+  type AuthUser {
+    token: String!
+    user: User!
   }
 
-  enum PatchSize {
-    SMALL
-    LARGE
+  input Login {
+    username: String!
+    password: String!
   }
 
   type Query {
-    launches: [Launch]!
-    launch(id: ID!): Launch
-    me: User
-  }
-
-  type TripUpdateResponse {
-    success: Boolean!
-    message: String
-    launches: [Launch]
+    me: User!
   }
 
   type Mutation {
-    bookTrips(launchIds: [ID]!): TripUpdateResponse!
-    cancelTrip(launchId: ID!): TripUpdateResponse!
-    login(email: String): String # login token
+    signin(login: Login!): AuthUser!
   }
 `;
 
-module.exports = typeDefs;
+export default typeDefs;
