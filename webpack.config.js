@@ -18,8 +18,9 @@ module.exports = {
   devServer: {
     contentBase: "./build",
     proxy: {
-      "/": "http://localhost:9991",
+      "/graphql": "http://localhost:9991",
     },
+    historyApiFallback: true,
   },
   optimization: {
     minimizer: [new UglifyJsPlugin()],
