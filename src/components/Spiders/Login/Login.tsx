@@ -15,7 +15,7 @@ export default function Login({ setToken }: LoginProps) {
 
   async function handleLogin() {
     const { username, password } = login;
-    const response = await axios.post("/graphql", {
+    const response = await axios.post("/spiders/graphql", {
       query: signinQuery(username, password),
       headers: {
         "Content-Type": "application/json",
