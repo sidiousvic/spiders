@@ -5,24 +5,32 @@ import Login from "./Login/Login";
 export default function Spiders() {
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route path="/spiders/weave">
           <Weave />
         </Route>
-        <Route path="/spiders">
-          <div id="spiders">
-            <h1>Spiders 🕸</h1>
-            <h2>A web engineering log.</h2>
-            <li>
-              <Link to="/spiders">home</Link>
-            </li>
-            <li>
-              <Link to="/spiders/weave">weave</Link>
-            </li>
-          </div>
-        </Route>
       </Switch>
     </Router>
+  );
+}
+
+function Navbar() {
+  return (
+    <div id="navbar">
+      <Route path="/spiders">
+        <div id="spiders">
+          <h1>Spiders 🕸</h1>
+          <h2>A web engineering log.</h2>
+          <li>
+            <Link to="/spiders">home</Link>
+          </li>
+          <li>
+            <Link to="/spiders/weave">weave</Link>
+          </li>
+        </div>
+      </Route>
+    </div>
   );
 }
 
