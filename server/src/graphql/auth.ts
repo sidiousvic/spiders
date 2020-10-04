@@ -1,40 +1,51 @@
+import { AuthMiddlewareMap, AuthUtilsMap, User, AuthLayer } from "src/types";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
 const secret = process.env.SECRET!;
 
-const auth = {
-  generateToken({ id, role }: any) {
+const authUtils: AuthUtilsMap = {
+  generateToken({ id, role }) {
     return jwt.sign({ id, role }, secret);
   },
-  getUserFromToken(token: string) {
+  getUserIdFromToken(token) {
     try {
       const user = jwt.verify(token, secret);
-      const { id } = user as any;
+      const { id } = user as User;
       return id;
-    } catch (e) {
-      return null;
+    } catch {
+      return "";
     }
   },
-  verifyLogin(login: any, user: any) {
+  verifyLogin(login, user) {
     const usernameMatches = login.username === user.username;
     const passwordMatches = login.password === user.password;
     return usernameMatches && passwordMatches;
   },
-  authenticated(next: Function) {
-    return (root: any, args: any, context: any, info: any) => {
-      if (!context.user)
+};
+
+const authMiddlewares: AuthMiddlewareMap = {
+  authenticated(nextResolver) {
+    return (parent, args, ctx, info) => {
+      const { authedUser } = ctx;
+      if (!authedUser)
         throw new AuthenticationError("User is not authenticated.");
-      return next(root, args, context, info);
+      return nextResolver(parent, args, ctx, info);
     };
   },
-  authorized(role: string, next: Function) {
-    return (root: any, args: any, context: any, info: any) => {
-      if (context.user.role !== role)
+  authorized(nextResolver, { role }) {
+    return (parent, args, ctx, info) => {
+      const { authedUser } = ctx;
+      if (authedUser && authedUser.role !== role)
         throw new AuthenticationError("User is not authenticated.");
-      return next(root, args, context, info);
+      else return nextResolver(parent, args, ctx, info);
     };
   },
+};
+
+const auth: AuthLayer = {
+  ...authUtils,
+  ...authMiddlewares,
 };
 
 export default auth;
