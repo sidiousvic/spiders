@@ -2,6 +2,11 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
+const env = process.env.NODE_ENV;
+const buildPath = path.resolve(__dirname, "build");
+const publicPath = env === "development" ? "/" : buildPath;
+console.log(env, buildPath, publicPath);
+
 module.exports = {
   entry: {
     app: "./src/index.tsx",
@@ -12,12 +17,12 @@ module.exports = {
   mode: "development",
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: "/",
+    path: buildPath,
+    publicPath: publicPath,
   },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: "./build",
+    contentBase: buildPath,
     proxy: {
       "/spiders/graphql": "http://localhost:9991",
     },
