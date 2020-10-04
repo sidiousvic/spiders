@@ -23,12 +23,24 @@ const typeDefs = gql`
     password: String!
   }
 
+  input Post {
+    title: String!
+    author: String!
+    tags: String!
+    body: String!
+    updatedAt: String!
+    userId: Int
+    published: Boolean
+    publishedAt: String
+  }
+
   type Query {
     me: User!
   }
 
   type Mutation {
     signin(input: UserLogin!): AuthUser!
+    addPost(input: Post): String
   }
 `;
 
