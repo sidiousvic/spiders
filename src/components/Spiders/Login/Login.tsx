@@ -1,7 +1,16 @@
-import React, { useState, useRef, Dispatch, SetStateAction } from "react";
+import React, {
+  useState,
+  useRef,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from "react";
 import axios from "axios";
 import { signinQuery } from "../../../queries";
 import { logGraphQLErrors } from "../../../utils";
+import useSound from "use-sound";
+//@ts-ignore
+import magicword_mp3 from "../../../assets/magicword.mp3";
 //@ts-ignore
 import magicword_gif from "../../../assets/magicword.gif";
 
@@ -89,6 +98,11 @@ export default function Login({ setToken }: LoginProps) {
 }
 
 function Magicword() {
-  console.log(magicword_gif);
+  const [play, { sound }] = useSound(magicword_mp3);
+
+  useEffect(() => {
+    play();
+  }, [sound]);
+
   return <img src={magicword_gif} />;
 }
