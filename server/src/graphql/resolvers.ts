@@ -1,22 +1,19 @@
 import { AuthenticationError } from "apollo-server";
+import { ResolverMap, User } from "src/types";
 import auth from "./auth";
 
 const { authenticated } = auth;
 
-const resolvers = {
+const resolvers: ResolverMap = {
   Query: {
-    me: authenticated((_: any, __: any, { user }: any) => user),
+    me: authenticated((_, __, { authedUser }) => authedUser as User),
   },
   Mutation: {
-    async signin(
-      _: any,
-      { login }: any,
-      { models, auth: { generateToken, verifyLogin } }: any
-    ) {
-      const user = (await models.users.findUser(login)) || {};
-      const verified = verifyLogin(login, user);
+    async signin(_, { input: login }, { auth, models }) {
+      const user = await models.users.findUser(login);
+      const verified = auth.verifyLogin(login, user);
       if (!verified) throw new AuthenticationError("Wrong login.");
-      const token = generateToken(user);
+      const token = auth.generateToken(user);
       return { token, user };
     },
   },
