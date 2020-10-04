@@ -17,33 +17,43 @@ const DatabaseUtils: DatabaseUtilsMap = {
       migrationsTable: "spiders_migrations",
       dir: __dirname + "/migrations",
       direction: "up",
-      count: 2,
+      count: 9999,
     });
   },
   async buildModels(pool) {
     console.log("🔨 Building database models...");
 
-    const documents = {
-      query: (text: string) => {
-        return pool.query(text);
-      },
-    };
-
     const models: ModelsMap = {
       users: {
         async findUser(user) {
-          for (let [table, value] of Object.entries(user)) {
-            const { rows } = await documents.query(
-              `SELECT * FROM users WHERE ${table} = '${value}'`
+          for (let [column, value] of Object.entries(user)) {
+            const { rows } = await pool.query(
+              `SELECT * FROM users WHERE ${column} = '${value}'`
             );
             let [user] = rows;
             if (user) return user;
-            return {};
+            continue;
           }
         },
       },
+      posts: {
+        async addPost(post) {
+          await pool.query(
+            `INSERT INTO posts (title, author, tags, body, updated_at, user_id, published, published_at) 
+            VALUES (
+                '${post.title}',
+                '${post.author}',
+                '${post.tags}',
+                '${post.body}',
+                '${post.updatedAt}',
+                '${post.userId}',
+                '${post.published}',
+                '${post.publishedAt}'
+              )`
+          );
+        },
+      },
     };
-
     return models;
   },
   async connectDatabase(runMigrations, buildModels) {
