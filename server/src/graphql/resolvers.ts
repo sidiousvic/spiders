@@ -16,6 +16,10 @@ const resolvers: ResolverMap = {
       const token = auth.generateToken(user);
       return { token, user };
     },
+    async addPost(_, { input: post }, { models }) {
+      await models.posts.addPost(post);
+      return "Web successfully woven!";
+    },
   },
 };
 
