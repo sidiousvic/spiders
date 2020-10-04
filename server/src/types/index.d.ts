@@ -17,6 +17,19 @@ type User = {
   role: Role;
 };
 
+type Post = {
+  id: string;
+  title: string;
+  author: string;
+  tags: string;
+  body: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+  published: boolean;
+  publishedAt: string;
+};
+
 type AuthUser = {
   token: string;
   user: User;
@@ -64,8 +77,13 @@ type UserModelsMap = {
   findUser: (user: Partial<User>) => Promise<User>;
 };
 
+type PostsModelsMap = {
+  addPost: (post: Partial<Post>) => Promise<void>;
+};
+
 type ModelsMap = {
   users: UserModelsMap;
+  posts: PostsModelsMap;
 };
 
 type ModelLayer = Layer<ModelsMap>;
@@ -92,6 +110,7 @@ type QueryMap = {
 
 type MutationMap = {
   signin: Resolver<Promise<AuthUser>, UserLogin>;
+  addPost: Resolver<Promise<string>>;
 };
 
 type ResolverMap = {
