@@ -1,24 +1,21 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { ApolloServer } from "apollo-server";
+import { DatabaseLayer, GraphqlLayer } from "./types";
+import databaseLayer from "./db";
 import graphqlLayer from "./graphql";
-import connectToDatabase from "./db";
 
-const { typeDefs, resolvers, auth } = graphqlLayer;
-const { getUserFromToken } = auth;
-
-async function launchApolloServer() {
-  const db = await connectToDatabase();
+async function launchApolloServer(
+  { connectDatabase, buildModels, runMigrations }: DatabaseLayer,
+  { typeDefs, resolvers, auth, context: { computeContext } }: GraphqlLayer
+) {
+  const models = await connectDatabase(runMigrations, buildModels);
 
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     async context({ req }) {
-      if (!req.headers.authorization) return { ...db, auth };
-      const token = req.headers.authorization || "";
-      const id = await getUserFromToken(token as string);
-      const user = await db.models.users.findUser({ id });
-      return { ...db, user, auth };
+      return await computeContext(req, models, auth);
     },
   });
 
@@ -27,4 +24,4 @@ async function launchApolloServer() {
   });
 }
 
-launchApolloServer();
+launchApolloServer(databaseLayer, graphqlLayer);
