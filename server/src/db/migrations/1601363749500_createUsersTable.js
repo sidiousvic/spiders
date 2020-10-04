@@ -4,7 +4,7 @@ exports.up = async (pgm) => {
     username: { type: "varchar(50)", notNull: true },
     password: { type: "varchar(50)", notNull: true },
     role: { type: "varchar(50)", notNull: true },
-    createdAt: {
+    created_at: {
       type: "timestamp",
       notNull: true,
       default: pgm.func("current_timestamp"),
