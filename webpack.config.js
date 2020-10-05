@@ -2,9 +2,12 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-const env = process.env.NODE_ENV;
+const env =
+  process.env.NODE_ENV === "development" ? "development" : "production";
 const buildPath = path.resolve(__dirname, "build");
-const publicPath = env === "development" ? "" : buildPath;
+const publicPath = env === "development" ? buildPath : "";
+
+console.log(env, buildPath, publicPath);
 
 module.exports = {
   entry: {
