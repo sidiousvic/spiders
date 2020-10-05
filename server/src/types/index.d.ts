@@ -30,6 +30,17 @@ type Post = {
   publishedAt: string;
 };
 
+type PostInput = {
+  title: string;
+  author: string;
+  tags: string;
+  body: string;
+  updatedAt: string;
+  userId: number;
+  published: boolean;
+  publishedAt: string;
+};
+
 type AuthUser = {
   token: string;
   user: User;
@@ -78,7 +89,7 @@ type UserModelsMap = {
 };
 
 type PostsModelsMap = {
-  addPost: (post: Partial<Post>) => Promise<void>;
+  addPost: (post: PostInput) => Promise<void>;
 };
 
 type ModelsMap = {
