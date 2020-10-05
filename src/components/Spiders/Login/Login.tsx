@@ -13,7 +13,7 @@ import useSound from "use-sound";
 import magicword_mp3 from "../../../assets/magicword.mp3";
 //@ts-ignore
 import magicword_gif from "../../../assets/magicword.gif";
-
+//
 interface LoginProps {
   setToken: Dispatch<SetStateAction<string>>;
 }
