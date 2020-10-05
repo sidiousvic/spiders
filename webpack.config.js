@@ -4,7 +4,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
-const publicPath = environment === "development" ? buildPath : "";
+const publicPath = environment === "development" ? "/" : "";
 const sharedLoaderOptions = { name: "[name].[ext]" };
 
 module.exports = {
