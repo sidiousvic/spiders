@@ -43,10 +43,10 @@ const DatabaseUtils: DatabaseUtilsMap = {
                 '${post.author}',
                 '${post.tags}',
                 '${post.body}',
-                '${post.updatedAt}',
+                to_timestamp(${Number(post.updatedAt) / 1000}),
                 '${post.userId}',
                 '${post.published}',
-                '${post.publishedAt}'
+                to_timestamp(${Number(post.publishedAt) / 1000})
               )`
           );
         },
