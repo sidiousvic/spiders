@@ -4,7 +4,7 @@
   "description": "A web engineering log.",
   "main": "src/index.js",
   "scripts": {
-    "fire": "npm ci && npm run u:build && npm run s:build && NODE_ENV=production pm2 start server/build/index.js --name /spiders || pm2 restart /spiders",
+    "fire": "npm ci && npm run u:build && npm run s:build && NODE_ENV=production pm2 restart server/build/index.js --name /spiders",
     "u:build": "webpack",
     "u:dev": "NODE_ENV=development webpack-dev-server",
     "s:build": "NODE_ENV=production tsc --project server/tsconfig.json",
