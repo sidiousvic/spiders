@@ -5,7 +5,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const env = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
 const publicPath = env === "development" ? "/" : buildPath;
-console.log(env, buildPath, publicPath);
 
 module.exports = {
   entry: {
