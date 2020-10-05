@@ -20,6 +20,7 @@ const authUtils: AuthUtilsMap = {
   verifyLogin(login, user) {
     const usernameMatches = login.username === user.username;
     const passwordMatches = login.password === user.password;
+    console.log(login, user);
     return usernameMatches && passwordMatches;
   },
 };

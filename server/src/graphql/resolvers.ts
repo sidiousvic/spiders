@@ -11,6 +11,7 @@ const resolvers: ResolverMap = {
   Mutation: {
     async signin(_, { input: login }, { auth, models }) {
       const user = await models.users.findUser(login);
+      if (!user) throw new AuthenticationError("User not found.");
       const verified = auth.verifyLogin(login, user);
       if (!verified) throw new AuthenticationError("Wrong login.");
       const token = auth.generateToken(user);

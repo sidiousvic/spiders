@@ -25,15 +25,13 @@ const DatabaseUtils: DatabaseUtilsMap = {
 
     const models: ModelsMap = {
       users: {
-        async findUser(user) {
-          for (let [column, value] of Object.entries(user)) {
-            const { rows } = await pool.query(
-              `SELECT * FROM users WHERE ${column} = '${value}'`
-            );
-            let [user] = rows;
-            if (user) return user;
-            continue;
-          }
+        async findUser(login) {
+          const {
+            rows: [user],
+          } = await pool.query(
+            `SELECT * FROM users WHERE username = '${login.username}'`
+          );
+          if (user) return user;
         },
       },
       posts: {
