@@ -5,9 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "fire": "npm ci && npm run s:build && npm run u:build && NODE_ENV=production pm2 start server/build/index.js --name /spiders || pm2 restart /spiders",
-    "u:build": "NODE_ENV=production webpack",
+    "u:build": "webpack",
     "u:dev": "NODE_ENV=development webpack-dev-server",
-    "s:build": "NODE_ENV=production tsc --project server/tsconfig.json",
+    "s:build": "tsc --project server/tsconfig.json",
     "s:dev": "NODE_ENV=development tsnd --tree-kill --exit-child --project server/tsconfig.json server/src ",
     "db:migrate": "node-pg-migrate -m server/src/db/migrations",
     "db:seed": "",
