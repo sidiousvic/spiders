@@ -2,12 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-const env =
-  process.env.NODE_ENV === "development" ? "development" : "production";
+const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
-const publicPath = env === "development" ? buildPath : "";
-
-console.log(env, buildPath, publicPath);
+const publicPath = environment === "development" ? buildPath : "";
+const sharedLoaderOptions = { name: "[name].[ext]" };
 
 module.exports = {
   entry: {
@@ -16,7 +14,7 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  mode: "development",
+  mode: environment,
   output: {
     filename: "[name].bundle.js",
     path: buildPath,
@@ -64,7 +62,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[ext]",
+              ...sharedLoaderOptions,
             },
           },
         ],
@@ -75,22 +73,43 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[name].[ext]",
+              ...sharedLoaderOptions,
             },
           },
         ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ["file-loader"],
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              ...sharedLoaderOptions,
+            },
+          },
+        ],
       },
       {
         test: /\.obj$/,
-        use: ["file-loader"],
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              ...sharedLoaderOptions,
+            },
+          },
+        ],
       },
       {
         test: /\.ico$/,
-        use: ["file-loader"],
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              ...sharedLoaderOptions,
+            },
+          },
+        ],
       },
     ],
   },
