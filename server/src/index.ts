@@ -20,7 +20,7 @@ async function launchApolloServer(
   });
 
   server.listen({ port: 9991 }).then(({ url }) => {
-    console.log(`🚀 Apollo Server launched @ ${url}`);
+    console.log(`🚀 Apollo Server launched @ sidiousvic.dev/spiders/graphql`);
   });
 }
 
