@@ -23,10 +23,10 @@ function Navbar() {
           <h1>Spiders 🕸</h1>
           <h2>A web engineering log.</h2>
           <li>
-            <Link to="/spiders">home</Link>
+            <Link to="/spiders">HOME</Link>
           </li>
           <li>
-            <Link to="/spiders/weave">weave</Link>
+            <Link to="/spiders/weave">WEAVE</Link>
           </li>
         </div>
       </Route>
