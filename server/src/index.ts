@@ -1,27 +1,27 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { ApolloServer } from "apollo-server";
-import { DatabaseLayer, GraphqlLayer } from "./types";
-import databaseLayer from "./db";
 import graphqlLayer from "./graphql";
+import SpidersDatabase from "./db";
+import GraphQL from "./types/graphql";
 
 async function launchApolloServer(
-  { connectDatabase, buildModels, runMigrations }: DatabaseLayer,
-  { typeDefs, resolvers, auth, context: { computeContext } }: GraphqlLayer
+  database: SpidersDatabase,
+  { typeDefs, resolvers, auth, utils: { computeContext } }: GraphQL.Layer
 ) {
-  const models = await connectDatabase(runMigrations, buildModels);
+  await database.connect();
 
   const server = new ApolloServer({
     typeDefs,
-    resolvers,
+    resolvers: resolvers,
     async context({ req }) {
-      return await computeContext(req, models, auth);
+      return await computeContext(req, database, auth);
     },
   });
 
-  server.listen({ port: 9991 }).then(({ url }) => {
+  server.listen({ port: 9991 }).then(() => {
     console.log(`🚀 Apollo Server launched @ sidiousvic.dev/spiders/graphql`);
   });
 }
 
-launchApolloServer(databaseLayer, graphqlLayer);
+launchApolloServer(new SpidersDatabase(), graphqlLayer);

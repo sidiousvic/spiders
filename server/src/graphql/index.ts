@@ -1,14 +1,14 @@
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import auth from "./auth";
-import context from "./context";
-import { GraphqlLayer } from "src/types";
+import utils from "./utils";
+import GraphQL from "src/types/graphql";
 
-const graphqlLayer: GraphqlLayer = {
+const graphqlLayer: GraphQL.Layer = {
   typeDefs,
   resolvers,
   auth,
-  context,
+  utils,
 };
 
 export default graphqlLayer;
