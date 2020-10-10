@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server";
 import graphqlLayer from "./graphql";
 import SpidersDatabase from "./db";
 import GraphQL from "./types/graphql";
-import "./ssr";
+import launchSSRServer from "./ssr";
 
 const env = process.env.NODE_ENV;
 
@@ -12,6 +12,8 @@ const graphqlServerUri =
   env === "development"
     ? "http://localhost:9991"
     : "https://sidiousvic.dev/spiders/graphql";
+
+launchSSRServer();
 
 async function launchApolloServer(
   database: SpidersDatabase,
