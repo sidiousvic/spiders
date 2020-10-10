@@ -5,10 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "deploy": "npm ci && npm run u:build && npm run s:build && NODE_ENV=production pm2 restart server/build/index.js --name /spiders",
-    "u:build": "webpack",
+    "u:build": "NODE_ENV=production webpack --config webpack.ui.config.js",
+    "s:build": "NODE_ENV=production webpack --config webpack.server.config.js ",
     "u:dev": "NODE_ENV=development webpack-dev-server",
-    "s:build": "NODE_ENV=production tsc --project server/tsconfig.json",
-    "s:dev": "NODE_ENV=development tsnd --tree-kill --exit-child --project server/tsconfig.json server/src ",
+    "s:dev": "NODE_ENV=development tsnd --tree-kill --exit-child --project tsconfig.server.json server/index.tsx",
     "db:migrate": "node-pg-migrate -m server/src/db/migrations",
     "db:seed": "",
     "db:rollback": "",
@@ -25,11 +25,13 @@
   },
   "homepage": "https://github.com/sidiousvic/spiders#readme",
   "dependencies": {
+    "@apollo/client": "^3.2.2",
     "@babel/preset-react": "^7.10.4",
     "@types/react-router-dom": "^5.1.5",
     "apollo-server": "^2.18.1",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
+    "cross-fetch": "^3.0.6",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
@@ -50,12 +52,14 @@
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
     "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^8.0.4",
     "ts-node-dev": "^1.0.0-pre.63",
     "typescript": "^4.0.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.2",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "babel": {
     "presets": [
