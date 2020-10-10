@@ -1,5 +1,4 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
@@ -39,11 +38,6 @@ module.exports = {
       }),
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      favicon: "./public/favicon.ico",
-    }),
-  ],
   module: {
     rules: [
       {
