@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { hydrate } from "react-dom";
 import React from "react";
 import Spiders from "./Spiders/Spiders";
 import {
@@ -33,4 +33,4 @@ const SpidersUI = (
   </ApolloProvider>
 );
 
-ReactDOM.render(SpidersUI, document.getElementById("spiders"));
+hydrate(SpidersUI, document.getElementById("spiders"));
