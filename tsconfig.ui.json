@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "es5",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "noEmit": false,
-    "jsx": "react"
+    "jsx": "react",
+    "noEmit": false
   },
-  "include": ["src"],
+  "include": ["ui"],
   "exclude": ["node_modules"]
 }

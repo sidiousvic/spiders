@@ -1,17 +1,17 @@
-import { AuthMiddlewareMap, AuthUtilsMap, User, AuthLayer } from "src/types";
+import GraphQL from "../types/graphql";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
 const secret = process.env.SECRET!;
 
-const authUtils: AuthUtilsMap = {
+const auth: GraphQL.Auth.Layer = {
   generateToken({ id, role }) {
     return jwt.sign({ id, role }, secret);
   },
   getUserIdFromToken(token) {
     try {
       const user = jwt.verify(token, secret);
-      const { id } = user as User;
+      const { id } = user as GraphQL.TypeDefs.User;
       return id;
     } catch {
       return "";
@@ -22,30 +22,22 @@ const authUtils: AuthUtilsMap = {
     const passwordMatches = login.password === user.password;
     return usernameMatches && passwordMatches;
   },
-};
-
-const authMiddlewares: AuthMiddlewareMap = {
-  authenticated(nextResolver) {
+  authenticated(resolver) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;
       if (!authedUser)
         throw new AuthenticationError("User is not authenticated.");
-      return nextResolver(parent, args, ctx, info);
+      return resolver(parent, args, ctx, info);
     };
   },
-  authorized(nextResolver, { role }) {
+  authorized(resolver, role) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;
       if (authedUser && authedUser.role !== role)
         throw new AuthenticationError("User is not authenticated.");
-      else return nextResolver(parent, args, ctx, info);
+      else return resolver(parent, args, ctx, info);
     };
   },
-};
-
-const auth: AuthLayer = {
-  ...authUtils,
-  ...authMiddlewares,
 };
 
 export default auth;
