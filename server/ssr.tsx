@@ -25,63 +25,69 @@ const SSRUri =
     ? `http://localhost:${port}`
     : "https://sidiousvic.dev/spiders/";
 
-const app = Express();
+function launchSSRServer() {
+  const app = Express();
 
-app.use("/", (req, res) => {
-  const client = new ApolloClient({
-    ssrMode: true,
-    link: createHttpLink({
-      fetch,
-      uri: graphqlServerUri,
-      credentials: "same-origin",
-      headers: {
-        cookie: req.header("Cookie"),
-      },
-    }),
-    cache: new InMemoryCache(),
-  });
+  app.use("/", (req, res) => {
+    const client = new ApolloClient({
+      ssrMode: true,
+      link: createHttpLink({
+        fetch,
+        uri: graphqlServerUri,
+        credentials: "same-origin",
+        headers: {
+          cookie: req.header("Cookie"),
+        },
+      }),
+      cache: new InMemoryCache(),
+    });
 
-  const context = {};
+    const context = {};
 
-  const SpidersUI = (
-    <ApolloProvider client={client}>
-      <StaticRouter location={req.url} context={context}>
-        <Spiders />
-      </StaticRouter>
-    </ApolloProvider>
-  );
-
-  getDataFromTree(SpidersUI).then(() => {
-    const content = ReactDOM.renderToString(SpidersUI);
-    const initialState = client.extract();
-    const html = ReactDOM.renderToStaticMarkup(
-      <Html content={content} state={initialState} />
+    const SpidersUI = (
+      <ApolloProvider client={client}>
+        <StaticRouter location={req.url} context={context}>
+          <Spiders />
+        </StaticRouter>
+      </ApolloProvider>
     );
-    res.status(200);
-    res.send(`<!DOCTYPE html>\n${html}`);
-    res.end();
+
+    getDataFromTree(SpidersUI).then(() => {
+      const content = ReactDOM.renderToString(SpidersUI);
+      const initialState = client.extract();
+      const html = ReactDOM.renderToStaticMarkup(
+        <Html content={content} state={initialState} />
+      );
+      res.status(200);
+      res.send(`<!DOCTYPE html>\n${html}`);
+      res.end();
+    });
   });
-});
 
-app.listen(port, () => console.log(`🧪 SSR React is now running @ ${SSRUri}`));
-
-function Html({ content, state }: { content: string; state: any }) {
-  return (
-    <html>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-      <body>
-        <div id="spiders" dangerouslySetInnerHTML={{ __html: content }} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
-              /</g,
-              "\\u003c"
-            )};`,
-          }}
-        />
-      </body>
-    </html>
+  app.listen(port, () =>
+    console.log(`🧪 SSR React is now running @ ${SSRUri}`)
   );
+
+  function Html({ content, state }: { content: string; state: any }) {
+    return (
+      <html>
+        <head>
+          <link rel="icon" href="/favicon.ico" />
+        </head>
+        <body>
+          <div id="spiders" dangerouslySetInnerHTML={{ __html: content }} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
+                /</g,
+                "\\u003c"
+              )};`,
+            }}
+          />
+        </body>
+      </html>
+    );
+  }
 }
+
+export default launchSSRServer;
