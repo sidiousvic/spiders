@@ -13,11 +13,17 @@ import Spiders from "../ui/Spiders/Spiders";
 import { getDataFromTree } from "@apollo/client/react/ssr";
 
 const env = process.env.NODE_ENV;
+const port = 9992;
 
 const graphqlServerUri =
   env === "development"
     ? "http://localhost:9991"
-    : "https://sidiousvic.dev/spiders/graphql";
+    : "https://sidiousvic.dev/spiders/";
+
+const SSRUri =
+  env === "development"
+    ? `http://localhost:${port}`
+    : "https://sidiousvic.dev/spiders/";
 
 const app = Express();
 
@@ -57,9 +63,7 @@ app.use("/", (req, res) => {
   });
 });
 
-app.listen(9992, () =>
-  console.log(`🧪 SSR React is now running @ ${graphqlServerUri}`)
-);
+app.listen(port, () => console.log(`🧪 SSR React is now running @ ${SSRUri}`));
 
 function Html({ content, state }: { content: string; state: any }) {
   return (
