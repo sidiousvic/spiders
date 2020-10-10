@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-
+const TerserPlugin = require("terser-webpack-plugin");
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
 const publicPath = environment === "development" ? "/" : "";
@@ -9,27 +8,36 @@ const sharedLoaderOptions = { name: "[name].[ext]" };
 
 module.exports = {
   entry: {
-    app: "./src/index.tsx",
+    app: "./ui/index.tsx",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
   mode: environment,
   output: {
-    filename: "[name].bundle.js",
+    filename: "ui.js",
     path: buildPath,
-    publicPath: publicPath,
+    publicPath,
   },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: buildPath,
+    contentBase: publicPath,
     proxy: {
       "/spiders/graphql": "http://localhost:9991",
     },
     historyApiFallback: true,
   },
   optimization: {
-    minimizer: [new UglifyJsPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          ecma: 6,
+          comments: false,
+        },
+        extractComments: false,
+      }),
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -51,6 +59,10 @@ module.exports = {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
         exclude: /node_modules/,
+        options: {
+          onlyCompileBundledFiles: true,
+          configFile: "tsconfig.ui.json",
+        },
       },
       {
         test: /\.css$/,
