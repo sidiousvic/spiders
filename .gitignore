@@ -1,6 +1,6 @@
 # build files
 build/
-server/build
+server/index.js
 
 # logs
 logs
