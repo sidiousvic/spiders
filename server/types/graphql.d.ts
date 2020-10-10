@@ -1,9 +1,6 @@
-import { computeContext } from "./graphql.d";
-import { GraphQLResolveInfo } from "graphql";
-import Utils from "./utils";
+import { GraphQLResolveInfo, DocumentNode } from "graphql";
 import e from "express";
-import { IResolvers } from "apollo-server";
-import SpidersDatabase from "src/db";
+import SpidersDatabase from "../db";
 
 declare namespace GraphQL {
   export type Resolver<T, U = {}> = (

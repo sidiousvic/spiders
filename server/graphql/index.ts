@@ -2,7 +2,7 @@ import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import auth from "./auth";
 import utils from "./utils";
-import GraphQL from "src/types/graphql";
+import GraphQL from "../types/graphql";
 
 const graphqlLayer: GraphQL.Layer = {
   typeDefs,

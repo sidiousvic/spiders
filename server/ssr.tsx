@@ -9,7 +9,7 @@ import fetch from "cross-fetch";
 import ReactDOM from "react-dom/server";
 import { StaticRouter } from "react-router";
 import Express from "express";
-import Spiders from "../../ui/Spiders/Spiders";
+import Spiders from "../ui/Spiders/Spiders";
 import { getDataFromTree } from "@apollo/client/react/ssr";
 
 const env = process.env.NODE_ENV;
