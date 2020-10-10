@@ -84,6 +84,7 @@ function launchSSRServer() {
               )};`,
             }}
           />
+          <script src="ui.js"></script>
         </body>
       </html>
     );
