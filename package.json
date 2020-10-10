@@ -10,8 +10,6 @@
     "u:dev": "NODE_ENV=development webpack-dev-server",
     "s:dev": "NODE_ENV=development tsnd --tree-kill --exit-child --project tsconfig.server.json server/index.tsx",
     "db:migrate": "node-pg-migrate -m server/src/db/migrations",
-    "db:seed": "",
-    "db:rollback": "",
     "lint": "eslint --fix --ext .js,.jsx ."
   },
   "repository": {
