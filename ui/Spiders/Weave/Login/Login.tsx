@@ -5,15 +5,25 @@ import React, {
   SetStateAction,
   useEffect,
 } from "react";
-import axios from "axios";
-import { signinQuery } from "../../../queries";
-import { logGraphQLErrors } from "../../../utils";
-import useSound from "use-sound";
-//@ts-ignore
-import magicword_mp3 from "../../../assets/magicword.mp3";
-//@ts-ignore
-import magicword_gif from "../../../assets/magicword.gif";
-//
+
+import { useMutation } from "@apollo/client";
+
+import { gql } from "@apollo/client";
+
+export const signinMutation = ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) => gql`
+mutation {
+  signin(input: {username: "${username}", password: "${password}"}) {
+    token
+  }
+}
+`;
+
 interface LoginProps {
   setToken: Dispatch<SetStateAction<string>>;
 }
@@ -23,34 +33,17 @@ export default function Login({ setToken }: LoginProps) {
     username: "",
     password: "",
   });
-  const [wrongLogin, setWrongLogin] = useState(false);
 
-  async function handleLogin() {
-    const { username, password } = login;
-    const response = await axios.post("/spiders/graphql", {
-      query: signinQuery(username, password),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const { data: graphqlData } = response;
-    if (graphqlData.errors) {
-      setWrongLogin(true);
-      return logGraphQLErrors(graphqlData.errors);
-    }
-    const {
-      data: {
-        signin: { token },
-      },
-    } = graphqlData;
-    setToken(token);
-  }
+  const [signin, { data }] = useMutation(signinMutation(login));
+
+  useEffect(() => {
+    if (data) setToken(data.signin.token);
+  }, [data]);
 
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   function handleLoginInput() {
-    setWrongLogin(false);
     const usernameInput = usernameInputRef.current;
     const passwordInput = passwordInputRef.current;
     if (usernameInput && passwordInput) {
@@ -87,22 +80,11 @@ export default function Login({ setToken }: LoginProps) {
             required
           />
           <br />
-          <button onClick={handleLogin} type="submit">
+          <button onClick={() => signin()} type="submit">
             Login
           </button>
         </ul>
       </div>
-      {wrongLogin && <Magicword />}
     </>
   );
-}
-
-function Magicword() {
-  const [play, { sound }] = useSound(magicword_mp3);
-
-  useEffect(() => {
-    play();
-  }, [sound]);
-
-  return <img src={magicword_gif} />;
 }
