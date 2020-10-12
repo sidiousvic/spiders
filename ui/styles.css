@@ -120,8 +120,8 @@ nav > #title > h2 {
   flex-basis: 40%;
 }
 
-.post > h1,
-h4 {
+.post > .post-title,
+.post-subtitle {
   text-align: center;
 }
 
