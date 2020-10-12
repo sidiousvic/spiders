@@ -47,6 +47,6 @@ export default function Spiders() {
       </Switch>
     </div>
   ) : (
-    <>"🕸"</>
+    <></>
   );
 }
