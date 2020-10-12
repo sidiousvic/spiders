@@ -58,6 +58,7 @@ function launchSSRServer() {
       const html = ReactDOM.renderToStaticMarkup(
         <Html content={content} state={initialState} />
       );
+
       res.status(200);
       res.send(`<!DOCTYPE html>\n${html}`);
       res.end();
@@ -70,8 +71,14 @@ function launchSSRServer() {
 
   function Html({ content, state }: { content: string; state: any }) {
     return (
-      <html>
+      <html lang="en">
         <head>
+          <title>Spiders, a Web Engineering Log.</title>
+          <meta
+            name="description"
+            content="A weblog for web engineers. Web weaving (programming), www infrastructure, application architecture, and design with your healthy dose of aliens, pizza and punk rock."
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet" href="styles.css" />
         </head>
