@@ -4,6 +4,7 @@ const { IgnorePlugin } = require("webpack");
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "server");
 const nodeExternals = require("webpack-node-externals");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   target: "node",
@@ -31,16 +32,34 @@ module.exports = {
       }),
     ],
   },
-  plugins: [new IgnorePlugin(/^pg-native$/)],
+  plugins: [
+    new IgnorePlugin(/^pg-native$/),
+    new MiniCssExtractPlugin({
+      filename: "styles.css",
+      chunkFilename: "[id].css",
+    }),
+  ],
   externals: [nodeExternals()],
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "prism-loader",
+          },
+        ],
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(ts|tsx)$/,

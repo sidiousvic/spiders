@@ -1,5 +1,6 @@
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
 const publicPath = environment === "development" ? "/" : "";
@@ -22,10 +23,17 @@ module.exports = {
   devServer: {
     contentBase: publicPath,
     proxy: {
+      "/spiders": "http://localhost:9992" /**@ssr */,
       "/spiders/graphql": "http://localhost:9991",
     },
     historyApiFallback: true,
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "styles.css",
+      chunkFilename: "[id].css",
+    }),
+  ],
   optimization: {
     minimizer: [
       new TerserPlugin({
@@ -40,6 +48,14 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "prism-loader",
+          },
+        ],
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -58,7 +74,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
