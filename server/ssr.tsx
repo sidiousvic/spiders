@@ -73,6 +73,7 @@ function launchSSRServer() {
       <html>
         <head>
           <link rel="icon" href="/favicon.ico" />
+          <link rel="stylesheet" href="styles.css" />
         </head>
         <body>
           <div id="spiders" dangerouslySetInnerHTML={{ __html: content }} />
