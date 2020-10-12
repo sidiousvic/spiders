@@ -4,7 +4,6 @@ import path from "path";
 dotenv.config();
 import pgm from "node-pg-migrate";
 const migrationsPath = path.resolve("server", "db", "migrations");
-console.log(migrationsPath);
 
 const PG_USER = process.env.PG_USER;
 const PG_DATABASE = process.env.PG_DATABASE;
