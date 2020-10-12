@@ -7,7 +7,7 @@
     "deploy": "npm ci && npm run u:build && npm run s:build && NODE_ENV=production pm2 restart /spiders || pm2 start server/index.js --name /spiders",
     "u:build": "NODE_ENV=production webpack --config webpack.ui.config.js",
     "s:build": "NODE_ENV=production webpack --config webpack.server.config.js ",
-    "u:dev": "NODE_ENV=development webpack-dev-server",
+    "u:dev": "NODE_ENV=development webpack-dev-server --config webpack.ui.config.js",
     "s:dev": "NODE_ENV=development tsnd --tree-kill --exit-child --project tsconfig.server.json server/index.tsx",
     "db:migrate": "node-pg-migrate -m server/src/db/migrations",
     "lint": "eslint --fix --ext .js,.jsx ."
@@ -32,6 +32,7 @@
     "cross-fetch": "^3.0.6",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
+    "highlight.js": "^10.2.1",
     "jsonwebtoken": "^8.5.1",
     "node-pg-migrate": "^5.8.0",
     "pg": "^8.3.3",
@@ -49,6 +50,8 @@
     "css-loader": "^4.3.0",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
+    "isomorphic-style-loader": "^5.1.0",
+    "mini-css-extract-plugin": "^1.0.0",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^8.0.4",
@@ -57,6 +60,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2"
   },
   "babel": {
