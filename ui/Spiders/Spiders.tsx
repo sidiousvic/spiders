@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import routes from "../routes";
@@ -12,11 +12,19 @@ export default function Spiders() {
     theme === "dark" ? "🌒" : "🌔"
   );
 
-  useLayoutEffect(() => {
-    cookies.set("theme", theme, {
-      path: "/spiders",
-    });
-  }, [theme]);
+  if (typeof document !== "undefined") {
+    useLayoutEffect(() => {
+      cookies.set("theme", theme, {
+        path: "/spiders",
+      });
+    }, [theme]);
+  } else {
+    useEffect(() => {
+      cookies.set("theme", theme, {
+        path: "/spiders",
+      });
+    }, [theme]);
+  }
 
   function toggleThemes() {
     setLightSwitch(lightSwitch === "🌒" ? "🌔" : "🌒");
