@@ -8,6 +8,14 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import "./styles.css";
+import Prism from "prismjs";
+import "./spiders.code.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-highlight/prism-line-highlight.css";
+import "prismjs/components/prism-typescript";
+
+Prism.highlightAll();
 
 const env = process.env.NODE_ENV;
 const graphqlServerUri =
