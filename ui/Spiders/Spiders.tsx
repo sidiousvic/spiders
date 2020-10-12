@@ -34,7 +34,7 @@ export default function Spiders() {
     setTheme(themes[nextThemeIdx]);
   }
 
-  return theme ? (
+  return (
     <div id="theme" className={theme}>
       <span id="light-switch" onClick={toggleThemes}>
         {lightSwitch}
@@ -46,7 +46,5 @@ export default function Spiders() {
         ))}
       </Switch>
     </div>
-  ) : (
-    <></>
   );
 }
