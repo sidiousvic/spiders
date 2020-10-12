@@ -1,4 +1,4 @@
-import { hydrate } from "react-dom";
+import { render, hydrate } from "react-dom";
 import React from "react";
 import Spiders from "./Spiders/Spiders";
 import {
@@ -18,6 +18,7 @@ import "prismjs/components/prism-typescript";
 Prism.highlightAll();
 
 const env = process.env.NODE_ENV;
+
 const graphqlServerUri =
   env === "development"
     ? "http://localhost:9991"
@@ -41,4 +42,9 @@ const SpidersUI = (
   </ApolloProvider>
 );
 
-hydrate(SpidersUI, document.getElementById("spiders"));
+switch (env) {
+  case "production":
+    hydrate(SpidersUI, document.getElementById("spiders"));
+  case "development":
+    render(SpidersUI, document.getElementById("spiders"));
+}
