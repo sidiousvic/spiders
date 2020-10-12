@@ -34,19 +34,19 @@ export default function Spiders() {
     setTheme(themes[nextThemeIdx]);
   }
 
-  return (
-    theme && (
-      <div id="theme" className={theme}>
-        <span id="light-switch" onClick={toggleThemes}>
-          {lightSwitch}
-        </span>
-        <Navbar />
-        <Switch>
-          {routes.map((route) => (
-            <Route key={route.name} {...route} />
-          ))}
-        </Switch>
-      </div>
-    )
+  return theme ? (
+    <div id="theme" className={theme}>
+      <span id="light-switch" onClick={toggleThemes}>
+        {lightSwitch}
+      </span>
+      <Navbar />
+      <Switch>
+        {routes.map((route) => (
+          <Route key={route.name} {...route} />
+        ))}
+      </Switch>
+    </div>
+  ) : (
+    <>"🕸"</>
   );
 }
