@@ -1,9 +1,11 @@
+import { useLayoutEffect, useEffect, EffectCallback } from "react";
+
 export function logGraphQLErrors(errors: any) {
   for (let error of errors)
     console.error(`GraphQL response error: ${error.message}`);
 }
 
-export function getHumanReadableDate() {
+export function getHumanReadableDate(): string {
   const months = [
     "January",
     "February",
@@ -36,4 +38,13 @@ export function getTimeOfDayTheme(): string {
   );
   if (hour >= 18) return "dark";
   else return "light";
+}
+
+export function isomorphicLayoutEffect(
+  callback: EffectCallback,
+  dependencyArray: React.DependencyList
+) {
+  if (typeof document !== "undefined")
+    useLayoutEffect(callback, dependencyArray);
+  else return useEffect(callback, dependencyArray);
 }
