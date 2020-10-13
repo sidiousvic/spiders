@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React, { useState } from "react";
+import { isomorphicLayoutEffect, getTimeOfDayTheme } from "../utils";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import routes from "../routes";
@@ -7,24 +8,17 @@ const cookies = Cookie();
 
 export default function Spiders() {
   const cookieTheme = cookies.get("theme");
-  const [theme, setTheme] = useState(cookieTheme);
+  const timeOfDayTheme = getTimeOfDayTheme();
+  const [theme, setTheme] = useState(cookieTheme || timeOfDayTheme);
   const [lightSwitch, setLightSwitch] = useState(
     theme === "dark" ? "🌒" : "🌔"
   );
 
-  if (typeof document !== "undefined") {
-    useLayoutEffect(() => {
-      cookies.set("theme", theme, {
-        path: "/spiders",
-      });
-    }, [theme]);
-  } else {
-    useEffect(() => {
-      cookies.set("theme", theme, {
-        path: "/spiders",
-      });
-    }, [theme]);
-  }
+  isomorphicLayoutEffect(() => {
+    cookies.set("theme", theme, {
+      path: "/spiders",
+    });
+  }, [theme]);
 
   function toggleThemes() {
     setLightSwitch(lightSwitch === "🌒" ? "🌔" : "🌒");
