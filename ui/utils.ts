@@ -31,20 +31,13 @@ export function getHumanReadableDate(): string {
 }
 
 export function getTimeOfDayTheme(): string {
-  const hour = Number(
-    new Date().toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-    })
-  );
-  if (hour >= 18) return "dark";
+  const localeTime = new Date().toLocaleTimeString();
+  const isPM = localeTime.indexOf("PM") > -1;
+  const isAfter6 = parseInt(localeTime) > 6;
+
+  if (isPM && isAfter6) return "dark";
   else return "light";
 }
 
-export function isomorphicLayoutEffect(
-  callback: EffectCallback,
-  dependencyArray: React.DependencyList
-) {
-  if (typeof document !== "undefined")
-    useLayoutEffect(callback, dependencyArray);
-  else return useEffect(callback, dependencyArray);
-}
+export const isomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
