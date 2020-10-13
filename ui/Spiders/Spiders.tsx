@@ -20,16 +20,18 @@ export default function Spiders() {
   }
 
   return (
-    <div id="theme" className={theme}>
-      <span id="light-switch" onClick={toggleThemes}>
-        {lightSwitch}
-      </span>
-      <Navbar />
-      <Switch>
-        {routes.map((route) => (
-          <Route key={route.name} {...route} />
-        ))}
-      </Switch>
-    </div>
+    (theme && (
+      <div id="theme" className={theme}>
+        <span id="light-switch" onClick={toggleThemes}>
+          {lightSwitch}
+        </span>
+        <Navbar />
+        <Switch>
+          {routes.map((route) => (
+            <Route key={route.name} {...route} />
+          ))}
+        </Switch>
+      </div>
+    )) || <div></div>
   );
 }
