@@ -27,3 +27,13 @@ export function getHumanReadableDate() {
   const humanReadableDate = `${day}, ${number} ${month} ${year}`;
   return humanReadableDate;
 }
+
+export function getTimeOfDayTheme(): string {
+  const hour = Number(
+    new Date().toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+    })
+  );
+  if (hour >= 18) return "dark";
+  else return "light";
+}
