@@ -92,7 +92,7 @@ function launchSSRServer() {
               )};`,
             }}
           />
-          <script src="ui.js"></script>
+          <script defer src="ui.js"></script>
         </body>
       </html>
     );
