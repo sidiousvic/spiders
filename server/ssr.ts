@@ -1,13 +1,11 @@
 import Spiders from "../ui/Spiders/Spiders";
 import express from "express";
 
-// const env = process.env.NODE_ENV;
-
 const SpidersUI = Spiders();
 
 function launchSSRServer() {
   const app = express();
-  app.get("/spiders", async (_, res) => {
+  app.get("/", async (_, res) => {
     const serverRenderedHTML = html();
     res.send(`<!DOCTYPE html>${serverRenderedHTML}`);
   });

@@ -23,8 +23,8 @@ module.exports = {
   devServer: {
     contentBase: publicPath,
     proxy: {
-      "/spiders": "http://localhost:9992" /**@ssr */,
-      "/spiders/graphql": "http://localhost:9991",
+      "/": "http://localhost:9992" /**@ssr */,
+      "/graphql": "http://localhost:9991",
     },
     historyApiFallback: true,
   },
