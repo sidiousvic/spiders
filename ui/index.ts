@@ -1,7 +1,6 @@
 import Spiders from "./Spiders/Spiders";
 import "./styles.css";
 import Prism from "prismjs";
-import "./spiders.code.css";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/line-highlight/prism-line-highlight.css";
 import "prismjs/components/prism-typescript";
