@@ -32,11 +32,8 @@ export function getHumanReadableDate(): string {
 
 export function getTimeOfDayTheme(): string {
   let timeOfDayTheme: string;
-  const localeTime = new Date().toLocaleTimeString();
-  const isPM = localeTime.indexOf("PM") > -1;
-  const isAfter6 = parseInt(localeTime) > 6;
-
-  if (isPM && isAfter6) timeOfDayTheme = "dark";
+  const isAfter6 = new Date().getHours() > 18;
+  if (isAfter6) timeOfDayTheme = "dark";
   else timeOfDayTheme = "light";
   return timeOfDayTheme;
 }
