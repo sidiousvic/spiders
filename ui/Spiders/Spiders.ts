@@ -1,17 +1,22 @@
-import { getTimeOfDayTheme, getHumanReadableDate } from "../utils";
+import { getTimeOfDayTheme, getHumanReadableDate, isBrowser } from "../utils";
 
 export default function Spiders() {
   const timeOfDayTheme = getTimeOfDayTheme();
-  const theme = timeOfDayTheme;
-  const lightSwitch = theme === "dark" ? "🌒" : "🌔";
+  let theme = timeOfDayTheme;
+  let lightSwitch = theme === "dark" ? "🌒" : "🌔";
 
-  // function toggleThemes() {
-  //   setLightSwitch(lightSwitch === "🌒" ? "🌔" : "🌒");
-  //   const themes = ["light", "dark"];
-  //   let currThemeIdx = themes.indexOf(theme);
-  //   const nextThemeIdx = ++currThemeIdx % themes.length;
-  //   setTheme(themes[nextThemeIdx]);
-  // }
+  function toggleThemes() {
+    lightSwitch = lightSwitch === "🌒" ? "🌔" : "🌒";
+    const themes = ["light", "dark"];
+    let currThemeIdx = themes.indexOf(theme);
+    const nextThemeIdx = ++currThemeIdx % themes.length;
+    theme = themes[nextThemeIdx];
+  }
+
+  isBrowser &&
+    document.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).id === "light-switch") toggleThemes();
+    });
 
   return `<div id="theme" class=${theme}>
         <span id="light-switch">
