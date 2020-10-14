@@ -40,3 +40,5 @@ export function getTimeOfDayTheme(): string {
 
 export const isomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+export const isBrowser = typeof window !== "undefined";
