@@ -8,10 +8,10 @@ const sharedLoaderOptions = { name: "[name].[ext]" };
 
 module.exports = {
   entry: {
-    app: "./ui/index.tsx",
+    app: "./ui/index.ts",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   mode: environment,
   output: {
