@@ -1,9 +1,11 @@
 import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
-import { spidersStyles } from "./../spiderStyles";
-import { spidersCodeStyles } from "../styles/spidersCodeStyles";
+import spidersStyles from "./styles.spiders"
+import spidersCodeStyles from "./styles.spidersCode"
 import { getTimeOfDayTheme, getHumanReadableDate } from "../utils";
 import { LitElement as X, html, property, customElement } from "lit-element";
+import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
+import post from "../mockPost"
 
 @customElement("x-spiders")
 export default class Spiders extends X {
@@ -11,6 +13,12 @@ export default class Spiders extends X {
   @property() timeOfDayTheme = getTimeOfDayTheme();
   @property() theme = this.timeOfDayTheme;
   @property() lightSwitch = this.theme === "dark" ? "🌒" : "🌔";
+
+  // post props
+  @property() title = post.title;
+  @property() author = post.author;
+  @property() tags = post.tags;
+  @property() body = post.body;
 
   toggleThemes() {
     this.lightSwitch = this.lightSwitch === "🌒" ? "🌔" : "🌒";
@@ -37,7 +45,7 @@ export default class Spiders extends X {
 
   render() {
     return html` <div id="theme" class=${this.theme}>
-      <span id="light-switch"> ${this.lightSwitch} </span>
+      <span id="light-switch" @click="${this.toggleThemes}"> ${this.lightSwitch} </span>
       <nav>
         <div id="title">
           <h1>Spiders 🕸</h1>
@@ -48,58 +56,13 @@ export default class Spiders extends X {
       <div id="content">
         <div id="posts">
           <div class="post">
-            <h1 class="post-title">Launching your Apollo Server</h1>
+            <h1 class="post-title">${this.title}</h1>
             <h2 class="post-subtitle">by Vic @ ${getHumanReadableDate()}</h2>
             <div class="post-body">
-              <p>
-                Sometimes it's useful to initialize processes in your pipeline
-                by wrapping them in a function. In here, we're connecting to a
-                database, and then initializing a server with Apollo. We also
-                compute the context for resolvers depending on whether the user
-                is authenticated or not; that logic, however, is abstracted
-                somewhere else. I enjoy the declarative style of calling a
-                <code>launchSpidersServer</code> function in the end, akin to
-                turning the key in your car.
-              </p>
-              <pre class="language-typescript">
-          <code id="code">
-${`
-
-launchSSRServer();
-
-async function launchSpidersServer(
-database: SpidersDatabase,
-{ typeDefs, resolvers, auth, utils: { computeContext } }: GraphQL.Layer) {
-
-await database.connect();
-
-const server = new ApolloServer({
-typeDefs,
-resolvers: resolvers,
-async context({ req }) {
-  return await computeContext(req, database, auth);
-},
-});
-
-server.listen({ port: 9991 }).then(() => {
-console.log(\`🚀 Apollo Server launched @ \${graphqlServerUri}\`);
-});
-}
-
-launchSpidersServer(new SpidersDatabase(), graphqlLayer);`}
-          </code>
-        </pre>
-              <p>
-                I think of my internal services as uniform APIs. With
-                Typescript, the tools to design interfaces that communicate
-                seamlessly with each other are there. For each layer of my
-                stack—from the database, to the middle end GraphQL (including
-                authentication middleware) we create API layers which expose
-                methods and helpers related in funcionality with one another.
-              </p>
+            ${unsafeHTML(this.body)}
             </div>
             <br />
-            <sub class="tags">#pancakes #yeahboy</sub>
+            <sub class="tags">${this.tags}</sub>
           </div>
         </div>
       </div>
