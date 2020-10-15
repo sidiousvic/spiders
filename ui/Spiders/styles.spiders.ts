@@ -1,6 +1,6 @@
 import { css } from "lit-element";
 
-export const spidersStyles = css`
+const spidersStyles = css`
   #theme {
     padding: 2rem;
     border-radius: 2px;
@@ -166,3 +166,5 @@ export const spidersStyles = css`
     color: var(--accent);
   }
 `;
+
+export default spidersStyles
