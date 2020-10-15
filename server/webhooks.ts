@@ -4,6 +4,8 @@ import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
+Webhooks.use(express.json());
+
 export default async function launchWebhooksServer() {
   Webhooks.use(function timelog(req, _, next) {
     const { path: reqUrl } = req;
