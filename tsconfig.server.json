@@ -1,18 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
     "moduleResolution": "node",
     "noEmit": false
   },
-  "include": ["server"],
-  "exclude": ["node_modules"]
+  "exclude": ["ui"],
+  "extends": "./tsconfig.json"
 }
