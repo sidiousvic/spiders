@@ -1,6 +1,6 @@
 import { css } from "lit-element";
 
-export const spidersCodeStyles = css`
+const spidersCodeStyles = css`
   /* Spiders Code */
   /* by @sidiousvic */
 
@@ -216,3 +216,5 @@ export const spidersCodeStyles = css`
     bottom: 0.4em;
   }
 `;
+
+export default spidersCodeStyles;

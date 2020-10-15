@@ -23,7 +23,6 @@ module.exports = {
   devServer: {
     contentBase: publicPath,
     proxy: {
-      "/": "http://localhost:9992" /**@ssr */,
       "/graphql": "http://localhost:9991",
     },
     historyApiFallback: true,
