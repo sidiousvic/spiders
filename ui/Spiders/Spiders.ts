@@ -1,7 +1,7 @@
 import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
 import { spidersStyles } from "./../spiderStyles";
-import { spidersCodeStyles } from "./../spidersCodeStyles";
+import { spidersCodeStyles } from "../styles/spidersCodeStyles";
 import { getTimeOfDayTheme, getHumanReadableDate } from "../utils";
 import { LitElement as X, html, property, customElement } from "lit-element";
 
