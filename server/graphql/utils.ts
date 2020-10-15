@@ -1,4 +1,4 @@
-import GraphQL from "../types/graphql";
+import GraphQL from "../../@types/server/graphql";
 
 const utils: GraphQL.Utils = {
   async computeContext(req, database, auth) {

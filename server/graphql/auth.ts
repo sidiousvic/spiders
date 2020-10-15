@@ -1,4 +1,4 @@
-import GraphQL from "../types/graphql";
+import GraphQL from "../../@types/server/graphql";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 

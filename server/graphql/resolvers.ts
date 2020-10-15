@@ -1,4 +1,4 @@
-import GraphQL from "./../types/graphql.d";
+import GraphQL from "../../@types/server/graphql";
 import { AuthenticationError, IResolvers } from "apollo-server";
 import auth from "./auth";
 const { authenticated } = auth;
