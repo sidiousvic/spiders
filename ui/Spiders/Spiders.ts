@@ -23,6 +23,10 @@ export default class Spiders extends X {
   static styles = [spidersStyles, spidersCodeStyles];
 
   firstUpdated() {
+    this.highlightCode();
+  }
+
+  highlightCode() {
     const code = this.shadowRoot?.querySelector("#code");
     (code as HTMLElement).innerHTML = Prism.highlight(
       (code as HTMLElement).innerText,
@@ -53,7 +57,7 @@ export default class Spiders extends X {
                 database, and then initializing a server with Apollo. We also
                 compute the context for resolvers depending on whether the user
                 is authenticated or not; that logic, however, is abstracted
-                somewhere else. I enjoy the declarative style of calling a{" "}
+                somewhere else. I enjoy the declarative style of calling a
                 <code>launchSpidersServer</code> function in the end, akin to
                 turning the key in your car.
               </p>
@@ -82,8 +86,7 @@ console.log(\`🚀 Apollo Server launched @ \${graphqlServerUri}\`);
 });
 }
 
-launchSpidersServer(new SpidersDatabase(), graphqlLayer);
-`}
+launchSpidersServer(new SpidersDatabase(), graphqlLayer);`}
           </code>
         </pre>
               <p>

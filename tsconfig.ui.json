@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "experimentalDecorators": true
   },
   "exclude": ["server"],
   "extends": "./tsconfig.json"

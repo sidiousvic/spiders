@@ -22,6 +22,11 @@ export const spidersCodeStyles = css`
     --string: var(--spiders-pastel-dark);
   }
 
+  pre,
+  code {
+    font-family: Dank Mono;
+  }
+
   code[class*="language-"],
   pre[class*="language-"] {
     -moz-tab-size: 2;
