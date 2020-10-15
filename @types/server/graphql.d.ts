@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo, DocumentNode } from "graphql";
 import e from "express";
-import SpidersDatabase from "../db";
+import SpidersDatabase from "../../server/db";
 
 declare namespace GraphQL {
   export type Resolver<T, U = {}> = (

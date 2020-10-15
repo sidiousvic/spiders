@@ -3,28 +3,28 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const environment = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, "build");
-const publicPath = environment === "development" ? "/" : "";
+const publicPath = path.resolve(__dirname, "public");
 const sharedLoaderOptions = { name: "[name].[ext]" };
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: "./ui/index.tsx",
+    app: "./ui/index.ts",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   mode: environment,
   output: {
     filename: "ui.js",
     path: buildPath,
-    publicPath,
   },
   devtool: "inline-source-map",
   devServer: {
     contentBase: publicPath,
     proxy: {
-      "/spiders": "http://localhost:9992" /**@ssr */,
-      "/spiders/graphql": "http://localhost:9991",
+      "/": "http://localhost:9992" /**@ssr */,
+      "/graphql": "http://localhost:9991",
     },
     historyApiFallback: true,
   },
@@ -32,6 +32,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "styles.css",
       chunkFilename: "[id].css",
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(publicPath, "index.html"),
     }),
   ],
   optimization: {
@@ -48,14 +51,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "prism-loader",
-          },
-        ],
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

@@ -12,7 +12,7 @@ module.exports = {
     app: "./server/index.tsx",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".ts", ".js"],
   },
   mode: environment,
   output: {
