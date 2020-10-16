@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server";
-import GraphQL from "../@types/server/graphql";
+import GraphQL from "../@types/graphql";
 const env = process.env.NODE_ENV;
 import SpidersDatabase from "./db";
 
