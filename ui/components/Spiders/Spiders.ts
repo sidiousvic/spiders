@@ -2,13 +2,14 @@ import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
 import spidersStyles from "./styles.spiders"
 import spidersCodeStyles from "./styles.spidersCode"
-import { getTimeOfDayTheme, getHumanReadableDate } from "../utils";
+import { getTimeOfDayTheme, getHumanReadableDate } from "../../utils";
 import { LitElement as X, html, property, customElement } from "lit-element";
+import GraphQL from "../../../@types/graphql"
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
-import post from "../mockPost"
+import post from "../../mockPost"
 
 @customElement("x-spiders")
-export default class Spiders extends X {
+export default class XSpiders extends X {
   @property() name = "World";
   @property() timeOfDayTheme = getTimeOfDayTheme();
   @property() theme = this.timeOfDayTheme;
@@ -31,16 +32,7 @@ export default class Spiders extends X {
   static styles = [spidersStyles, spidersCodeStyles];
 
   firstUpdated() {
-    this.highlightCode();
-  }
-
-  highlightCode() {
-    const code = this.shadowRoot?.querySelector("#code");
-    (code as HTMLElement).innerHTML = Prism.highlight(
-      (code as HTMLElement).innerText,
-      Prism.languages.typescript,
-      "typescript"
-    );
+    Prism.highlightAllUnder(this.shadowRoot)
   }
 
   render() {
@@ -69,3 +61,15 @@ export default class Spiders extends X {
     </div>`;
   }
 }
+
+@customElement("x-posts")
+export class XPosts extends X {
+ @property() posts: Partial<GraphQL.TypeDefs.Post>[] = [post];
+
+
+  render() {
+    return html`
+    `
+  }
+}
+
