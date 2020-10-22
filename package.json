@@ -41,8 +41,7 @@
     "prettier": "^2.1.2",
     "prismjs": "^1.22.0",
     "showdown": "^1.9.1",
-    "react-router-dom": "^5.2.0",
-    "use-sound": "^1.0.2"
+    "xstate": "^4.13.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
