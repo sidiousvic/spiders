@@ -7,7 +7,7 @@ const env = process.env.NODE_ENV;
 const graphqlServerUri =
   env === "development"
     ? "http://localhost:9991"
-    : "https://sidiousvic.dev/spiders/graphql";
+    : "https://spiders.sidiousvic.dev/graphql";
 
 export default async function launchApolloServer(
   database: SpidersDatabase,
@@ -21,6 +21,8 @@ export default async function launchApolloServer(
     async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
+    introspection: true,
+    playground: true,
   });
 
   server.listen({ port: 9991 }).then(() => {
