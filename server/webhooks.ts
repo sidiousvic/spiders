@@ -29,7 +29,7 @@ export default async function launchWebhooksServer() {
   const port = 9992;
 
   Webhooks.listen(port, () => {
-    console.log(`🎣 Webhooks listening @ port ${port}`);
+    console.log(`🎣 Webhooks listening @ port ${port}!`);
   });
 
   async function deploy() {
