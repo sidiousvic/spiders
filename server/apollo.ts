@@ -2,6 +2,7 @@ import { GraphQLLayer } from "types";
 import { Request } from "express";
 import { ApolloServer } from "apollo-server";
 import { SpidersDatabase } from "./db";
+
 const env = process.env.NODE_ENV;
 
 const graphqlServerUri =
