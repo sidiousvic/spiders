@@ -8,6 +8,5 @@
   },
   "paths": {
     "types": ["types.ts"]
-  },
-  "extends": "../tsconfig.json"
+  }
 }
