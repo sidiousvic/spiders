@@ -1,7 +1,8 @@
+import { GraphQLLayer } from "types";
+import { Request } from "express";
 import { ApolloServer } from "apollo-server";
-import GraphQL from "../@types/graphql";
+import { SpidersDatabase } from "./db";
 const env = process.env.NODE_ENV;
-import SpidersDatabase from "./db";
 
 const graphqlServerUri =
   env === "development"
@@ -10,14 +11,14 @@ const graphqlServerUri =
 
 export default async function launchApolloServer(
   database: SpidersDatabase,
-  { typeDefs, resolvers, auth, utils: { computeContext } }: GraphQL.Layer
+  { typeDefs, resolvers, auth, utils: { computeContext } }: GraphQLLayer
 ) {
   await database.connect();
 
   const server = new ApolloServer({
     typeDefs,
     resolvers: resolvers,
-    async context({ req }) {
+    async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
   });
