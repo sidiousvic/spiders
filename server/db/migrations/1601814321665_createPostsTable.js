@@ -6,17 +6,16 @@ exports.up = async (pgm) => {
     tags: { type: "varchar(255)", notNull: true },
     body: { type: "text", notNull: true },
     created_at: {
-      type: "timestamp",
+      type: "timestamptz",
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
     updated_at: {
-      type: "timestamp",
-      notNull: true,
+      type: "timestamptz",
       default: pgm.func("current_timestamp"),
     },
     user_id: { type: "id", notNull: true, references: "users" },
     published: { type: "boolean", notNull: true },
-    published_at: { type: "timestamp", notNull: true },
+    published_at: { type: "timestamp" },
   });
 };
