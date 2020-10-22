@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "../",
+    "noEmit": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "paths": {
+    "types": ["types.ts"]
+  }
+}

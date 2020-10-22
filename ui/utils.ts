@@ -1,11 +1,8 @@
-import { useLayoutEffect, useEffect, EffectCallback } from "react";
-
 export function logGraphQLErrors(errors: any) {
   for (let error of errors)
     console.error(`GraphQL response error: ${error.message}`);
 }
-
-export function getHumanReadableDate(): string {
+export function getHumanReadableDate(date: Date): string {
   const months = [
     "January",
     "February",
@@ -21,7 +18,6 @@ export function getHumanReadableDate(): string {
     "December",
   ];
   const days = ["日", "月", "火", "水", "木", "金", "土"];
-  const date = new Date();
   const month = months[date.getMonth()];
   const day = days[date.getDay()];
   const number = date.getDate();
@@ -29,16 +25,3 @@ export function getHumanReadableDate(): string {
   const humanReadableDate = `${day}, ${number} ${month} ${year}`;
   return humanReadableDate;
 }
-
-export function getTimeOfDayTheme(): string {
-  let timeOfDayTheme: string;
-  const isAfter6 = new Date().getHours() > 18;
-  if (isAfter6) timeOfDayTheme = "dark";
-  else timeOfDayTheme = "light";
-  return timeOfDayTheme;
-}
-
-export const isomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
-
-export const isBrowser = typeof window !== "undefined";

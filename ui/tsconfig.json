@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
+    "target": "ESNEXT",
     "noEmit": false,
     "experimentalDecorators": true
   },
-  "exclude": ["server"],
-  "extends": "./tsconfig.json"
+  "extends": "../tsconfig.json"
 }

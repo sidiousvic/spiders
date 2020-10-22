@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "noEmit": false
-  },
-  "exclude": ["ui"],
-  "extends": "./tsconfig.json"
-}

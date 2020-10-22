@@ -9,7 +9,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: "./ui/index.ts",
+    app: __dirname + "/ui/index.ts",
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -23,7 +23,7 @@ module.exports = {
   devServer: {
     contentBase: publicPath,
     proxy: {
-      "/graphql": "http://localhost:9991",
+      "/graphql": "http://localhost:9991/graphql",
     },
     historyApiFallback: true,
   },
@@ -37,11 +37,12 @@ module.exports = {
     }),
   ],
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
         terserOptions: {
-          ecma: 6,
+          ecma: "next",
           comments: false,
         },
         extractComments: false,
@@ -63,7 +64,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           onlyCompileBundledFiles: true,
-          configFile: "tsconfig.ui.json",
+          configFile: __dirname + "/ui/tsconfig.json",
         },
       },
       {
