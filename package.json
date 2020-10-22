@@ -38,6 +38,7 @@
     "lit-element": "^2.4.0",
     "node-pg-migrate": "^5.8.0",
     "pg": "^8.3.3",
+    "prettier": "^2.1.2",
     "prismjs": "^1.22.0",
     "react-router-dom": "^5.2.0",
     "use-sound": "^1.0.2"
