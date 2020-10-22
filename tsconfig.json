@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
-    "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "DOM", "DOM.Iterable"],
@@ -12,6 +11,5 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "noEmit": true
-  },
-  "exclude": ["node_modules"]
+  }
 }
