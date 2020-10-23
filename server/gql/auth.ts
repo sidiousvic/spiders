@@ -1,13 +1,4 @@
-import {
-  Auth,
-  JWTTokenSignees,
-  User,
-  UserLogin,
-  isVerified,
-  Resolver,
-  Role,
-  ID,
-} from "../../types";
+import { Auth, User } from "../../types";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
