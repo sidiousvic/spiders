@@ -21,7 +21,6 @@ const authResolvers: AuthResolvers = {
     async signUp(_, { input: signUpInput }, { database }) {
       const user = await database.signUp(signUpInput);
       if (!user) throw new AuthenticationError("Unable to sign up user.");
-      // user.joinDate = (user as any).created_at;
       return user;
     },
   },
