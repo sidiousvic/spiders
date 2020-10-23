@@ -85,7 +85,9 @@ interface ScalarResolvers {
   Date: typeof Date;
 }
 
-export type Resolvers = AuthResolvers &
+export type Resolvers = {
+  [key: string]: any;
+} & AuthResolvers &
   UserResolvers &
   PostResolvers &
   ScalarResolvers;

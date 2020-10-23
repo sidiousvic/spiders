@@ -18,7 +18,7 @@ export default async function launchApolloServer(
 
   const server = new ApolloServer({
     typeDefs,
-    resolvers: resolvers,
+    resolvers,
     async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
