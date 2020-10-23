@@ -5,27 +5,27 @@ import jwt from "jsonwebtoken";
 const secret = process.env.SECRET;
 
 const auth: Auth = {
-  generateToken({ id, role }: JWTTokenSignees): string {
+  generateToken({ id, role }) {
     return jwt.sign({ id, role }, secret);
   },
 
-  getUserIdFromToken(token: string): ID {
+  getUserIdFromToken(token) {
     try {
-      const user = jwt.verify(token, secret);
-      const { id } = user as User;
+      const user = jwt.verify(token, secret) as User;
+      const { id } = user;
       return id;
-    } catch {
-      return "";
+    } catch (err) {
+      throw new AuthenticationError(err);
     }
   },
 
-  verifyLogin(login: UserLogin, user: User): isVerified {
+  verifyLogin(login, user) {
     const usernameMatches = login.username === user.username;
     const passwordMatches = login.password === user.password;
     return usernameMatches && passwordMatches;
   },
 
-  authenticated(resolver: Resolver<User>): Resolver<User> {
+  authenticated(resolver) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;
       if (!authedUser)
@@ -34,7 +34,7 @@ const auth: Auth = {
     };
   },
 
-  authorized(resolver: Resolver<User>, role: Role): Resolver<User> {
+  authorized(resolver, role) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;
       if (authedUser && authedUser.role !== role)
