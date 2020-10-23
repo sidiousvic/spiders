@@ -1,4 +1,4 @@
-import { DocumentNode, GraphQLResolveInfo } from "graphql";
+import { GraphQLResolveInfo, GraphQLSchema } from "graphql";
 import { Request } from "express";
 import { SpidersDatabase } from "./server/db";
 
@@ -36,12 +36,14 @@ export type UserSignIn = {
   username: string;
   password: string;
 };
+
 export type UserSignUp = {
   username: string;
   email: string;
   password: string;
   role: Role;
 };
+
 export type Query = {
   me: Resolver<User>;
 };
@@ -131,8 +133,7 @@ export interface Utils {
 }
 
 export interface GraphQLLayer {
-  typeDefs: DocumentNode;
-  resolvers: Resolvers;
+  schema: GraphQLSchema;
   auth: Auth;
   utils: Utils;
 }
