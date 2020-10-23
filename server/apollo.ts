@@ -12,13 +12,12 @@ const graphqlServerUri =
 
 export default async function launchApolloServer(
   database: SpidersDatabase,
-  { typeDefs, resolvers, auth, utils: { computeContext } }: GraphQLLayer
+  { schema, auth, utils: { computeContext } }: GraphQLLayer
 ) {
   await database.connect();
 
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
