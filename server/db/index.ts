@@ -1,4 +1,4 @@
-import { Require, User, Post } from "types";
+import { Require, User, Post } from "@spiders";
 import { camelTo_snake } from "./utils";
 import { Pool } from "pg";
 import path from "path";
@@ -22,7 +22,31 @@ class SpidersDatabase {
     } = await this.pool.query(
       `SELECT * FROM users WHERE username = '${username}'`
     );
-    return user;
+    return user as User;
+  }
+
+  public async signUp(user: Partial<User>): Promise<User> {
+    const {
+      rows: [signedUpUser],
+    } = await this.pool.query(
+      `INSERT INTO users 
+      (username, 
+        email, 
+        password, 
+        role, 
+        joinDate,
+        ) 
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *`,
+      [
+        user.username,
+        user.email,
+        user.password,
+        user.role,
+        new Date().toISOString(),
+      ]
+    );
+    return signedUpUser as User;
   }
 
   public async findPosts(): Promise<Post[]> {
@@ -64,7 +88,7 @@ class SpidersDatabase {
       ]
     );
 
-    return addedPost;
+    return addedPost as Post;
   }
 
   public async updatePost(post: Require<Post, "id">): Promise<Post> {
@@ -88,10 +112,10 @@ class SpidersDatabase {
       values
     );
 
-    return updatedPost;
+    return updatedPost as Post;
   }
 
-  public async deletePost(postId: number): Promise<number> {
+  public async deletePost(postId: number): Promise<Post> {
     const {
       rows: [deletedPost],
     } = await this.pool!.query(`
@@ -99,7 +123,7 @@ class SpidersDatabase {
     WHERE id = '${postId}'
     RETURNING *
     `);
-    return deletedPost;
+    return deletedPost as Post;
   }
 
   private async migrate(): Promise<void> {
