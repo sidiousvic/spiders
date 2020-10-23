@@ -1,32 +1,5 @@
-import { DocumentNode } from "graphql";
 import { gql } from "apollo-server";
-
-const typeDefs: DocumentNode = gql`
-  scalar Date
-  scalar Resource
-
-  enum Role {
-    DARKLORD
-    GUEST
-  }
-
-  type User {
-    id: ID!
-    username: String!
-    password: String!
-    role: Role!
-  }
-
-  type AuthUser {
-    token: String!
-    user: User!
-  }
-
-  input UserLogin {
-    username: String!
-    password: String!
-  }
-
+const postTypeDefs = gql`
   input AddPostInput {
     userId: Int!
     author: String!
@@ -65,22 +38,19 @@ const typeDefs: DocumentNode = gql`
     publishedAt: Date!
   }
 
-  type Query {
-    me: User!
+  extend type Query {
     findPosts: [Post]
   }
 
-  type MutationResponse {
+  type PostUpdateResponse {
     message: String!
     resource: Resource!
   }
 
-  type Mutation {
-    signin(input: UserLogin!): AuthUser!
-    addPost(input: AddPostInput!): MutationResponse!
-    deletePost(input: DeletePostInput!): MutationResponse!
-    updatePost(input: UpdatePostInput!): MutationResponse!
+  extend type Mutation {
+    addPost(input: AddPostInput!): PostUpdateResponse!
+    deletePost(input: DeletePostInput!): PostUpdateResponse!
+    updatePost(input: UpdatePostInput!): PostUpdateResponse!
   }
 `;
-
-export { typeDefs };
+export { postTypeDefs };

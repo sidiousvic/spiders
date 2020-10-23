@@ -1,4 +1,4 @@
-import { Require, User, Post } from "types";
+import { Require, User, Post } from "@spiders";
 import { camelTo_snake } from "./utils";
 import { Pool } from "pg";
 import path from "path";
@@ -20,7 +20,25 @@ class SpidersDatabase {
     const {
       rows: [user],
     } = await this.pool.query(`SELECT * FROM users WHERE id = '${id}'`);
-    return user;
+    return user as User;
+  }
+
+  public async signUp(user: Partial<User>): Promise<User> {
+    const {
+      rows: [signedUpUser],
+    } = await this.pool.query(
+      `INSERT INTO users 
+      (username, 
+        email, 
+        password) 
+      VALUES ($1, $2, $3)
+      RETURNING *,
+      created_at as "joinDate"
+      `,
+      [user.username, user.email, user.password]
+    );
+
+    return signedUpUser as User;
   }
 
   public async findPosts(): Promise<Post[]> {
@@ -35,9 +53,7 @@ class SpidersDatabase {
     return posts;
   }
 
-  public async addPost(
-    post: Require<Post, "id">
-  ): Promise<Require<Post, "id">> {
+  public async addPost(post: Partial<Post>): Promise<Post> {
     const {
       rows: [addedPost],
     } = await this.pool!.query(
@@ -64,12 +80,10 @@ class SpidersDatabase {
       ]
     );
 
-    return addedPost;
+    return addedPost as Post;
   }
 
-  public async updatePost(
-    post: Require<Post, "id">
-  ): Promise<Require<Post, "id">> {
+  public async updatePost(post: Require<Post, "id">): Promise<Post> {
     const params: string = Object.keys(post)
       .map((column, i) => {
         return `${camelTo_snake(column)} = $${i + 1}`;
@@ -90,10 +104,10 @@ class SpidersDatabase {
       values
     );
 
-    return updatedPost;
+    return updatedPost as Post;
   }
 
-  public async deletePost(postId: number): Promise<number> {
+  public async deletePost(postId: number): Promise<Post> {
     const {
       rows: [deletedPost],
     } = await this.pool!.query(`
@@ -101,7 +115,7 @@ class SpidersDatabase {
     WHERE id = '${postId}'
     RETURNING *
     `);
-    return deletedPost;
+    return deletedPost as Post;
   }
 
   private async migrate(): Promise<void> {

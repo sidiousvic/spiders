@@ -1,4 +1,4 @@
-import { GraphQLLayer } from "types";
+import { GraphQLLayer } from "@spiders";
 import { Request } from "express";
 import { ApolloServer } from "apollo-server";
 import { SpidersDatabase } from "./db";
@@ -12,18 +12,15 @@ const graphqlServerUri =
 
 export default async function launchApolloServer(
   database: SpidersDatabase,
-  { typeDefs, resolvers, auth, utils: { computeContext } }: GraphQLLayer
+  { schema, auth, utils: { computeContext } }: GraphQLLayer
 ) {
   await database.connect();
 
   const server = new ApolloServer({
-    typeDefs,
-    resolvers: resolvers,
+    schema,
     async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
-    introspection: true,
-    playground: true,
   });
 
   server.listen({ port: 9991 }).then(() => {

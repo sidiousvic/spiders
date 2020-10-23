@@ -1,33 +1,23 @@
-import { Resolvers } from "../../types";
-import { AuthenticationError } from "apollo-server";
-import { auth } from "./auth";
+import { Role, PostResolvers } from "@spiders";
+import { auth } from "../auth";
 
-const { authenticated, generateToken, verifyLogin } = auth;
+const { authorized } = auth;
 
-const resolvers: Resolvers = {
+const postResolvers: PostResolvers = {
   Query: {
-    me: authenticated((_, __, { authedUser }) => authedUser),
     async findPosts(_, __, { database }) {
       const posts = await database.findPosts();
       return posts;
     },
   },
   Mutation: {
-    async signin(_, { input: login }, { database }) {
-      const user = await database.findUser(login);
-      if (!user) throw new AuthenticationError("User not found.");
-      const verified = verifyLogin(login, user);
-      if (!verified) throw new AuthenticationError("Wrong login.");
-      const token = generateToken(user);
-      return { token, user };
-    },
-    async addPost(_, { input: post }, { database }) {
+    addPost: authorized(async (_, { input: post }, { database }) => {
       const addedPost = await database.addPost(post);
       return {
         message: `Web successfully woven!`,
         resource: addedPost,
       };
-    },
+    }, Role.DARKLORD),
     async deletePost(_, { input: { id } }, { database }) {
       await database.deletePost(id);
       return {
@@ -43,7 +33,6 @@ const resolvers: Resolvers = {
       };
     },
   },
-  Date: Date,
 };
 
-export { resolvers };
+export { postResolvers };

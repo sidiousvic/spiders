@@ -1,4 +1,4 @@
-import { DocumentNode, GraphQLResolveInfo } from "graphql";
+import { GraphQLResolveInfo, GraphQLSchema } from "graphql";
 import { Request } from "express";
 import { SpidersDatabase } from "./server/db";
 
@@ -9,8 +9,10 @@ export enum Role {
 export type User = {
   id: string;
   username: string;
+  email: string;
   password: string;
   role: Role;
+  joinDate: Date;
 };
 
 export type Post = {
@@ -26,59 +28,81 @@ export type Post = {
   publishedAt: Date;
 };
 
-export type addPostInput = {
-  title: string;
-  author: string;
-  tags: string;
-  body: string;
-  userId: number;
-};
-
 export type AuthUser = {
   token: string;
   user: User;
 };
-export type UserLogin = {
+export type UserSignIn = {
   username: string;
   password: string;
 };
+
+export type UserSignUp = {
+  username: string;
+  email: string;
+  password: string;
+  role: Role;
+};
+
 export type Query = {
   me: Resolver<User>;
 };
-export type Resolver<T, U = {}> = (
+export type Resolver<Resource, Input = {}> = (
   parent: any,
-  args: { input: U },
+  args: { input: Input },
   ctx: Context,
   info: GraphQLResolveInfo
-) => T;
+) => Resource;
 
-export interface MutationResponse<T> {
+export interface PostUpdateResponse<Resource> {
   message: string;
-  resource: T;
+  resource: Resource;
 }
 
-export interface Resolvers {
+export interface X {
   [key: string]: any;
+}
+
+export interface AuthResolvers {
   Query: {
     me: Resolver<User>;
+  };
+  Mutation: {
+    signIn: Resolver<Promise<AuthUser>, UserSignIn>;
+    signUp: Resolver<Promise<User>, UserSignUp>;
+  };
+}
+
+export interface UserResolvers {}
+
+export interface PostResolvers {
+  Query: {
     findPosts: Resolver<Promise<Post[]>>;
   };
   Mutation: {
-    signin: Resolver<Promise<AuthUser>, UserLogin>;
-    addPost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
-      Require<Post, "id">
-    >;
+    addPost: Resolver<Promise<PostUpdateResponse<Post>>, Partial<Post>>;
     deletePost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
+      Promise<PostUpdateResponse<Partial<Post>>>,
       Require<Post, "id">
     >;
     updatePost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
+      Promise<PostUpdateResponse<Post>>,
       Require<Post, "id">
     >;
   };
 }
+
+interface ScalarResolvers {
+  Date: typeof Date;
+}
+
+export type Resolvers = {
+  [key: string]: any;
+} & AuthResolvers &
+  UserResolvers &
+  PostResolvers &
+  ScalarResolvers;
+
 export type ID = string;
 export type isVerified = boolean;
 export interface JWTTokenSignees {
@@ -89,9 +113,12 @@ export interface JWTTokenSignees {
 export interface Auth {
   generateToken: (signees: JWTTokenSignees) => string;
   getUserIdFromToken: (token: string) => ID;
-  verifyLogin: (login: UserLogin, user: User) => isVerified;
+  verifyLogin: (login: UserSignIn, user: User) => isVerified;
   authenticated: (resolver: Resolver<User>) => Resolver<User>;
-  authorized: (resolver: Resolver<User>, role: Role) => Resolver<User>;
+  authorized: <Resource, Input>(
+    resolver: Resolver<Resource, Input>,
+    role: Role
+  ) => Resolver<Resource, Input>;
 }
 
 export interface Context {
@@ -109,12 +136,16 @@ export interface Utils {
 }
 
 export interface GraphQLLayer {
-  typeDefs: DocumentNode;
-  resolvers: Resolvers;
+  schema: GraphQLSchema;
   auth: Auth;
   utils: Utils;
 }
 
-export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+export type Unrequired<Type, OptionalKeys extends keyof Type> = Omit<
+  Type,
+  OptionalKeys
+> &
+  Partial<Type>;
 
-export type Require<T, K extends keyof T> = Partial<T> & Required<Pick<T, K>>;
+export type Require<Type, RequiredKeys extends keyof Type> = Partial<Type> &
+  Required<Pick<Type, RequiredKeys>>;
