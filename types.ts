@@ -108,7 +108,7 @@ export interface JWTTokenSignees {
 export interface Auth {
   generateToken: (signees: JWTTokenSignees) => string;
   getUserIdFromToken: (token: string) => ID;
-  verifyLogin: (login: UserLogin, user: User) => isVerified;
+  verifyLogin: (login: UserSignIn, user: User) => isVerified;
   authenticated: (resolver: Resolver<User>) => Resolver<User>;
   authorized: <Resource, Input>(
     resolver: Resolver<Resource, Input>,
