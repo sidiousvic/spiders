@@ -32,7 +32,10 @@ export type AuthUser = {
   token: string;
   user: User;
 };
-export type UserLogin = {
+export type UserSignIn = {
+  username: string;
+  password: string;
+};
   username: string;
   password: string;
 };
