@@ -1,8 +1,8 @@
-import { Resolvers } from "../../types";
+import { Role, Resolvers } from "@spiders";
 import { AuthenticationError } from "apollo-server";
 import { auth } from "./auth";
 
-const { authenticated, generateToken, verifyLogin } = auth;
+const { authenticated, authorized, generateToken, verifyLogin } = auth;
 
 const resolvers: Resolvers = {
   Query: {
@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    async signin(_, { input: login }, { database }) {
+    async signIn(_, { input: login }, { database }) {
       const user = await database.findUser(login);
       if (!user) throw new AuthenticationError("User not found.");
       const verified = verifyLogin(login, user);
@@ -21,13 +21,13 @@ const resolvers: Resolvers = {
       const token = generateToken(user);
       return { token, user };
     },
-    async addPost(_, { input: post }, { database }) {
+    addPost: authorized(async (_, { input: post }, { database }) => {
       const addedPost = await database.addPost(post);
       return {
         message: `Web successfully woven!`,
         resource: addedPost,
       };
-    },
+    }, Role.DARKLORD),
     async deletePost(_, { input: { id } }, { database }) {
       await database.deletePost(id);
       return {
