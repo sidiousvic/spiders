@@ -1,10 +1,12 @@
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const { IgnorePlugin } = require("webpack");
-const environment = process.env.NODE_ENV;
-const buildPath = path.resolve(__dirname, "server");
 const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+
+const buildPath = path.resolve(__dirname, "server");
+const environment = process.env.NODE_ENV;
 
 module.exports = {
   target: "node",
@@ -13,6 +15,11 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: __dirname + "/server/tsconfig.json",
+      }),
+    ],
   },
   mode: environment,
   output: {
@@ -42,14 +49,6 @@ module.exports = {
   externals: [nodeExternals()],
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "prism-loader",
-          },
-        ],
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
