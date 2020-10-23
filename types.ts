@@ -66,8 +66,8 @@ export interface AuthResolvers {
     me: Resolver<User>;
   };
   Mutation: {
-    signIn: Resolver<Promise<AuthUser>, UserLogin>;
-    signUp: any;
+    signIn: Resolver<Promise<AuthUser>, UserSignIn>;
+    signUp: Resolver<Promise<User>, UserSignUp>;
   };
 }
 
