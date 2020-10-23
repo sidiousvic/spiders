@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "spiders",
       script: "server/index.js",
-      node_args: "-r tsconfig-paths/register -r dotenv/config",
+      node_args: "-r tsconfig-paths/register dotenv/config",
     },
   ],
 };
