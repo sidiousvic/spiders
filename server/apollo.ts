@@ -22,8 +22,6 @@ export default async function launchApolloServer(
     async context({ req }: { req: Request }) {
       return await computeContext(req, database, auth);
     },
-    introspection: true,
-    playground: true,
   });
 
   server.listen({ port: 9991 }).then(() => {
