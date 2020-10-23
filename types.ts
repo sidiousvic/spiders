@@ -1,3 +1,4 @@
+import { interpret } from "xstate";
 import { DocumentNode, GraphQLResolveInfo } from "graphql";
 import { Request } from "express";
 import { SpidersDatabase } from "./server/db";
@@ -9,8 +10,10 @@ export enum Role {
 export type User = {
   id: string;
   username: string;
+  email: string;
   password: string;
   role: Role;
+  joinDate: Date;
 };
 
 export type Post = {
@@ -49,15 +52,27 @@ export interface MutationResponse<Resource> {
   resource: Resource;
 }
 
-export interface Resolvers {
+export interface X {
   [key: string]: any;
+}
+
+export interface AuthResolvers {
   Query: {
     me: Resolver<User>;
-    findPosts: Resolver<Promise<Post[]>>;
   };
   Mutation: {
     signIn: Resolver<Promise<AuthUser>, UserLogin>;
-    signUp: Resolver<Promise<AuthUser>, UserLogin>;
+    signUp: any;
+  };
+}
+
+export interface UserResolvers {}
+
+export interface PostResolvers {
+  Query: {
+    findPosts: Resolver<Promise<Post[]>>;
+  };
+  Mutation: {
     addPost: Resolver<Promise<MutationResponse<Post>>, Partial<Post>>;
     deletePost: Resolver<
       Promise<MutationResponse<Partial<Post>>>,
@@ -66,6 +81,16 @@ export interface Resolvers {
     updatePost: Resolver<Promise<MutationResponse<Post>>, Require<Post, "id">>;
   };
 }
+
+interface ScalarResolvers {
+  Date: typeof Date;
+}
+
+export type Resolvers = AuthResolvers &
+  UserResolvers &
+  PostResolvers &
+  ScalarResolvers;
+
 export type ID = string;
 export type isVerified = boolean;
 export interface JWTTokenSignees {
