@@ -26,14 +26,6 @@ export type Post = {
   publishedAt: Date;
 };
 
-export type addPostInput = {
-  title: string;
-  author: string;
-  tags: string;
-  body: string;
-  userId: number;
-};
-
 export type AuthUser = {
   token: string;
   user: User;
