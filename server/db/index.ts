@@ -30,20 +30,14 @@ class SpidersDatabase {
       `INSERT INTO users 
       (username, 
         email, 
-        password, 
-        role, 
-        joinDate,
-        ) 
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING *`,
-      [
-        user.username,
-        user.email,
-        user.password,
-        user.role,
-        new Date().toISOString(),
-      ]
+        password) 
+      VALUES ($1, $2, $3)
+      RETURNING *,
+      created_at as "joinDate"
+      `,
+      [user.username, user.email, user.password]
     );
+
     return signedUpUser as User;
   }
 
