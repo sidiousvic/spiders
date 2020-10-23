@@ -105,6 +105,11 @@ export interface GraphQLLayer {
   utils: Utils;
 }
 
-export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+export type Unrequired<Type, OptionalKeys extends keyof Type> = Omit<
+  Type,
+  OptionalKeys
+> &
+  Partial<Type>;
 
-export type Require<T, K extends keyof T> = Partial<T> & Required<Pick<T, K>>;
+export type Require<Type, RequiredKeys extends keyof Type> = Partial<Type> &
+  Required<Pick<Type, RequiredKeys>>;
