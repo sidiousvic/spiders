@@ -78,7 +78,10 @@ export interface Auth {
   getUserIdFromToken: (token: string) => ID;
   verifyLogin: (login: UserLogin, user: User) => isVerified;
   authenticated: (resolver: Resolver<User>) => Resolver<User>;
-  authorized: (resolver: Resolver<User>, role: Role) => Resolver<User>;
+  authorized: <Resource, Input>(
+    resolver: Resolver<Resource, Input>,
+    role: Role
+  ) => Resolver<Resource, Input>;
 }
 
 export interface Context {
