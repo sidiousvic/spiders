@@ -1,12 +1,12 @@
 import { GraphQLLayer } from "@spiders";
 import { utils } from "./utils";
-import { typeDefs } from "./schema";
+import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
 import { auth } from "./auth";
+import { makeExecutableSchema } from "apollo-server";
 
 const graphQLLayer: GraphQLLayer = {
-  typeDefs,
-  resolvers,
+  schema: makeExecutableSchema({ typeDefs, resolvers }),
   auth,
   utils,
 };
