@@ -37,16 +37,16 @@ export type UserLogin = {
 export type Query = {
   me: Resolver<User>;
 };
-export type Resolver<T, U = {}> = (
+export type Resolver<Resource, Input = {}> = (
   parent: any,
-  args: { input: U },
+  args: { input: Input },
   ctx: Context,
   info: GraphQLResolveInfo
-) => T;
+) => Resource;
 
-export interface MutationResponse<T> {
+export interface MutationResponse<Resource> {
   message: string;
-  resource: T;
+  resource: Resource;
 }
 
 export interface Resolvers {
