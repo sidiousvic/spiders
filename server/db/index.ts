@@ -16,10 +16,12 @@ class SpidersDatabase {
     url: `postgres://${process.env.PG_USER}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
   };
 
-  public async findUser({ id }: Partial<User>): Promise<User> {
+  public async findUser({ username }: Partial<User>): Promise<User> {
     const {
       rows: [user],
-    } = await this.pool.query(`SELECT * FROM users WHERE id = '${id}'`);
+    } = await this.pool.query(
+      `SELECT * FROM users WHERE username = '${username}'`
+    );
     return user;
   }
 
@@ -35,9 +37,7 @@ class SpidersDatabase {
     return posts;
   }
 
-  public async addPost(
-    post: Require<Post, "id">
-  ): Promise<Require<Post, "id">> {
+  public async addPost(post: Partial<Post>): Promise<Post> {
     const {
       rows: [addedPost],
     } = await this.pool!.query(
@@ -67,9 +67,7 @@ class SpidersDatabase {
     return addedPost;
   }
 
-  public async updatePost(
-    post: Require<Post, "id">
-  ): Promise<Require<Post, "id">> {
+  public async updatePost(post: Require<Post, "id">): Promise<Post> {
     const params: string = Object.keys(post)
       .map((column, i) => {
         return `${camelTo_snake(column)} = $${i + 1}`;
