@@ -18,11 +18,6 @@ const typeDefs: DocumentNode[] = [
       _: String
     }
 
-    type MutationResponse {
-      message: String!
-      resource: Resource!
-    }
-
     type Mutation {
       _: String
     }

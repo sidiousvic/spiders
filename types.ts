@@ -54,7 +54,7 @@ export type Resolver<Resource, Input = {}> = (
   info: GraphQLResolveInfo
 ) => Resource;
 
-export interface MutationResponse<Resource> {
+export interface PostUpdateResponse<Resource> {
   message: string;
   resource: Resource;
 }
@@ -80,12 +80,15 @@ export interface PostResolvers {
     findPosts: Resolver<Promise<Post[]>>;
   };
   Mutation: {
-    addPost: Resolver<Promise<MutationResponse<Post>>, Partial<Post>>;
+    addPost: Resolver<Promise<PostUpdateResponse<Post>>, Partial<Post>>;
     deletePost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
+      Promise<PostUpdateResponse<Partial<Post>>>,
       Require<Post, "id">
     >;
-    updatePost: Resolver<Promise<MutationResponse<Post>>, Require<Post, "id">>;
+    updatePost: Resolver<
+      Promise<PostUpdateResponse<Post>>,
+      Require<Post, "id">
+    >;
   };
 }
 

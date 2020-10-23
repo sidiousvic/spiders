@@ -42,10 +42,15 @@ const postTypeDefs = gql`
     findPosts: [Post]
   }
 
+  type PostUpdateResponse {
+    message: String!
+    resource: Resource!
+  }
+
   extend type Mutation {
-    addPost(input: AddPostInput!): MutationResponse!
-    deletePost(input: DeletePostInput!): MutationResponse!
-    updatePost(input: UpdatePostInput!): MutationResponse!
+    addPost(input: AddPostInput!): PostUpdateResponse!
+    deletePost(input: DeletePostInput!): PostUpdateResponse!
+    updatePost(input: UpdatePostInput!): PostUpdateResponse!
   }
 `;
 export { postTypeDefs };
