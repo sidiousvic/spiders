@@ -76,7 +76,7 @@ const typeDefs: DocumentNode = gql`
   }
 
   type Mutation {
-    signin(input: UserLogin!): AuthUser!
+    signIn(input: UserLogin!): AuthUser!
     addPost(input: AddPostInput!): MutationResponse!
     deletePost(input: DeletePostInput!): MutationResponse!
     updatePost(input: UpdatePostInput!): MutationResponse!
