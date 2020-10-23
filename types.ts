@@ -36,8 +36,11 @@ export type UserSignIn = {
   username: string;
   password: string;
 };
+export type UserSignUp = {
   username: string;
+  email: string;
   password: string;
+  role: Role;
 };
 export type Query = {
   me: Resolver<User>;
