@@ -13,8 +13,10 @@ const typeDefs: DocumentNode = gql`
   type User {
     id: ID!
     username: String!
+    email: String!
     password: String!
     role: Role!
+    joinDate: Date!
   }
 
   type AuthUser {
