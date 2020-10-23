@@ -56,19 +56,14 @@ export interface Resolvers {
     findPosts: Resolver<Promise<Post[]>>;
   };
   Mutation: {
-    signin: Resolver<Promise<AuthUser>, UserLogin>;
-    addPost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
-      Require<Post, "id">
-    >;
+    signIn: Resolver<Promise<AuthUser>, UserLogin>;
+    signUp: Resolver<Promise<AuthUser>, UserLogin>;
+    addPost: Resolver<Promise<MutationResponse<Post>>, Partial<Post>>;
     deletePost: Resolver<
       Promise<MutationResponse<Partial<Post>>>,
       Require<Post, "id">
     >;
-    updatePost: Resolver<
-      Promise<MutationResponse<Partial<Post>>>,
-      Require<Post, "id">
-    >;
+    updatePost: Resolver<Promise<MutationResponse<Post>>, Require<Post, "id">>;
   };
 }
 export type ID = string;
