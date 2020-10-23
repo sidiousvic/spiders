@@ -16,12 +16,10 @@ class SpidersDatabase {
     url: `postgres://${process.env.PG_USER}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
   };
 
-  public async findUser({ username }: Partial<User>): Promise<User> {
+  public async findUser({ id }: Partial<User>): Promise<User> {
     const {
       rows: [user],
-    } = await this.pool.query(
-      `SELECT * FROM users WHERE username = '${username}'`
-    );
+    } = await this.pool.query(`SELECT * FROM users WHERE id = '${id}'`);
     return user as User;
   }
 
