@@ -8,7 +8,7 @@
     "u:build": "NODE_ENV=production webpack --config webpack.ui.config.js",
     "s:build": "NODE_ENV=production webpack --config webpack.server.config.js ",
     "u:dev": "NODE_ENV=development webpack-dev-server --config webpack.ui.config.js",
-    "s:dev": "NODE_ENV=development tsnd -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child  server/index.ts",
+    "s:dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child  server/index.ts",
     "db:migrate": "node-pg-migrate -m server/db/migrations",
     "lint": "eslint --fix --ext .js,.jsx ."
   },
