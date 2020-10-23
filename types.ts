@@ -1,4 +1,3 @@
-import { interpret } from "xstate";
 import { DocumentNode, GraphQLResolveInfo } from "graphql";
 import { Request } from "express";
 import { SpidersDatabase } from "./server/db";

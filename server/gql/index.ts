@@ -1,4 +1,4 @@
-import { GraphQLLayer } from "../../types";
+import { GraphQLLayer } from "@spiders";
 import { utils } from "./utils";
 import { typeDefs } from "./schema";
 import { resolvers } from "./resolvers";
