@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "es5",
     "module": "commonjs",
     "esModuleInterop": true,
@@ -10,6 +11,9 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@spiders": ["./types.ts"]
+    }
   }
 }
