@@ -6,7 +6,7 @@ const githubUsername = "sidiousvic";
 
 Webhooks.use(express.json());
 
-export default async function launchWebhooksServer() {
+async function launchWebhooksServer() {
   Webhooks.use(function timelog(req, _, next) {
     const { path: reqUrl } = req;
     console.log("Webhook @", reqUrl, new Date().toLocaleString());
@@ -37,3 +37,5 @@ export default async function launchWebhooksServer() {
     await exec(deployScript);
   }
 }
+
+export { launchWebhooksServer };

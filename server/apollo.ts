@@ -10,7 +10,7 @@ const graphqlServerUri =
     ? "http://localhost:9991"
     : "https://spiders.sidiousvic.dev/graphql";
 
-export default async function launchApolloServer(
+async function launchApolloServer(
   database: SpidersDatabase,
   { schema, auth, utils: { computeContext } }: GraphQLLayer
 ) {
@@ -27,3 +27,5 @@ export default async function launchApolloServer(
     console.log(`🚀 Apollo Server launched @ ${graphqlServerUri}`);
   });
 }
+
+export { launchApolloServer };
