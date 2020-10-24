@@ -1,4 +1,5 @@
 import { Role, PostResolvers } from "@spiders";
+import { UserInputError } from "apollo-server";
 import { auth } from "../auth";
 
 const { authorized } = auth;
@@ -19,10 +20,12 @@ const postResolvers: PostResolvers = {
       };
     }, Role.DARKLORD),
     async deletePost(_, { input: { id } }, { database }) {
-      await database.deletePost(id);
+      const deletedPost = await database.deletePost(id);
+      if (!deletedPost)
+        throw new UserInputError("Unable to delete nonexistent post.");
       return {
         message: `Web successfully unraveled!`,
-        resource: { id },
+        resource: deletedPost,
       };
     },
     async updatePost(_, { input: partialPostWithId }, { database }) {
