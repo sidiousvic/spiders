@@ -22,8 +22,7 @@ class SpidersDatabase {
     } = await this.pool.query(`
     SELECT * 
     FROM users 
-    WHERE username = '${username}' 
-    OR id = '${id}'
+    WHERE ${id ? "id" : "username"} = '${id || username}'
     `);
     return user as User;
   }
