@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "deploy": "npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
+    "fire:node": "NODE_ENV=production node --require dotenv/config --require tsconfig-paths/register ./server/index.js",
     "u:build": "NODE_ENV=production webpack --config webpack.ui.config.js",
     "s:build": "NODE_ENV=production webpack --config webpack.server.config.js ",
     "u:dev": "NODE_ENV=development webpack-dev-server --config webpack.ui.config.js",
