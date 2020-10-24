@@ -1,3 +1,7 @@
-exports.up = (pgm) => {};
+exports.up = (pgm) => {
+  pgm.sql(`CREATE SCHEMA deleted;`);
+};
 
-exports.down = (pgm) => {};
+exports.down = (pgm) => {
+  pgm.sql(`DROP SCHEMA deleted;`);
+};
