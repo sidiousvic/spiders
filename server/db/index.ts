@@ -16,14 +16,23 @@ class SpidersDatabase {
     url: `postgres://${process.env.PG_USER}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`,
   };
 
-  public async findUser({ id }: Partial<User>): Promise<User> {
+  public async findUser({ id, username }: Partial<User>): Promise<User> {
     const {
       rows: [user],
-    } = await this.pool.query(`SELECT * FROM users WHERE id = '${id}'`);
+    } = await this.pool.query(`
+    SELECT * 
+    FROM users 
+    WHERE username = '${username}' 
+    OR id = '${id}'
+    `);
     return user as User;
   }
 
-  public async signUp(user: Partial<User>): Promise<User> {
+  public async signUp({
+    username,
+    email,
+    password,
+  }: Partial<User>): Promise<User> {
     const {
       rows: [signedUpUser],
     } = await this.pool.query(
@@ -35,7 +44,7 @@ class SpidersDatabase {
       RETURNING *,
       created_at as "joinDate"
       `,
-      [user.username, user.email, user.password]
+      [username, email, password]
     );
 
     return signedUpUser as User;
@@ -107,7 +116,7 @@ class SpidersDatabase {
     return updatedPost as Post;
   }
 
-  public async deletePost(postId: number): Promise<Post> {
+  public async deletePost(postId: string): Promise<Post> {
     const {
       rows: [deletedPost],
     } = await this.pool!.query(`
