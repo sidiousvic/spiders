@@ -1,4 +1,4 @@
-import { Auth, User } from "@spiders";
+import { Auth, VerifiedUser } from "@spiders";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
@@ -8,23 +8,19 @@ const auth: Auth = {
   generateToken({ id, role }) {
     return jwt.sign({ id, role }, secret);
   },
-
-  getUserIdFromToken(token) {
+  getUserFromToken(token) {
     try {
-      const user = jwt.verify(token, secret) as User;
-      const { id } = user;
-      return id;
+      const user = jwt.verify(token, secret) as VerifiedUser;
+      return user;
     } catch (err) {
       throw new AuthenticationError(err);
     }
   },
-
   verifyLogin(login, user) {
     const usernameMatches = login.username === user.username;
     const passwordMatches = login.password === user.password;
     return usernameMatches && passwordMatches;
   },
-
   authenticated(resolver) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;
@@ -33,7 +29,6 @@ const auth: Auth = {
       return resolver(parent, args, ctx, info);
     };
   },
-
   authorized(resolver, role) {
     return (parent, args, ctx, info) => {
       const { authedUser } = ctx;

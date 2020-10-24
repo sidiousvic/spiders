@@ -16,14 +16,14 @@ export type User = {
 };
 
 export type Post = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   tags: string;
   body: string;
   createdAt: Date;
   updatedAt: Date;
-  userId: number;
+  userId: string;
   published: boolean;
   publishedAt: Date;
 };
@@ -32,6 +32,13 @@ export type AuthUser = {
   token: string;
   user: User;
 };
+
+export type VerifiedUser = {
+  id: string;
+  role: Role;
+  iat: number;
+};
+
 export type UserSignIn = {
   username: string;
   password: string;
@@ -103,7 +110,6 @@ export type Resolvers = {
   PostResolvers &
   ScalarResolvers;
 
-export type ID = string;
 export type isVerified = boolean;
 export interface JWTTokenSignees {
   id: string;
@@ -112,7 +118,7 @@ export interface JWTTokenSignees {
 
 export interface Auth {
   generateToken: (signees: JWTTokenSignees) => string;
-  getUserIdFromToken: (token: string) => ID;
+  getUserFromToken: (token: string) => VerifiedUser;
   verifyLogin: (login: UserSignIn, user: User) => isVerified;
   authenticated: (resolver: Resolver<User>) => Resolver<User>;
   authorized: <Resource, Input>(
