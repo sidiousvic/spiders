@@ -2,8 +2,12 @@ module.exports = {
   apps: [
     {
       name: "spiders",
-      script: "server/index.js",
-      node_args: "-r tsconfig-paths/register dotenv/config",
+      watch: true,
+      env: {
+        NODE_ENV: "production",
+      },
+      script: "./server/index.js",
+      node_args: "--require dotenv/config --require tsconfig-paths/register ",
     },
   ],
 };
