@@ -116,9 +116,15 @@ class SpidersDatabase {
   }
 
   public async deletePost(postId: string): Promise<Post> {
+    await this.pool.query(`
+    INSERT INTO deleted.posts 
+    SELECT NOW() AS deleted_at, * FROM posts
+    WHERE posts.id = '${postId}'
+    `);
+
     const {
       rows: [deletedPost],
-    } = await this.pool!.query(`
+    } = await this.pool.query(`
     DELETE FROM posts 
     WHERE id = '${postId}'
     RETURNING *
@@ -130,7 +136,7 @@ class SpidersDatabase {
     console.log("🐪 Running migrations...");
     await pgm({
       databaseUrl: this.config.url,
-      migrationsTable: "migrations",
+      migrationsTable: "pgmigrations",
       dir: migrationsPath,
       direction: "up",
       count: 9999,
