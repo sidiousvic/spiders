@@ -1,6 +1,5 @@
 import { AuthResolvers } from "@spiders";
 import { AuthenticationError } from "apollo-server";
-import { sign } from "jsonwebtoken";
 import { auth } from "../auth";
 
 const { authenticated, generateToken, verifyLogin } = auth;
@@ -11,7 +10,7 @@ const authResolvers: AuthResolvers = {
   },
   Mutation: {
     async signIn(_, { input: signInInput }, { database }) {
-      const user = await database.findUser(signInInput);
+      const user = await database.User.find(signInInput);
       if (!user) throw new AuthenticationError("User not found.");
       const verified = verifyLogin(signInInput, user);
       if (!verified) throw new AuthenticationError("Wrong login.");
@@ -19,7 +18,7 @@ const authResolvers: AuthResolvers = {
       return { token, user };
     },
     async signUp(_, { input: signUpInput }, { database }) {
-      const user = await database.signUp(signUpInput);
+      const user = await database.User.find(signUpInput);
       if (!user) throw new AuthenticationError("Unable to sign up user.");
       return user;
     },

@@ -9,7 +9,7 @@ const utils: Utils = {
     let authedUser = {} as User;
     if (token) {
       const { id } = getUserFromToken(token);
-      authedUser = await database.findUser({ id });
+      authedUser = await database.User.find({ id });
     }
     return { database, authedUser };
   },
