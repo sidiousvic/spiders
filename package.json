@@ -9,7 +9,7 @@
     "u:build": "NODE_ENV=production webpack --config wp.u.cfg.js",
     "s:build": "NODE_ENV=production webpack --config wp.s.cfg.js",
     "u:dev": "NODE_ENV=development webpack-dev-server --config wp.u.cfg.js",
-    "s:dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child  server/index.ts",
+    "s:dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child server/launch.ts",
     "db:migrate": "node-pg-migrate -m server/db/migrations",
     "lint": "eslint --fix --ext .js,.jsx ."
   },

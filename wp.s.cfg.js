@@ -5,7 +5,7 @@ const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-const entryPath = path.resolve(__dirname, "server/index.ts");
+const entryPath = path.resolve(__dirname, "server/launch.ts");
 const buildPath = path.resolve(__dirname, "server");
 const tsCongfigPath = path.resolve(__dirname, "server/tsconfig.json");
 
