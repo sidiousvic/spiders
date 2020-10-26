@@ -68,7 +68,7 @@ module.exports = {
         loader: "ts-loader",
         exclude: /node_modules/,
         options: {
-          configFile: tsCongfigPath,
+          configFile: tsConfigPath,
         },
       },
     ],
