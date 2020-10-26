@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 const postTypeDefs = gql`
   input AddPostInput {
-    userId: Int!
+    userId: String!
     author: String!
     title: String!
     body: String!
@@ -13,8 +13,8 @@ const postTypeDefs = gql`
   }
 
   input UpdatePostInput {
-    id: Int!
-    userId: Int
+    id: String!
+    userId: String
     title: String
     author: String
     body: String

@@ -12,7 +12,7 @@ const graphqlServerUri =
 
 async function launchApolloServer(
   database: SpidersDatabase,
-  { schema, auth, utils: { computeContext } }: GraphQLLayer
+  { schema, auth, ctx: { computeContext } }: GraphQLLayer
 ) {
   await database.connect();
 

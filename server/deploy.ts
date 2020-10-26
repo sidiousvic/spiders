@@ -1,35 +1,30 @@
 import express from "express";
-const Webhooks = express();
+const Deploy = express();
 import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
-Webhooks.use(express.json());
+Deploy.use(express.json());
 
-async function launchWebhooksServer() {
-  Webhooks.use(function timelog(req, _, next) {
+async function launchDeployServer() {
+  Deploy.use(function timelog(req, _, next) {
     const { path: reqUrl } = req;
-    console.log("Webhook @", reqUrl, new Date().toLocaleString());
+    console.log("Deploy webhook @", reqUrl, new Date().toLocaleString());
     next();
   });
 
-  Webhooks.get("/webhooks", (_, res) => {
-    res.send("🕷🕸🎣");
-  });
-
-  Webhooks.post("/webhooks/build", function triggerDeploy(req, res) {
+  Deploy.post("/deploy", function triggerDeploy(req, res) {
     const { sender, ref } = req.body;
     if (ref.indexOf("prod") > -1 && sender.login === githubUsername) {
       console.log(`🔩 Triggering spiders deploy...`);
       deploy();
-      res.status(200).send("🔧 Deploy has been triggered. ");
+      res.status(200).send("✅ Deploy has been triggered. ");
     } else res.status(500).send("😵 Deploy was not triggered. ");
   });
 
   const port = 9992;
-
-  Webhooks.listen(port, () => {
-    console.log(`🎣 Webhooks listening @ port ${port}!`);
+  Deploy.listen(port, () => {
+    console.log(`⚙️ Deployment server listening @ port ${port}!`);
   });
 
   async function deploy() {
@@ -38,4 +33,4 @@ async function launchWebhooksServer() {
   }
 }
 
-export { launchWebhooksServer };
+export { launchDeployServer };

@@ -5,19 +5,22 @@ const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
+const entryPath = path.resolve(__dirname, "server/launch.ts");
 const buildPath = path.resolve(__dirname, "server");
+const tsCongfigPath = path.resolve(__dirname, "server/tsconfig.json");
+
 const environment = process.env.NODE_ENV;
 
 module.exports = {
   target: "node",
   entry: {
-    app: "./server/index.ts",
+    app: entryPath,
   },
   resolve: {
     extensions: [".ts", ".js"],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: __dirname + "/server/tsconfig.json",
+        configFile: tsCongfigPath,
       }),
     ],
   },
@@ -65,7 +68,7 @@ module.exports = {
         loader: "ts-loader",
         exclude: /node_modules/,
         options: {
-          configFile: __dirname + "/server/tsconfig.json",
+          configFile: tsCongfigPath,
         },
       },
     ],

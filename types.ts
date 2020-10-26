@@ -133,7 +133,7 @@ export interface Context {
   authedUser: User;
 }
 
-export interface Utils {
+export interface ApolloContextLayer {
   computeContext: (
     req: Request,
     database: SpidersDatabase,
@@ -144,7 +144,7 @@ export interface Utils {
 export interface GraphQLLayer {
   schema: GraphQLSchema;
   auth: Auth;
-  utils: Utils;
+  ctx: ApolloContextLayer;
 }
 
 export type Unrequired<Type, OptionalKeys extends keyof Type> = Omit<

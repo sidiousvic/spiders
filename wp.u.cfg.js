@@ -1,15 +1,19 @@
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const environment = process.env.NODE_ENV;
+const sharedLoaderOptions = { name: "[name].[ext]" };
+
+const entryPath = path.resolve(__dirname, "ui/index.ts");
 const buildPath = path.resolve(__dirname, "build");
 const publicPath = path.resolve(__dirname, "public");
-const sharedLoaderOptions = { name: "[name].[ext]" };
-var HtmlWebpackPlugin = require("html-webpack-plugin");
+const tsConfigPath = path.resolve(__dirname, "ui/tsconfig.json");
 
 module.exports = {
   entry: {
-    app: __dirname + "/ui/index.ts",
+    app: entryPath,
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -64,7 +68,7 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           onlyCompileBundledFiles: true,
-          configFile: __dirname + "/ui/tsconfig.json",
+          configFile: tsConfigPath,
         },
       },
       {
