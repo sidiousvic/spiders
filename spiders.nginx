@@ -1,4 +1,4 @@
-# spiders
+# SPIDERS 🕸
 server {
         root /var/www/spiders/build;
         server_name spiders.sidiousvic.dev www.spiders.sidiousvic.dev;
