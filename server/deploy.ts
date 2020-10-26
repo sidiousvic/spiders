@@ -29,7 +29,7 @@ async function launchDeployServer() {
   });
 
   async function deploy() {
-    const deployScript = "sudo ./deploy.sh";
+    const deployScript = "./deploy.sh";
     await exec(deployScript);
   }
 }
