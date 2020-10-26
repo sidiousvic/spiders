@@ -1,9 +1,9 @@
-import { Utils, User } from "@spiders";
+import { User, ApolloContextLayer } from "@spiders";
 import { auth } from "./auth";
 
 const { getUserFromToken } = auth;
 
-const utils: Utils = {
+const ctx: ApolloContextLayer = {
   async computeContext(req, database) {
     const token = req.headers.authorization;
     let authedUser = {} as User;
@@ -15,4 +15,4 @@ const utils: Utils = {
   },
 };
 
-export { utils };
+export { ctx };
