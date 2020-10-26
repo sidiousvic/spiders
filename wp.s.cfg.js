@@ -7,7 +7,7 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const entryPath = path.resolve(__dirname, "server/launch.ts");
 const buildPath = path.resolve(__dirname, "server");
-const tsCongfigPath = path.resolve(__dirname, "server/tsconfig.json");
+const tsConfigPath = path.resolve(__dirname, "server/tsconfig.json");
 
 const environment = process.env.NODE_ENV;
 
@@ -20,7 +20,7 @@ module.exports = {
     extensions: [".ts", ".js"],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: tsCongfigPath,
+        configFile: tsConfigPath,
       }),
     ],
   },
