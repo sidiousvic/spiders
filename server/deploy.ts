@@ -25,7 +25,7 @@ async function launchDeployServer() {
   const port = 9992;
 
   Deploy.listen(port, () => {
-    console.log(`⚙️ Deployment server listening @ port ${port}!`);
+    console.log(`⚙️  Deployment server listening @ port ${port}!`);
   });
 
   async function deploy() {
