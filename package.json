@@ -4,7 +4,7 @@
   "description": "A web engineering log.",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "pm2 stop pm2.config.js && npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
+    "deploy": "NODE_ENV=deployment npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
     "fire:node": "NODE_ENV=production node --require dotenv/config --require tsconfig-paths/register ./server/index.js",
     "u:build": "NODE_ENV=production webpack --config wp.u.cfg.js",
     "s:build": "NODE_ENV=production webpack --config wp.s.cfg.js",
@@ -37,7 +37,8 @@
     "prettier": "^2.1.2",
     "prismjs": "^1.22.0",
     "showdown": "^1.9.1",
-    "xstate": "^4.13.0"
+    "xstate": "^4.13.0",
+    "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -53,7 +54,6 @@
     "ts-loader": "^8.0.4",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0",
-    "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "3.0.0",
     "typescript": "^4.0.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
