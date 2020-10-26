@@ -6,8 +6,8 @@
   "scripts": {
     "deploy": "npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
     "fire:node": "NODE_ENV=production node --require dotenv/config --require tsconfig-paths/register ./server/index.js",
-    "u:build": "NODE_ENV=production webpack --config webpack.ui.config.js",
-    "s:build": "NODE_ENV=production webpack --config webpack.server.config.js ",
+    "u:build": "NODE_ENV=production webpack --config wp.u.cfg.js",
+    "s:build": "NODE_ENV=production webpack --config wp.s.cfg.js ",
     "u:dev": "NODE_ENV=development webpack-dev-server --config webpack.ui.config.js",
     "s:dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child  server/index.ts",
     "db:migrate": "node-pg-migrate -m server/db/migrations",
