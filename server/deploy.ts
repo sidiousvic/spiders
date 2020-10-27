@@ -43,8 +43,7 @@ async function launchDeployServer() {
   });
 
   async function deploy() {
-    const deployScript = "sudo -u sidiousvic ./deploy.sh";
-    await exec(deployScript);
+    await exec("/var/www/spiders/deploy.sh");
   }
 }
 
