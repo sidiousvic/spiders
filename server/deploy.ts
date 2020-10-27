@@ -9,7 +9,21 @@ Deploy.use(express.json());
 async function launchDeployServer() {
   Deploy.use(function timelog(req, _, next) {
     const { path: reqUrl } = req;
-    console.log("Deploy webhook @", reqUrl, new Date().toLocaleString());
+    const {
+      sender,
+      ref: [branch],
+    } = req.body;
+    console.log(
+      "Deploy webhook @",
+      reqUrl,
+      `On push to ${branch} by ${sender}`,
+      new Date().toLocaleDateString("ja-JP", {
+        timeZone: "Japan",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      })
+    );
     next();
   });
 
