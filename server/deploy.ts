@@ -1,8 +1,6 @@
 import express from "express";
 const Deploy = express();
-const pino = require("pino")({
-  prettyPrint: { colorize: true },
-});
+const pino = require("pino")();
 import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";

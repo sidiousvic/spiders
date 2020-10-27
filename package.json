@@ -4,7 +4,7 @@
   "description": "A web engineering log.",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
+    "deploy": "npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js | pino-pretty",
     "fire:node": "NODE_ENV=production node --require dotenv/config --require tsconfig-paths/register ./server/index.js",
     "u:build": "NODE_ENV=production webpack --config wp.u.cfg.js",
     "s:build": "NODE_ENV=production webpack --config wp.s.cfg.js",
