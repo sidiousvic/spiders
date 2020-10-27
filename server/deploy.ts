@@ -16,13 +16,13 @@ async function launchDeployServer() {
     console.log(
       "Deploy webhook @",
       reqUrl,
-      `\n${login} ⇀ ${ref.replace("refs/heads/", "")}\n`,
-      new Date().toLocaleDateString("ja-JP", {
+      `\n${login} ⇀  ${ref.replace("refs/heads/", "")}`,
+      `\n${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
-      })
+      })}`
     );
     next();
   });
