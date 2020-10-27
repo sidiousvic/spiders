@@ -1,5 +1,8 @@
 import express from "express";
 const Deploy = express();
+const pino = require("pino")({
+  prettyPrint: { colorize: true },
+});
 import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
@@ -42,8 +45,8 @@ async function launchDeployServer() {
 
   async function deploy() {
     const { stderr, stdout } = await exec("/var/www/spiders/deploy.sh");
-    console.error(stderr);
-    console.log(stdout);
+    pino.info(stderr);
+    pino.info(stdout);
   }
 }
 
