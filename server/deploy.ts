@@ -16,8 +16,7 @@ async function launchDeployServer() {
       ref,
     } = req.body;
     console.log(
-      "Deploy webhook @",
-      `\n${login} ⇀  ${ref.replace("refs/heads/", "")}`,
+      `Deploy webhook @ \n${login} ⇀  ${ref.replace("refs/heads/", "")}`,
       `\n${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
         hour: "2-digit",
