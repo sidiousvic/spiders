@@ -6,9 +6,7 @@ import { SpidersDatabase } from "./db";
 const env = process.env.NODE_ENV;
 
 const graphqlServerUri =
-  env === "development"
-    ? "http://localhost:9991"
-    : "https://spiders.sidiousvic.dev/graphql";
+  env === "development" ? "localhost:9991" : "spiders.sidiousvic.dev/graphql";
 
 async function launchApolloServer(
   database: SpidersDatabase,
