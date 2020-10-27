@@ -10,13 +10,13 @@ async function launchDeployServer() {
   Deploy.use(function timelog(req, _, next) {
     const { path: reqUrl } = req;
     const {
-      sender,
-      ref: [branch],
+      sender: { login },
+      ref,
     } = req.body;
     console.log(
       "Deploy webhook @",
       reqUrl,
-      `On push to ${branch} by ${sender}`,
+      `\n${login} ⇀ ${ref.replace("refs/heads/", "")}\n`,
       new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
         hour: "2-digit",
