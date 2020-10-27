@@ -8,14 +8,12 @@ Deploy.use(express.json());
 
 async function launchDeployServer() {
   Deploy.use(function timelog(req, _, next) {
-    const { path: reqUrl } = req;
     const {
       sender: { login },
       ref,
     } = req.body;
     console.log(
       "Deploy webhook @",
-      reqUrl,
       `\n${login} ⇀  ${ref.replace("refs/heads/", "")}`,
       `\n${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
