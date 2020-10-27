@@ -2,7 +2,6 @@ module.exports = {
   apps: [
     {
       name: "spiders",
-      watch: true,
       env: {
         NODE_ENV: "deployment",
       },
