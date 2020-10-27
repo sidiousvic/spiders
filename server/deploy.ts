@@ -42,8 +42,8 @@ async function launchDeployServer() {
 
   async function deploy() {
     const { stderr, stdout } = await exec("/var/www/spiders/deploy.sh");
-    if (stderr) console.error(stderr);
-    if (stdout) console.log(stdout);
+    console.error(stderr);
+    console.log(stdout);
   }
 }
 
