@@ -6,7 +6,6 @@ const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
-Deploy.use(pino);
 
 async function launchDeployServer() {
   Deploy.use(function timelog(_, __, next) {
