@@ -1,5 +1,5 @@
 import express from "express";
-const spawn = require("await-spawn");
+import { spawnSync } from "child_process";
 const Deploy = express();
 const githubUsername = "sidiousvic";
 
@@ -46,7 +46,7 @@ async function launchDeployServer() {
     ];
     for (const command of deployCommands) {
       try {
-        const bl = await spawn(command);
+        const bl = spawnSync(command);
         console.log(bl.toString());
       } catch (e) {
         console.error(e.stderr.toString());
