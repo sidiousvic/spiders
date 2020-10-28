@@ -1,10 +1,12 @@
 import express from "express";
+const pino = require("pino")();
 const Deploy = express();
 import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
+Deploy.use(pino);
 
 async function launchDeployServer() {
   Deploy.use(function timelog(_, __, next) {
@@ -41,8 +43,8 @@ async function launchDeployServer() {
   async function deploy() {
     console.log(`⛓  Running deploy script...`);
     const { stdout, stderr } = await exec("/var/www/spiders/deploy.sh");
-    if (stderr) process.stderr.pipe(stderr);
-    process.stdout.pipe(stdout);
+    if (stderr) pino.error(` ${stderr}`);
+    pino.info(stdout);
   }
 }
 
