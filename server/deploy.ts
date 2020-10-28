@@ -40,7 +40,10 @@ async function launchDeployServer() {
   });
 
   async function deploy() {
-    await exec("/var/www/spiders/deploy.sh");
+    console.log(`⛓ Running deploy script...`);
+    const { stdout, stderr } = await exec("/var/www/spiders/deploy.sh");
+    if (stderr) console.error(`Error during deploy script: ${stderr}`);
+    console.log(stdout);
   }
 }
 
