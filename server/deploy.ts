@@ -45,12 +45,9 @@ async function launchDeployServer() {
       "nginx -s reload",
     ];
     for (const command of deployCommands) {
-      try {
-        const bl = spawnSync(command);
-        console.log(bl.toString());
-      } catch (e) {
-        console.error(e.stderr.toString());
-      }
+      const { stdout, stderr } = spawnSync(command);
+      if (stderr) console.error(stderr);
+      console.log(stdout);
     }
   }
 }
