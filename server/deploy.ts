@@ -1,6 +1,6 @@
 import express from "express";
+const spawn = require("await-spawn");
 const Deploy = express();
-import spawn from "await-spawn";
 const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
