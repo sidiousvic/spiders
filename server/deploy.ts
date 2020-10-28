@@ -1,8 +1,6 @@
 import express from "express";
-const pino = require("pino")();
 const Deploy = express();
-import u from "util";
-const exec = u.promisify(require("child_process").exec);
+import spawn from "await-spawn";
 const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
@@ -41,9 +39,19 @@ async function launchDeployServer() {
 
   async function deploy() {
     console.log(`⛓  Running deploy script...`);
-    const { stdout, stderr } = await exec("/var/www/spiders/deploy.sh");
-    if (stderr) pino.error(` ${stderr}`);
-    pino.info(stdout);
+    const deployCommands = [
+      "npm run deploy",
+      "scp spiders.nginx  /etc/nginx/sites-available/spiders.conf",
+      "nginx -s reload",
+    ];
+    for (const command of deployCommands) {
+      try {
+        const bl = await spawn(command);
+        console.log(bl.toString());
+      } catch (e) {
+        console.error(e.stderr.toString());
+      }
+    }
   }
 }
 
