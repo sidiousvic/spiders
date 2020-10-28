@@ -1,6 +1,7 @@
 import express from "express";
-import { spawnSync } from "child_process";
 const Deploy = express();
+import u from "util";
+const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
@@ -8,12 +9,12 @@ Deploy.use(express.json());
 async function launchDeployServer() {
   Deploy.use(function timelog(_, __, next) {
     console.log(
-      `🎣 Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
+      `🎣  Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
-      })} JST`
+      })} Tokyo, Ja`
     );
     next();
   });
@@ -39,16 +40,7 @@ async function launchDeployServer() {
 
   async function deploy() {
     console.log(`⛓  Running deploy script...`);
-    const deployCommands = [
-      "npm run deploy",
-      "scp spiders.nginx  /etc/nginx/sites-available/spiders.conf",
-      "nginx -s reload",
-    ];
-    for (const command of deployCommands) {
-      const { stdout, stderr } = spawnSync(command);
-      if (stderr) console.error(stderr);
-      console.log(stdout);
-    }
+    await exec("/var/www/spiders/deploy.sh");
   }
 }
 
