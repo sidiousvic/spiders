@@ -32,6 +32,19 @@ async function launchDeployServer() {
     } else res.status(500).send("😵 Deploy was not triggered. ");
   });
 
+  Deploy.post("/nginx", function triggerNginxReload(req, res) {
+    const {
+      sender: { login },
+      ref,
+    } = req.body;
+    console.log(`Push by ${login} ⇀ ${ref.replace("refs/heads/", "")}`);
+    if (ref.indexOf("prod") > -1 && login === githubUsername) {
+      console.log(`🤖 Triggering nginx reload...`);
+      nginxReload();
+      res.status(200).send("✅ Deploy has been triggered. ");
+    } else res.status(500).send("😵 Deploy was not triggered. ");
+  });
+
   const port = 9992;
 
   Deploy.listen(port, () => {
@@ -41,6 +54,11 @@ async function launchDeployServer() {
   async function deploy() {
     console.log(`⛓  Running deploy script...`);
     await exec("/var/www/spiders/deploy.sh");
+  }
+
+  async function nginxReload() {
+    console.log(`⛓  Running nginx reload script...`);
+    await exec("/var/www/spiders/nginxReload.sh");
   }
 }
 
