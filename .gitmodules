@@ -1,3 +1,0 @@
-[submodule "spiders.nginx"]
-	path = spiders.nginx
-	url = https://github.com/sidiousvic/spiders.nginx.git
