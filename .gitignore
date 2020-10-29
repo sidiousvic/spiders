@@ -17,5 +17,3 @@ lerna-debug.log*
 node_modules
 npm-debug.log
 
-# deploy
-deploy.sh
