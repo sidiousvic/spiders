@@ -24,7 +24,7 @@ async function launchDeployServer() {
       sender: { login },
       ref,
     } = req.body;
-    console.log(`Push from ${login} ⇀  ${ref.replace("refs/heads/", "")}`);
+    console.log(`Push by ${login} ⇀ ${ref.replace("refs/heads/", "")}`);
     if (ref.indexOf("prod") > -1 && login === githubUsername) {
       console.log(`🔩 Triggering spiders deploy...`);
       deploy();
