@@ -1,12 +1,12 @@
 import { graphQLLayer } from "./gql";
 import { SpidersDatabase } from "./db";
 import { launchApolloServer } from "./apollo";
-import { launchDeployServer } from "./deploy";
+import { launchWebhooksServer } from "./webhooks";
 
 const { schema, auth, ctx } = graphQLLayer;
 
 async function launchSpidersServers() {
-  await launchDeployServer();
+  await launchWebhooksServer();
   await launchApolloServer(new SpidersDatabase(), {
     schema,
     auth,
