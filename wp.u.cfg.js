@@ -26,6 +26,7 @@ module.exports = {
   devtool: "inline-source-map",
   devServer: {
     contentBase: publicPath,
+    open: true,
     proxy: {
       "/graphql": "http://localhost:9991/graphql",
     },
