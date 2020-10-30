@@ -1,13 +1,13 @@
 import express from "express";
-const Deploy = express();
+const Webhooks = express();
 import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
-Deploy.use(express.json());
+Webhooks.use(express.json());
 
 async function launchWebhooksServer() {
-  Deploy.use(function timelog(_, __, next) {
+  Webhooks.use(function timelog(_, __, next) {
     console.log(
       `🎣  Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
@@ -19,7 +19,11 @@ async function launchWebhooksServer() {
     next();
   });
 
-  Deploy.post("/webhooks/deploy", function triggerDeploy(req, res) {
+  Webhooks.get("/webhooks", (_, res) => {
+    res.send("<h1></h1>");
+  });
+
+  Webhooks.post("/webhooks/deploy", function triggerDeploy(req, res) {
     const {
       sender: { login },
       ref,
@@ -32,7 +36,7 @@ async function launchWebhooksServer() {
     } else res.status(500).send("😵 Deploy was not triggered. ");
   });
 
-  Deploy.post("/webhooks/nginx", function triggerNginxReload(req, res) {
+  Webhooks.post("/webhooks/nginx", function triggerNginxReload(req, res) {
     const {
       sender: { login },
       ref,
@@ -47,7 +51,7 @@ async function launchWebhooksServer() {
 
   const port = 9992;
 
-  Deploy.listen(port, () => {
+  Webhooks.listen(port, () => {
     console.log(`⚙️  Deployment server listening @ port ${port}!`);
   });
 
