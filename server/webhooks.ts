@@ -6,7 +6,7 @@ const githubUsername = "sidiousvic";
 
 Deploy.use(express.json());
 
-async function launchDeployServer() {
+async function launchWebhooksServer() {
   Deploy.use(function timelog(_, __, next) {
     console.log(
       `🎣  Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
@@ -19,7 +19,7 @@ async function launchDeployServer() {
     next();
   });
 
-  Deploy.post("/deploy", function triggerDeploy(req, res) {
+  Deploy.post("/webhooks/deploy", function triggerDeploy(req, res) {
     const {
       sender: { login },
       ref,
@@ -32,7 +32,7 @@ async function launchDeployServer() {
     } else res.status(500).send("😵 Deploy was not triggered. ");
   });
 
-  Deploy.post("/nginx", function triggerNginxReload(req, res) {
+  Deploy.post("/webhooks/nginx", function triggerNginxReload(req, res) {
     const {
       sender: { login },
       ref,
@@ -62,4 +62,4 @@ async function launchDeployServer() {
   }
 }
 
-export { launchDeployServer };
+export { launchWebhooksServer };
