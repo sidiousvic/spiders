@@ -20,7 +20,9 @@ async function launchWebhooksServer() {
   });
 
   Webhooks.get("/webhooks", (_, res) => {
-    res.send("<h1></h1>");
+    res.send(
+      `<h1 style="font-family: monospace;">Spiders webhooks server is running!</h1>`
+    );
   });
 
   Webhooks.post("/webhooks/deploy", function triggerDeploy(req, res) {
