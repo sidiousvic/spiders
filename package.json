@@ -4,14 +4,14 @@
   "description": "A web engineering log.",
   "main": "src/index.js",
   "scripts": {
-    "deploy": "npm ci && npm run u:build && npm run s:build && pm2 restart pm2.config.js",
-    "fire:node": "NODE_ENV=production node --require dotenv/config --require tsconfig-paths/register ./server/index.js",
-    "u:build": "NODE_ENV=production webpack --config wp.u.cfg.js",
-    "s:build": "NODE_ENV=production webpack --config wp.s.cfg.js",
-    "u:dev": "NODE_ENV=development webpack-dev-server --config wp.u.cfg.js",
-    "s:dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child server/launch.ts",
-    "db:migrate": "node-pg-migrate -m server/db/migrations",
-    "lint": "eslint --fix --ext .js,.jsx ."
+    "deploy": "npm ci && npm run build && pm2 restart pm2.config.js",
+    "start": "pm2 start pm2.config.js",
+    "build": "npm run ui/build && npm run server/build",
+    "ui/build": "NODE_ENV=production webpack --config wp.u.cfg.js",
+    "ui/dev": "NODE_ENV=development webpack-dev-server --config wp.u.cfg.js",
+    "server/build": "NODE_ENV=production webpack --config wp.s.cfg.js",
+    "server/dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child server/launch.ts",
+    "db/migrate": "node-pg-migrate -m server/db/migrations"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^1.0.0",
+    "pm2": "^4.5.0",
     "prism-loader": "^0.2.0",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.2.3",
