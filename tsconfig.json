@@ -14,7 +14,7 @@
     "noEmit": true,
     "sourceMap": true,
     "paths": {
-      "@spiders": ["./types.ts"]
+      "@types/spiders": ["./types.ts"]
     }
   }
 }

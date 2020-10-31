@@ -1,4 +1,4 @@
-import { Post, Require } from "@spiders";
+import { Post, Require } from "@types/spiders";
 import { Pool } from "pg";
 import { camelTo_snake } from "../utils";
 

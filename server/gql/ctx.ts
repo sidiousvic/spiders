@@ -1,4 +1,4 @@
-import { User, ApolloContextLayer } from "@spiders";
+import { User, ApolloContextLayer } from "@types/spiders";
 import { auth } from "./auth";
 
 const { getUserFromToken } = auth;
