@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "noEmit": true,
+    "sourceMap": true,
     "paths": {
       "@spiders": ["./types.ts"]
     }
