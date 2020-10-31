@@ -1,4 +1,4 @@
-import { GraphQLLayer } from "@types/spiders";
+import { GraphQLLayer } from "spiders";
 import { Request } from "express";
 import { ApolloServer } from "apollo-server";
 import { SpidersDatabase } from "./db";

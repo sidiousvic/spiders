@@ -1,4 +1,4 @@
-import { AuthResolvers } from "@types/spiders";
+import { AuthResolvers } from "spiders";
 import { AuthenticationError } from "apollo-server";
 import { auth } from "../auth";
 

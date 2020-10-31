@@ -1,4 +1,4 @@
-import { Role, PostResolvers } from "@types/spiders";
+import { Role, PostResolvers } from "spiders";
 import { UserInputError } from "apollo-server";
 import { auth } from "../auth";
 
