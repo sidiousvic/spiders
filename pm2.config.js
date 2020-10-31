@@ -6,7 +6,7 @@ module.exports = {
         NODE_ENV: "deployment",
       },
       daemon: false,
-      script: "./server/index.js",
+      script: "./build/server.js",
       node_args: "--require dotenv/config --require tsconfig-paths/register",
     },
   ],
