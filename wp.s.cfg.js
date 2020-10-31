@@ -1,3 +1,4 @@
+const environment = process.env.NODE_ENV;
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const { IgnorePlugin } = require("webpack");
@@ -6,10 +7,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const entryPath = path.resolve(__dirname, "server/launch.ts");
-const buildPath = path.resolve(__dirname, "server");
+const buildPath = path.resolve(__dirname, "build");
 const tsConfigPath = path.resolve(__dirname, "server/tsconfig.json");
-
-const environment = process.env.NODE_ENV;
 
 module.exports = {
   target: "node",
@@ -26,7 +25,7 @@ module.exports = {
   },
   mode: environment,
   output: {
-    filename: "index.js",
+    filename: "server.js",
     path: buildPath,
   },
   devtool: "inline-source-map",

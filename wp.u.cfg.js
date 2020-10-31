@@ -1,9 +1,9 @@
+const environment = process.env.NODE_ENV;
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const environment = process.env.NODE_ENV;
 const sharedLoaderOptions = { name: "[name].[ext]" };
 
 const entryPath = path.resolve(__dirname, "ui/index.ts");
