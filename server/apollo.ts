@@ -24,7 +24,7 @@ async function launchApolloServer(
     },
   });
 
-  server.listen({ graphQLPort }).then(() => {
+  server.listen({ port: graphQLPort }).then(() => {
     console.log(`🧬 GraphQL Server live @ ${graphqlServerUri}`);
     console.log(`🚀 powered by Apollo`);
   });
