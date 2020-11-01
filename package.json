@@ -7,9 +7,9 @@
     "deploy": "npm ci && npm run build && pm2 restart pm2.config.js",
     "start": "pm2 start pm2.config.js",
     "build": "npm run ui/build && npm run server/build",
-    "ui/build": "NODE_ENV=production webpack --config wp.u.cfg.js",
-    "ui/dev": "NODE_ENV=development webpack-dev-server --config wp.u.cfg.js",
-    "server/build": "NODE_ENV=production webpack --config wp.s.cfg.js",
+    "ui/build": "NODE_ENV=production webpack --config ui/webpack.ui.config.js",
+    "ui/dev": "NODE_ENV=development webpack-dev-server --config ui/webpack.ui.config.js",
+    "server/build": "NODE_ENV=production tsc --project server/tsconfig.json",
     "server/dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.json --tree-kill --exit-child server/launch.ts",
     "db/migrate": "node-pg-migrate -m server/db/migrations"
   },
@@ -25,7 +25,11 @@
   "homepage": "https://github.com/sidiousvic/spiders#readme",
   "dependencies": {
     "@apollo/client": "^3.2.2",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.12.1",
     "apollo-server": "^2.18.1",
     "await-spawn": "^4.0.1",
     "axios": "^0.20.0",
@@ -64,5 +68,14 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-typescript",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
   }
 }
