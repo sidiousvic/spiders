@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "outFile": "./index.js"
+    "outFile": "../build/server.js"
   },
 
   "exclude": ["./db/migrations/*"],

@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const sharedLoaderOptions = { name: "[name].[ext]" };
-const entryPath = path.resolve(__dirname, "ui/index.ts");
-const buildPath = path.resolve(__dirname, "build");
-const publicPath = path.resolve(__dirname, "public");
-const tsConfigPath = path.resolve(__dirname, "ui/tsconfig.json");
+const entryPath = path.resolve(__dirname, "./index.ts");
+const buildPath = path.resolve(__dirname, "../build");
+const publicPath = path.resolve(__dirname, "../public");
+const tsConfigPath = path.resolve(__dirname, "tsconfig.ui.json");
 
 module.exports = {
   entry: {
