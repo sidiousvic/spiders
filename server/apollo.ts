@@ -4,9 +4,12 @@ import { ApolloServer } from "apollo-server";
 import { SpidersDatabase } from "./db";
 
 const env = process.env.NODE_ENV;
+const graphQLPort = 9991;
 
 const graphqlServerUri =
-  env === "development" ? "localhost:9991" : "spiders.sidiousvic.dev/graphql";
+  env === "development"
+    ? `localhost:${graphQLPort}`
+    : "spiders.sidiousvic.dev/graphql";
 
 async function launchApolloServer(
   database: SpidersDatabase,
@@ -21,8 +24,9 @@ async function launchApolloServer(
     },
   });
 
-  server.listen({ port: 9991 }).then(() => {
-    console.log(`🚀 Apollo Server launched @ ${graphqlServerUri}`);
+  server.listen({ graphQLPort }).then(() => {
+    console.log(`🧬 GraphQL Server live @ ${graphqlServerUri}`);
+    console.log(`🚀 powered by Apollo`);
   });
 }
 

@@ -4,12 +4,20 @@ import u from "util";
 const exec = u.promisify(require("child_process").exec);
 const githubUsername = "sidiousvic";
 
+const env = process.env.NODE_ENV;
+const webhooksPort = 9992;
+
+const webhooksServerUri =
+  env === "development"
+    ? `localhost:${webhooksPort}`
+    : "spiders.sidiousvic.dev/webhooks";
+
 Webhooks.use(express.json());
 
 async function launchWebhooksServer() {
   Webhooks.use(function timelog(_, __, next) {
     console.log(
-      `🎣  Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
+      `🎣 Deploy webhook @ ${new Date().toLocaleDateString("ja-JP", {
         timeZone: "Japan",
         hour: "2-digit",
         minute: "2-digit",
@@ -54,7 +62,7 @@ async function launchWebhooksServer() {
   const port = 9992;
 
   Webhooks.listen(port, () => {
-    console.log(`⚙️  Deployment server listening @ port ${port}!`);
+    console.log(`⚙️  Webhooks server live @ ${webhooksServerUri}`);
   });
 
   async function deploy() {
