@@ -29,11 +29,8 @@ module.exports = {
     path: buildPath,
   },
   devtool: "inline-source-map",
-  devServer: {
-    //
-  },
   optimization: {
-    minimize: environment === "production",
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -45,21 +42,17 @@ module.exports = {
       }),
     ],
   },
-  plugins: [
-    new IgnorePlugin(/^pg-native$/),
-    new MiniCssExtractPlugin({
-      filename: "styles.css",
-      chunkFilename: "[id].css",
-    }),
-  ],
+  plugins: [new IgnorePlugin(/^pg-native$/)],
   externals: [nodeExternals()],
   module: {
     rules: [
       {
-        test: /\.(js|ts)$/,
+        test: /\.(ts)$/,
+        loader: "ts-loader",
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
+        options: {
+          onlyCompileBundledFiles: true,
+          configFile: tsConfigPath,
         },
       },
     ],

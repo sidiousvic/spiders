@@ -1,14 +1,11 @@
 {
   "compilerOptions": {
     "noEmit": false,
-    "module": "AMD",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "outFile": "../build/server.js"
+    "esModuleInterop": true
   },
 
   "exclude": ["./db/migrations/*"],
-  "include": ["./"],
   "extends": "../tsconfig.json"
 }

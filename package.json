@@ -9,7 +9,7 @@
     "build": "npm run ui/build && npm run server/build",
     "ui/build": "NODE_ENV=production webpack --config ui/webpack.ui.config.js",
     "ui/dev": "NODE_ENV=development webpack-dev-server --config ui/webpack.ui.config.js",
-    "server/build": "NODE_ENV=production tsc --project server/tsconfig.json",
+    "server/build": "NODE_ENV=production webpack --config server/webpack.server.config.js",
     "server/dev": "NODE_ENV=development tsnd -r tsconfig-paths/register -r dotenv/config --project server/tsconfig.server.json --tree-kill --exit-child server/launch.ts",
     "db/migrate": "node-pg-migrate -m server/db/migrations"
   },
