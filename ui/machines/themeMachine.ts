@@ -16,6 +16,7 @@ export interface ThemeStateSchema {
     dark: {};
   };
 }
+
 export type ThemeStateEvent = { type: "SWITCH_THEME" };
 export type Themes = "light" | "dark";
 
