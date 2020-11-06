@@ -1,7 +1,7 @@
-import { User } from "spiders";
+import { User, UserModel } from "spiders";
 import { Pool } from "pg";
 
-function UserModel(pool: Pool) {
+function UserModeler(pool: Pool): UserModel {
   return {
     async find({ id, username }: Partial<User>): Promise<User> {
       const {
@@ -12,7 +12,6 @@ function UserModel(pool: Pool) {
       FROM users 
       WHERE ${id ? "id" : "username"} = '${id || username}'
       `);
-      console.log(user);
       return user as User;
     },
 
@@ -35,4 +34,4 @@ function UserModel(pool: Pool) {
   };
 }
 
-export { UserModel };
+export { UserModeler };

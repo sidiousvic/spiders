@@ -1,7 +1,6 @@
 import { Pool } from "pg";
 import pgm from "node-pg-migrate";
-import { PostModel } from "./models/Post";
-import { UserModel } from "./models/User";
+import { PostModeler, UserModeler } from "./models";
 
 async function SpidersDatabase({ poolConfig, migrationsConfig }) {
   console.log("🔋 Connecting to database...");
@@ -12,8 +11,8 @@ async function SpidersDatabase({ poolConfig, migrationsConfig }) {
 
   return {
     models: {
-      Post: PostModel(pool),
-      User: UserModel(pool),
+      Post: PostModeler(pool),
+      User: UserModeler(pool),
     },
   };
 }

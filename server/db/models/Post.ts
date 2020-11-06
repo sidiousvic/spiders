@@ -1,15 +1,16 @@
-import { Post, Require } from "spiders";
+import { Post, PostModel, Require } from "spiders";
 import { Pool } from "pg";
 // eslint-disable-next-line camelcase
 import { camelTo_snake } from "../utils";
 
-function PostModel(pool: Pool) {
+function PostModeler(pool: Pool): PostModel {
   return {
     async find(): Promise<Post[]> {
       const {
         rows: [...foundPosts],
       } = await pool.query(`
       SELECT *,
+      user_id as "userId",
       updated_at as "updatedAt",
       created_at as "createdAt",
       published_at as "publishedAt"
@@ -89,4 +90,4 @@ function PostModel(pool: Pool) {
   };
 }
 
-export { PostModel };
+export { PostModeler };
