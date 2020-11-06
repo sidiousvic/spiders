@@ -1,10 +1,10 @@
 import { Request } from "express";
 import { ApolloServer } from "apollo-server";
-import { User } from "spiders";
+import { GraphQLConfig, Models, User } from "spiders";
 
 async function GraphQLServer(
-  models: any,
-  { apolloConfig: { schema, auth }, uri, port }: any
+  models: Models,
+  { apolloConfig: { schema, auth }, uri, port }: GraphQLConfig
 ) {
   const apolloServer = new ApolloServer({
     schema,
