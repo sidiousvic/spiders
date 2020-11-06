@@ -65,10 +65,6 @@ export interface PostUpdateResponse<Resource> {
   resource: Resource;
 }
 
-export interface X {
-  [key: string]: any;
-}
-
 export interface AuthResolvers {
   Query: {
     me: Resolver<User>;
@@ -95,6 +91,9 @@ export interface PostResolvers {
       Promise<PostUpdateResponse<Post>>,
       Require<Post, "id">
     >;
+  };
+  Post: {
+    user: Resolver<Promise<User>>;
   };
 }
 
@@ -126,20 +125,48 @@ export interface Auth {
   ) => Resolver<Resource, Input>;
 }
 
+export interface UserModel {
+  find: (partialUser: Partial<User>) => Promise<User>;
+  add: (partialUser: Partial<User>) => Promise<User>;
+}
+
+export interface PostModel {
+  find: () => Promise<Post[]>;
+  add: (partialPost: Partial<Post>) => Promise<Post>;
+  update: (partialPostWithId: Require<Post, "id">) => Promise<Post>;
+  delete: (postId: string) => Promise<Post>;
+}
+
+export interface Models {
+  User: UserModel;
+  Post: PostModel;
+}
+
 export interface Context {
-  models: any;
+  models: Models;
   auth?: Auth;
   authedUser: User;
 }
 
-export interface ApolloContextLayer {
+export interface ApolloContext {
   computeContext: (req: Request, database: any, auth: Auth) => Promise<Context>;
 }
 
-export interface GraphQLLayer {
+export interface ApolloConfig {
   schema: GraphQLSchema;
   auth: Auth;
-  ctx: ApolloContextLayer;
+}
+
+export interface GraphQLConfig {
+  apolloConfig: ApolloConfig;
+  port: number;
+  uri: string;
+}
+
+export interface WebhooksConfig {
+  githubUsername: string;
+  port: number;
+  uri: string;
 }
 
 export type Unrequired<Type, OptionalKeys extends keyof Type> = Omit<
