@@ -11,7 +11,8 @@ const resolvers: Resolvers = {
     ...authResolvers.Mutation,
     ...postResolvers.Mutation,
   },
-  Date: Date,
+  Post: { ...postResolvers.Post },
+  Date,
 };
 
 export { resolvers };

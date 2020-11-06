@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+
 const postTypeDefs = gql`
   input AddPostInput {
     userId: String!
@@ -27,7 +28,7 @@ const postTypeDefs = gql`
 
   type Post {
     id: String!
-    userId: Int!
+    user: User!
     title: String!
     author: String!
     body: String!
@@ -35,7 +36,7 @@ const postTypeDefs = gql`
     createdAt: Date!
     updatedAt: Date!
     published: Boolean!
-    publishedAt: Date!
+    publishedAt: Date
   }
 
   extend type Query {

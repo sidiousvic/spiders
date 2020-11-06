@@ -35,6 +35,11 @@ const postResolvers: PostResolvers = {
       };
     },
   },
+  Post: {
+    async user({ userId }, _, { models }) {
+      return models.User.find({ id: userId });
+    },
+  },
 };
 
 export { postResolvers };
