@@ -1,14 +1,27 @@
-import { GraphQLLayer } from "spiders";
-import { ctx } from "./ctx";
-import { typeDefs } from "./typeDefs";
-import { resolvers } from "./resolvers";
-import { auth } from "./auth";
-import { makeExecutableSchema } from "apollo-server";
+import { Request } from "express";
+import { ApolloServer } from "apollo-server";
+import { User } from "spiders";
 
-const graphQLLayer: GraphQLLayer = {
-  schema: makeExecutableSchema({ typeDefs, resolvers }),
-  auth,
-  ctx,
-};
+async function GraphQLServer(
+  models: any,
+  { apolloConfig: { schema, auth }, uri, port }: any
+) {
+  const apolloServer = new ApolloServer({
+    schema,
+    async context({ req }: { req: Request }) {
+      const token = req.headers.authorization;
+      let authedUser = {} as User;
+      if (token) {
+        const { id } = auth.getUserFromToken(token);
+        authedUser = await models.User.find({ id });
+      }
+      return { models, authedUser };
+    },
+  });
 
-export { graphQLLayer };
+  await apolloServer.listen({ port });
+
+  console.log(`🧬 Apollo GraphQL server live @ ${uri}`);
+}
+
+export { GraphQLServer };

@@ -1,4 +1,4 @@
-exports.up = async (pgm) => {
+export async function up(pgm) {
   await pgm.createTable(
     "posts",
     {
@@ -24,4 +24,4 @@ exports.up = async (pgm) => {
       ifNotExists: true,
     }
   );
-};
+}

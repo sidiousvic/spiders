@@ -7,10 +7,12 @@ function UserModel(pool: Pool) {
       const {
         rows: [user],
       } = await pool.query(`
-      SELECT * 
+      SELECT *,
+      created_at as "joinDate"
       FROM users 
       WHERE ${id ? "id" : "username"} = '${id || username}'
       `);
+      console.log(user);
       return user as User;
     },
 
@@ -19,16 +21,15 @@ function UserModel(pool: Pool) {
         rows: [signedUpUser],
       } = await pool.query(
         `INSERT INTO users 
-        (username, 
-          email, 
-          password) 
-        VALUES ($1, $2, $3)
-        RETURNING *,
-        created_at as "joinDate"
-        `,
+          (username, 
+            email, 
+            password) 
+          VALUES ($1, $2, $3)
+          RETURNING *,
+          created_at as "joinDate"
+          `,
         [username, email, password]
       );
-
       return signedUpUser as User;
     },
   };

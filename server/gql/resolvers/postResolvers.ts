@@ -6,32 +6,31 @@ const { authorized } = auth;
 
 const postResolvers: PostResolvers = {
   Query: {
-    async findPosts(_, __, { database }) {
-      const posts = await database.Post.find();
+    async findPosts(_, __, { models }) {
+      const posts = await models.Post.find();
       return posts;
     },
   },
   Mutation: {
-    addPost: authorized(async (_, { input: post }, { database }) => {
-      const addedPost = await database.Post.add(post);
+    addPost: authorized(async (_, { input: post }, { models }) => {
+      const addedPost = await models.Post.add(post);
       return {
-        message: `Web successfully woven!`,
+        message: "Web successfully woven!",
         resource: addedPost,
       };
     }, Role.DARKLORD),
-    async deletePost(_, { input: { id } }, { database }) {
-      const deletedPost = await database.Post.delete(id);
-      if (!deletedPost)
-        throw new UserInputError("Unable to delete nonexistent post.");
+    async deletePost(_, { input: { id } }, { models }) {
+      const deletedPost = await models.Post.delete(id);
+      if (!deletedPost) throw new UserInputError("Post does not exist.");
       return {
-        message: `Web successfully unraveled!`,
+        message: "Web successfully unraveled!",
         resource: deletedPost,
       };
     },
-    async updatePost(_, { input: partialPostWithId }, { database }) {
-      const updatedPost = await database.Post.update(partialPostWithId);
+    async updatePost(_, { input: partialPostWithId }, { models }) {
+      const updatedPost = await models.Post.update(partialPostWithId);
       return {
-        message: `Web successfully rewoven!`,
+        message: "Web successfully rewoven!",
         resource: updatedPost,
       };
     },

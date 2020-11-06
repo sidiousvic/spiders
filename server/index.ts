@@ -1,17 +1,15 @@
-import { graphQLLayer } from "./gql";
 import { SpidersDatabase } from "./db";
-import { launchApolloServer } from "./apollo";
-import { launchWebhooksServer } from "./webhooks";
+import { GraphQLServer } from "./gql";
+import { WebhooksServer } from "./webhooks";
+import { serverConfig } from "./config";
+import { dbConfig } from "./db/config";
 
-const { schema, auth, ctx } = graphQLLayer;
+const { gqlConfig, webhooksConfig } = serverConfig;
 
 async function launchSpidersServers() {
-  await launchWebhooksServer();
-  await launchApolloServer(new SpidersDatabase(), {
-    schema,
-    auth,
-    ctx,
-  });
+  const { models } = await SpidersDatabase(dbConfig);
+  await GraphQLServer(models, gqlConfig);
+  await WebhooksServer(webhooksConfig);
 }
 
 launchSpidersServers();

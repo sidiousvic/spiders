@@ -1,5 +1,6 @@
 import { Post, Require } from "spiders";
 import { Pool } from "pg";
+// eslint-disable-next-line camelcase
 import { camelTo_snake } from "../utils";
 
 function PostModel(pool: Pool) {
@@ -16,7 +17,7 @@ function PostModel(pool: Pool) {
       return foundPosts;
     },
 
-    async add(postToAdd: Partial<Post>): Promise<Post> {
+    async add(post: Partial<Post>): Promise<Post> {
       const {
         rows: [addedPost],
       } = await pool.query(
@@ -32,13 +33,13 @@ function PostModel(pool: Pool) {
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *`,
         [
-          postToAdd.title,
-          postToAdd.author,
-          postToAdd.tags,
-          postToAdd.body,
+          post.title,
+          post.author,
+          post.tags,
+          post.body,
           new Date().toISOString(),
           new Date().toISOString(),
-          postToAdd.userId,
+          post.userId,
           false,
         ]
       );
@@ -69,18 +70,18 @@ function PostModel(pool: Pool) {
       return updatedPost as Post;
     },
 
-    async delete(postId: string): Promise<Post> {
+    async delete(id: string): Promise<Post> {
       await pool.query(`
       INSERT INTO deleted.posts 
       SELECT NOW() AS deleted_at, * FROM posts
-      WHERE posts.id = '${postId}'
+      WHERE posts.id = '${id}'
       `);
 
       const {
         rows: [deletedPost],
       } = await pool.query(`
       DELETE FROM posts 
-      WHERE id = '${postId}'
+      WHERE id = '${id}'
       RETURNING *
       `);
       return deletedPost as Post;

@@ -1,4 +1,4 @@
-exports.up = (pgm) => {
+export function up(pgm) {
   pgm.sql(`
     CREATE TABLE 
     IF NOT EXISTS deleted.posts (
@@ -6,8 +6,10 @@ exports.up = (pgm) => {
         LIKE posts INCLUDING ALL
     );
     `);
-};
+}
 
-exports.down = (pgm) => {
-  pgm.sql(`DROP TABLE IF EXISTS deleted.posts;`);
-};
+export function down(pgm) {
+  pgm.sql(`
+  DROP TABLE 
+  IF EXISTS deleted.posts;`);
+}
