@@ -6,9 +6,8 @@ import {
   css,
 } from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
-import { getHumanReadableDate } from "../utils";
-// @ts-ignore
 import Prism from "prismjs";
+import { getHumanReadableDate } from "../utils";
 import "prismjs/components/prism-typescript";
 
 @customElement("x-post")

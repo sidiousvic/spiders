@@ -5,7 +5,7 @@ import {
   customElement,
   css,
 } from "lit-element";
-import "./x-post";
+import "./XPost";
 
 @customElement("x-posts")
 export default class XPosts extends X {
@@ -24,7 +24,14 @@ export default class XPosts extends X {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query: `{ findPosts { title author body createdAt }}`,
+        query: `{ 
+          findPosts { 
+            title 
+            author 
+            body 
+            createdAt 
+          }
+        }`,
       }),
     });
 
