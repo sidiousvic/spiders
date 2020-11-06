@@ -1,6 +1,5 @@
 import { GraphQLResolveInfo, GraphQLSchema } from "graphql";
 import { Request } from "express";
-import { SpidersDatabase } from "./server/db";
 
 export enum Role {
   DARKLORD = "DARKLORD",
@@ -128,17 +127,13 @@ export interface Auth {
 }
 
 export interface Context {
-  database: SpidersDatabase;
+  models: any;
   auth?: Auth;
   authedUser: User;
 }
 
 export interface ApolloContextLayer {
-  computeContext: (
-    req: Request,
-    database: SpidersDatabase,
-    auth: Auth
-  ) => Promise<Context>;
+  computeContext: (req: Request, database: any, auth: Auth) => Promise<Context>;
 }
 
 export interface GraphQLLayer {
