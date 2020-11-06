@@ -1,1 +1,1 @@
-import "./components/x-spiders";
+import "./components/XSpiders";
