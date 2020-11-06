@@ -1,7 +1,11 @@
-export function logGraphQLErrors(errors: any) {
-  for (let error of errors)
+import { ApolloError } from "@apollo/client";
+
+export function logGraphQLErrors(errors: ApolloError[]) {
+  errors.forEach((error: ApolloError) => {
     console.error(`GraphQL response error: ${error.message}`);
+  });
 }
+
 export function getHumanReadableDate(date: Date): string {
   const months = [
     "January",
