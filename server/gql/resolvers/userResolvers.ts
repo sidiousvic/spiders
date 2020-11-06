@@ -1,6 +1,6 @@
 import { UserResolvers } from "spiders";
 
-/**@todo */
+/** @todo */
 const userResolvers: UserResolvers = {
   Query: {},
   Mutation: {},
