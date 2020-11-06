@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+
 const authTypeDefs = gql`
   type AuthUser {
     token: String!
