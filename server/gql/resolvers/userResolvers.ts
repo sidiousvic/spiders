@@ -4,6 +4,11 @@ import { UserResolvers } from "spiders";
 const userResolvers: UserResolvers = {
   Query: {},
   Mutation: {},
+  User: {
+    posts: (user, _, { models }) => {
+      return models.Post.findByUser(user);
+    },
+  },
 };
 
 export { userResolvers };

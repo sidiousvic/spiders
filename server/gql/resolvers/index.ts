@@ -1,6 +1,7 @@
 import { Resolvers } from "spiders";
 import { authResolvers } from "./authResolvers";
 import { postResolvers } from "./postResolvers";
+import { userResolvers } from "./userResolvers";
 
 const resolvers: Resolvers = {
   Query: {
@@ -12,6 +13,7 @@ const resolvers: Resolvers = {
     ...postResolvers.Mutation,
   },
   Post: { ...postResolvers.Post },
+  User: { ...userResolvers.User },
   Date,
 };
 
