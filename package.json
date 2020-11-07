@@ -31,6 +31,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.12.1",
+    "@vaadin/router": "^1.7.2",
     "apollo-server": "^2.18.1",
     "await-spawn": "^4.0.1",
     "axios": "^0.20.0",
