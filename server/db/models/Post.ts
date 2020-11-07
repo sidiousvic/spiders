@@ -18,6 +18,23 @@ function PostModeler(pool: Pool): PostModel {
       return foundPosts;
     },
 
+    async findByUser({ id }): Promise<Post[]> {
+      const {
+        rows: [...foundPosts],
+      } = await pool.query(`
+      SELECT * FROM
+      (
+        SELECT *,
+        user_id as "userId",
+        updated_at as "updatedAt",
+        created_at as "createdAt",
+        published_at as "publishedAt"
+        FROM posts
+      ) as post
+      WHERE user_id = ${id}`);
+      return foundPosts;
+    },
+
     async add(post: Partial<Post>): Promise<Post> {
       const {
         rows: [addedPost],
