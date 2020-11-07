@@ -75,7 +75,13 @@ export interface AuthResolvers {
   };
 }
 
-export interface UserResolvers {}
+export interface UserResolvers {
+  Query: {};
+  Mutation: {};
+  User: {
+    posts: Resolver<Promise<Post[]>>;
+  };
+}
 
 export interface PostResolvers {
   Query: {
@@ -132,6 +138,7 @@ export interface UserModel {
 
 export interface PostModel {
   find: () => Promise<Post[]>;
+  findByUser: (partialUserWithId: Require<User, "id">) => Promise<Post[]>;
   add: (partialPost: Partial<Post>) => Promise<Post>;
   update: (partialPostWithId: Require<Post, "id">) => Promise<Post>;
   delete: (postId: string) => Promise<Post>;
