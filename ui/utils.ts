@@ -4,6 +4,7 @@ export function logGraphQLErrors(errors: ApolloError[]) {
   errors.forEach((error: ApolloError) => {
     console.error(`GraphQL response error: ${error.message}`);
   });
+  return errors;
 }
 
 export function getHumanReadableDate(date: Date): string {
@@ -48,3 +49,10 @@ export async function fireGraphQLQuery(query): Promise<any> {
   return data;
 }
 
+export function event(eventName, detail) {
+  return new CustomEvent(eventName, {
+    detail,
+    bubbles: true,
+    composed: true,
+  });
+}
