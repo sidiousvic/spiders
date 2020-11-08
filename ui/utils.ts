@@ -40,13 +40,7 @@ export async function fireGraphQLQuery(query): Promise<any> {
     body: query,
   });
 
-  const { data, errors } = await res.json();
-
-  if (errors) {
-    return logGraphQLErrors(errors);
-  }
-
-  return data;
+  return res.json();
 }
 
 export function event(eventName, detail) {

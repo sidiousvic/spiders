@@ -1,6 +1,6 @@
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
-import { fireGraphQLQuery, event } from "../utils";
+import { fireGraphQLQuery, event, logGraphQLErrors } from "../utils";
 
 @customElement("x-sign-in")
 export default class XSignIn extends X {
@@ -20,14 +20,21 @@ export default class XSignIn extends X {
     `,
     });
 
+    const { data, errors } = await fireGraphQLQuery(signInQuery);
+
+    if (errors) {
+      logGraphQLErrors(errors);
+      return;
+    }
+
     const {
       signIn: { token },
-    } = await fireGraphQLQuery(signInQuery);
+    } = data;
 
     this.auth = { ...this.auth, token };
 
-    const onSignUp = event("onSignUp", { auth: this.auth });
-    this.dispatchEvent(onSignUp);
+    const onSignIn = event("onSignIn", { auth: this.auth });
+    this.dispatchEvent(onSignIn);
   }
 
   async handleSignInInput(e: KeyboardEvent) {
