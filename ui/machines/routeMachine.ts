@@ -15,6 +15,7 @@ const routerMachineUtils = {
     return route as Routes;
   },
 };
+const { protectRoutes } = routerMachineUtils;
 
 export interface RouterStateSchema {
   states: {
@@ -25,8 +26,6 @@ export interface RouterStateSchema {
 }
 
 export type RouterStateEvent = { type: Routes };
-
-const { protectRoutes } = routerMachineUtils;
 
 export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>({
   id: "routerMachine",
