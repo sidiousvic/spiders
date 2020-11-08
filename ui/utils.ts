@@ -29,3 +29,22 @@ export function getHumanReadableDate(date: Date): string {
   const humanReadableDate = `${day}, ${number} ${month} ${year}`;
   return humanReadableDate;
 }
+
+export async function fireGraphQLQuery(query): Promise<any> {
+  const res = await fetch("/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: query,
+  });
+
+  const { data, errors } = await res.json();
+
+  if (errors) {
+    return logGraphQLErrors(errors);
+  }
+
+  return data;
+}
+
