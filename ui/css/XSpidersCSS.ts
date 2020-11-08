@@ -26,7 +26,7 @@ const XSpidersCSS = css`
     justify-content: flex-start;
     border-radius: 2px;
     background: var(--background);
-    color: #ddd;
+    color: var(--foreground);
     transition: ease-in-out 0.3s;
     height: fit-content;
     min-height: 100vh;
