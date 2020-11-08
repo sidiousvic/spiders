@@ -5,7 +5,6 @@ const themeMachineUtils = {
     const hour = new Date().getHours();
     const isAfter18 = hour >= 18;
     const isBefore7 = hour < 7;
-    console.log(hour, isBefore7, isAfter18);
     if (isAfter18 || isBefore7) return "dark";
     return "light";
   },
