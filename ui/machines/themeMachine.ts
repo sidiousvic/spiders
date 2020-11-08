@@ -2,13 +2,15 @@ import { Machine, interpret } from "xstate";
 
 const themeMachineUtils = {
   getTimeOfDayTheme(): Themes {
-    let timeOfDayTheme: Themes;
-    const isAfter6 = new Date().getHours() > 18;
-    if (isAfter6) timeOfDayTheme = "dark";
-    else timeOfDayTheme = "light";
-    return timeOfDayTheme;
+    const hour = new Date().getHours();
+    const isAfter18 = hour >= 18;
+    const isBefore7 = hour < 7;
+    console.log(hour, isBefore7, isAfter18);
+    if (isAfter18 || isBefore7) return "dark";
+    return "light";
   },
 };
+const { getTimeOfDayTheme } = themeMachineUtils;
 
 export interface ThemeStateSchema {
   states: {
@@ -22,7 +24,7 @@ export type Themes = "light" | "dark";
 
 export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>({
   id: "themeMachine",
-  initial: themeMachineUtils.getTimeOfDayTheme(),
+  initial: getTimeOfDayTheme(),
   states: {
     light: { on: { SWITCH_THEME: "dark" } },
     dark: { on: { SWITCH_THEME: "light" } },
