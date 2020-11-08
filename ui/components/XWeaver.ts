@@ -1,22 +1,28 @@
 import { LitElement as X, html, property, customElement } from "lit-element";
-import { indent } from "indent.js";
+import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import prism from "markdown-it-prism";
 import MarkdownIt from "markdown-it";
-import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
+import "prismjs/components/prism-typescript";
+import { indent } from "indent.js";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { spidersCodeCSS } from "../css/SpidersCodeCSS";
-import "prismjs/components/prism-typescript";
+import { routerService, Routes } from "../machines/routeMachine";
 
 const md = new MarkdownIt();
 md.use(prism, { defaultLanguageForUnknown: "ts" });
 
 @customElement("x-weaver")
 export default class XWeaver extends X {
+  @property() auth;
   @property() theme = "";
   @property() rendered = "";
   @property() raw = indent.html(this.rendered, {
     tabString: "  ",
   });
+
+  firstUpdated() {
+    if (!this.auth.token) routerService.send("/signin" as Routes);
+  }
 
   static styles = [XWeaverCSS, spidersCodeCSS];
 
