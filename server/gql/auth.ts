@@ -16,9 +16,9 @@ const auth: Auth = {
       throw new AuthenticationError(err);
     }
   },
-  verifyLogin(login, user) {
-    const usernameMatches = login.username === user.username;
-    const passwordMatches = login.password === user.password;
+  verifySignin(signin, user) {
+    const usernameMatches = signin.username === user.username;
+    const passwordMatches = signin.password === user.password;
     return usernameMatches && passwordMatches;
   },
   authenticated(resolver) {

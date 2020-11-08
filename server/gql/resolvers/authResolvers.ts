@@ -2,7 +2,7 @@ import { AuthResolvers, User } from "spiders";
 import { AuthenticationError, UserInputError } from "apollo-server";
 import { auth } from "../auth";
 
-const { authenticated, generateToken, verifyLogin } = auth;
+const { authenticated, generateToken, verifySignin } = auth;
 
 const authResolvers: AuthResolvers = {
   Query: {
@@ -12,8 +12,8 @@ const authResolvers: AuthResolvers = {
     async signIn(_, { input: signInInput }, { models }) {
       const user = await models.User.find(signInInput);
       if (!user) throw new AuthenticationError("User not found.");
-      const verified = verifyLogin(signInInput, user);
-      if (!verified) throw new AuthenticationError("Wrong login.");
+      const verified = verifySignin(signInInput, user);
+      if (!verified) throw new AuthenticationError("Wrong signin.");
       const token = generateToken(user);
       return { token, user };
     },

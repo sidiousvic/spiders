@@ -36,11 +36,11 @@ async function WebhooksServer({ uri, port, githubUsername }) {
 
   Webhooks.post("/webhooks/deploy", function triggerDeploy(req, res) {
     const {
-      sender: { login },
+      sender: { signin },
       ref,
     } = req.body;
-    console.log(`Push by ${login} ⇀ ${ref.replace("refs/heads/", "")}`);
-    if (ref.indexOf("prod") > -1 && login === githubUsername) {
+    console.log(`Push by ${signin} ⇀ ${ref.replace("refs/heads/", "")}`);
+    if (ref.indexOf("prod") > -1 && signin === githubUsername) {
       console.log("🔩 Triggering spiders deploy...");
       deploy();
       res.status(200).send("✅ Deploy has been triggered. ");
@@ -49,11 +49,11 @@ async function WebhooksServer({ uri, port, githubUsername }) {
 
   Webhooks.post("/webhooks/nginx", function triggerNginxReload(req, res) {
     const {
-      sender: { login },
+      sender: { signin },
       ref,
     } = req.body;
-    console.log(`Push by ${login} ⇀ ${ref.replace("refs/heads/", "")}`);
-    if (ref.indexOf("prod") > -1 && login === githubUsername) {
+    console.log(`Push by ${signin} ⇀ ${ref.replace("refs/heads/", "")}`);
+    if (ref.indexOf("prod") > -1 && signin === githubUsername) {
       console.log("🤖 Triggering nginx reload...");
       nginxReload();
       res.status(200).send("✅ Deploy has been triggered. ");
