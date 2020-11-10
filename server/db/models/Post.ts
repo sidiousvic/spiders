@@ -1,4 +1,4 @@
-import { Post, PostModel, Require } from "spiders";
+import { Post, PostModel, Require, User } from "spiders";
 import { Pool } from "pg";
 // eslint-disable-next-line camelcase
 import { camelTo_snake } from "../utils";
@@ -18,7 +18,7 @@ function PostModeler(pool: Pool): PostModel {
       return foundPosts;
     },
 
-    async findByUser({ id }): Promise<Post[]> {
+    async findByUser({ id }: Require<User, "id">): Promise<Post[]> {
       const {
         rows: [...foundPosts],
       } = await pool.query(`
