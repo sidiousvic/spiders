@@ -2,11 +2,11 @@ import { css } from "lit-element";
 
 const spidersCodeCSS = css`
   .dark {
-    --code-foreground: var(--spiders-bone);
-    --code-background: var(--spiders-gray-light);
-    --keyword: var(--spiders-purple-light);
-    --function: var(--spiders-blue-light);
-    --string: var(--spiders-mint-light);
+    --code-foreground: var(--foreground);
+    --code-background: var(--background);
+    --keyword: var(--accentGradient);
+    --function: var(--accent);
+    --string: var(--accentGradient);
   }
 
   .light {

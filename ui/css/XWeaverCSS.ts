@@ -29,12 +29,13 @@ const XWeaverCSS = css`
     width: 50%;
     resize: none;
     outline: none;
-    background: var(--accentGradient);
+    color: var(--foreground);
+    background: var(--background);
   }
 
   #rendered {
     width: 50%;
-    background: #111;
+    background: var(--background);
   }
 `;
 
