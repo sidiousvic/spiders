@@ -53,6 +53,7 @@
     "prismjs": "^1.22.0",
     "showdown": "^1.9.1",
     "terser-webpack-plugin": "^4.2.3",
+    "uuidv4": "^6.2.5",
     "xstate": "^4.13.0"
   },
   "devDependencies": {
