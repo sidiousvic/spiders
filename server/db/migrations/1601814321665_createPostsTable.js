@@ -1,8 +1,15 @@
+import { PgLiteral } from "node-pg-migrate";
+
 export async function up(pgm) {
   await pgm.createTable(
     "posts",
     {
-      id: "id",
+      post_id: {
+        type: "uuid",
+        default: new PgLiteral("uuid_generate_v4()"),
+        notNull: true,
+        primaryKey: true,
+      },
       title: { type: "varchar(255)", notNull: true },
       author: { type: "varchar(255)", notNull: true },
       tags: { type: "varchar(255)", notNull: true },
@@ -16,9 +23,10 @@ export async function up(pgm) {
         type: "timestamptz",
         default: pgm.func("current_timestamp"),
       },
-      user_id: { type: "id", notNull: true, references: "users" },
+      user_id: { type: "uuid", notNull: true, references: "users" },
       published: { type: "boolean", notNull: true },
       published_at: { type: "timestamp" },
+      deleted_at: { type: "timestamp" },
     },
     {
       ifNotExists: true,

@@ -1,8 +1,20 @@
+import { PgLiteral } from "node-pg-migrate";
+
 export async function up(pgm) {
+  await pgm.createExtension("uuid-ossp", {
+    ifNotExists: true,
+    schema: "public",
+  });
+
   await pgm.createTable(
     "users",
     {
-      id: "id",
+      user_id: {
+        type: "uuid",
+        default: new PgLiteral("uuid_generate_v4()"),
+        notNull: true,
+        primaryKey: true,
+      },
       email: { type: "varchar(50)", notNull: true, unique: true },
       username: { type: "varchar(50)", notNull: true, unique: true },
       password: { type: "varchar(50)", notNull: true },

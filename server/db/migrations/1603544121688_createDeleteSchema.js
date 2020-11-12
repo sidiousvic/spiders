@@ -1,11 +1,11 @@
-export function up(pgm) {
-  pgm.sql(`
+export async function up(pgm) {
+  await pgm.sql(`
   CREATE SCHEMA
   IF NOT EXISTS deleted;`);
 }
 
-export function down(pgm) {
-  pgm.sql(`
+export async function down(pgm) {
+  await pgm.sql(`
   DROP SCHEMA 
   IF EXISTS deleted;`);
 }
