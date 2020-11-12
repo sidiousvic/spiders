@@ -6,7 +6,7 @@ export enum Role {
   GUEST = "GUEST",
 }
 export type User = {
-  id: string;
+  userId: string;
   username: string;
   email: string;
   password: string;
@@ -15,7 +15,7 @@ export type User = {
 };
 
 export type Post = {
-  id: string;
+  postId: string;
   title: string;
   author: string;
   tags: string;
@@ -33,7 +33,7 @@ export type AuthUser = {
 };
 
 export type VerifiedUser = {
-  id: string;
+  userId: string;
   role: Role;
   iat: number;
 };
@@ -91,11 +91,11 @@ export interface PostResolvers {
     addPost: Resolver<Promise<PostUpdateResponse<Post>>, Partial<Post>>;
     deletePost: Resolver<
       Promise<PostUpdateResponse<Partial<Post>>>,
-      Require<Post, "id">
+      Require<Post, "postId">
     >;
     updatePost: Resolver<
       Promise<PostUpdateResponse<Post>>,
-      Require<Post, "id">
+      Require<Post, "postId">
     >;
   };
   Post: {
@@ -116,7 +116,7 @@ export type Resolvers = {
 
 export type isVerified = boolean;
 export interface JWTTokenSignees {
-  id: string;
+  userId: string;
   role: Role;
 }
 
@@ -138,9 +138,9 @@ export interface UserModel {
 
 export interface PostModel {
   find: () => Promise<Post[]>;
-  findByUser: (partialUserWithId: Require<User, "id">) => Promise<Post[]>;
+  findByUser: (partialUserWithId: Require<User, "userId">) => Promise<Post[]>;
   add: (partialPost: Partial<Post>) => Promise<Post>;
-  update: (partialPostWithId: Require<Post, "id">) => Promise<Post>;
+  update: (partialPostWithId: Require<Post, "postId">) => Promise<Post>;
   delete: (postId: string) => Promise<Post>;
 }
 
