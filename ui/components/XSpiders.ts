@@ -44,7 +44,7 @@ export class XSpiders extends X {
 
   renderRoute(route: StateValue) {
     switch (route) {
-      case "/read": {
+      case "/": {
         return html`<x-posts theme=${this.theme}></x-posts>`;
       }
       case "/signin": {
