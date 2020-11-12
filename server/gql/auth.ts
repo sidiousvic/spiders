@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken";
 const secret = process.env.SECRET;
 
 const auth: Auth = {
-  generateToken({ id, role }) {
-    return jwt.sign({ id, role }, secret);
+  generateToken({ userId, role }) {
+    return jwt.sign({ userId, role }, secret);
   },
   getUserFromToken(token) {
     try {

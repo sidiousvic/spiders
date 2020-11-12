@@ -12,8 +12,8 @@ async function GraphQLServer(
       const token = req.headers.authorization;
       let authedUser = {} as User;
       if (token) {
-        const { id } = auth.getUserFromToken(token);
-        authedUser = await models.User.find({ id });
+        const { userId } = auth.getUserFromToken(token);
+        authedUser = await models.User.find({ userId });
       }
       return { models, authedUser };
     },

@@ -10,11 +10,11 @@ const postTypeDefs = gql`
   }
 
   input DeletePostInput {
-    id: Int!
+    postId: String!
   }
 
   input UpdatePostInput {
-    id: String!
+    postId: String!
     userId: String
     title: String
     author: String
@@ -27,7 +27,7 @@ const postTypeDefs = gql`
   }
 
   type Post {
-    id: String!
+    postId: String!
     user: User!
     title: String!
     author: String!
@@ -39,8 +39,23 @@ const postTypeDefs = gql`
     publishedAt: Date
   }
 
+  type DeletedPost {
+    postId: String!
+    user: User!
+    title: String!
+    author: String!
+    body: String!
+    tags: String!
+    createdAt: Date!
+    updatedAt: Date!
+    published: Boolean!
+    publishedAt: Date
+    deletedAt: String!
+  }
+
   extend type Query {
     findPosts: [Post]
+    findDeletedPosts: [DeletedPost]
   }
 
   type PostUpdateResponse {

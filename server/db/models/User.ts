@@ -3,14 +3,15 @@ import { Pool } from "pg";
 
 function UserModeler(pool: Pool): UserModel {
   return {
-    async find({ id, username }: Partial<User>): Promise<User> {
+    async find({ userId, username }: Partial<User>): Promise<User> {
       const {
         rows: [user],
       } = await pool.query(`
       SELECT *,
+      user_id as "userId",
       created_at as "joinDate"
       FROM users 
-      WHERE ${id ? "id" : "username"} = '${id || username}'
+      WHERE ${userId ? "user_id" : "username"} = '${userId || username}'
       `);
       return user as User;
     },

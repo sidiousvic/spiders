@@ -10,6 +10,10 @@ const postResolvers: PostResolvers = {
       const posts = await models.Post.find();
       return posts;
     },
+    async findDeletedPosts(_, __, { models }) {
+      const posts = await models.Post.findDeleted();
+      return posts;
+    },
   },
   Mutation: {
     addPost: authorized(async (_, { input: post }, { models }) => {
@@ -19,8 +23,8 @@ const postResolvers: PostResolvers = {
         resource: addedPost,
       };
     }, Role.DARKLORD),
-    async deletePost(_, { input: { id } }, { models }) {
-      const deletedPost = await models.Post.delete(id);
+    async deletePost(_, { input: { postId } }, { models }) {
+      const deletedPost = await models.Post.delete(postId);
       if (!deletedPost) throw new UserInputError("Post does not exist.");
       return {
         message: "Web successfully unraveled!",
@@ -37,7 +41,7 @@ const postResolvers: PostResolvers = {
   },
   Post: {
     async user({ userId }, _, { models }) {
-      return models.User.find({ id: userId });
+      return models.User.find({ userId });
     },
   },
 };

@@ -1,4 +1,4 @@
-import { Post, PostModel, Require, User } from "spiders";
+import { Post, DeletedPost, PostModel, Require, User } from "spiders";
 import { Pool } from "pg";
 // eslint-disable-next-line camelcase
 import { camelTo_snake } from "../utils";
@@ -10,28 +10,48 @@ function PostModeler(pool: Pool): PostModel {
         rows: [...foundPosts],
       } = await pool.query(`
       SELECT *,
+      post_id as "postId",
       user_id as "userId",
       updated_at as "updatedAt",
       created_at as "createdAt",
-      published_at as "publishedAt"
-      FROM posts`);
+      published_at as "publishedAt",
+      deleted_at as "deletedAt"
+      FROM posts
+      `);
       return foundPosts;
     },
 
-    async findByUser({ id }: Require<User, "id">): Promise<Post[]> {
+    async findDeleted(): Promise<DeletedPost[]> {
+      const {
+        rows: [...foundPosts],
+      } = await pool.query(`
+      SELECT *,
+      post_id as "postId",
+      user_id as "userId",
+      updated_at as "updatedAt",
+      created_at as "createdAt",
+      published_at as "publishedAt",
+      deleted_at as "deletedAt"
+      FROM deleted.posts
+      `);
+      return foundPosts;
+    },
+
+    async findByUser({ userId }: Require<User, "userId">): Promise<Post[]> {
       const {
         rows: [...foundPosts],
       } = await pool.query(`
       SELECT * FROM
       (
         SELECT *,
+        post_id as "postId",
         user_id as "userId",
         updated_at as "updatedAt",
         created_at as "createdAt",
         published_at as "publishedAt"
         FROM posts
       ) as post
-      WHERE user_id = ${id}`);
+      WHERE user_id = ${userId}`);
       return foundPosts;
     },
 
@@ -65,7 +85,7 @@ function PostModeler(pool: Pool): PostModel {
       return addedPost as Post;
     },
 
-    async update(post: Require<Post, "id">): Promise<Post> {
+    async update(post: Require<Post, "postId">): Promise<Post> {
       const params: string = Object.keys(post)
         .map((column, i) => {
           return `${camelTo_snake(column)} = $${i + 1}`;
@@ -80,7 +100,7 @@ function PostModeler(pool: Pool): PostModel {
         `
       UPDATE posts 
       SET ${params}, updated_at = current_timestamp
-      WHERE id = ${post.id}
+      WHERE id = ${post.postId}
       RETURNING *
       `,
         values
@@ -88,18 +108,20 @@ function PostModeler(pool: Pool): PostModel {
       return updatedPost as Post;
     },
 
-    async delete(id: string): Promise<Post> {
+    async delete(postId: string): Promise<Post> {
       await pool.query(`
       INSERT INTO deleted.posts 
-      SELECT NOW() AS deleted_at, * FROM posts
-      WHERE posts.id = '${id}'
+      SELECT * FROM posts
+      WHERE posts.post_id = '${postId}';
+      UPDATE deleted.posts
+      SET    deleted_at = NOW()
       `);
 
       const {
         rows: [deletedPost],
       } = await pool.query(`
       DELETE FROM posts 
-      WHERE id = '${id}'
+      WHERE post_id = '${postId}'
       RETURNING *
       `);
       return deletedPost as Post;
