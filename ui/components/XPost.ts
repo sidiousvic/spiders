@@ -30,7 +30,7 @@ export default class XPost extends X {
         /* spiders gradient */
         background: -webkit-linear-gradient(
           90deg,
-          var(--accentGradient),
+          var(--accent-gradient),
           var(--accent)
         );
         -webkit-background-clip: text;
