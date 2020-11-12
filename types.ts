@@ -27,6 +27,10 @@ export type Post = {
   publishedAt: Date;
 };
 
+export interface DeletedPost extends Post {
+  deletedAt: Date;
+}
+
 export type AuthUser = {
   token: string;
   user: User;
@@ -86,6 +90,7 @@ export interface UserResolvers {
 export interface PostResolvers {
   Query: {
     findPosts: Resolver<Promise<Post[]>>;
+    findDeletedPosts: Resolver<Promise<DeletedPost[]>>;
   };
   Mutation: {
     addPost: Resolver<Promise<PostUpdateResponse<Post>>, Partial<Post>>;
@@ -138,6 +143,7 @@ export interface UserModel {
 
 export interface PostModel {
   find: () => Promise<Post[]>;
+  findDeleted: () => Promise<DeletedPost[]>;
   findByUser: (partialUserWithId: Require<User, "userId">) => Promise<Post[]>;
   add: (partialPost: Partial<Post>) => Promise<Post>;
   update: (partialPostWithId: Require<Post, "postId">) => Promise<Post>;
