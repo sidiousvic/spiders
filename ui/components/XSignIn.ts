@@ -1,21 +1,24 @@
+import { UserAuth } from "spiders";
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
 import { fireGraphQLQuery, event, logGraphQLErrors } from "../utils";
 
 @customElement("x-sign-in")
 export default class XSignIn extends X {
-  @property() auth;
+  @property() auth: UserAuth;
 
   async handleSignIn() {
     const signInQuery = JSON.stringify({
       query: `
        mutation {
         signIn(input: {
-          username: "${this.auth.username}"
-          password: "${this.auth.password}"
+          username: "${this.auth.user.username}"
+          password: "${this.auth.user.password}"
         }) {
           token
           user {
+            username
+            password
             userId
           }
         }
@@ -42,7 +45,8 @@ export default class XSignIn extends X {
 
   async handleSignInInput(e: KeyboardEvent) {
     const { value, name } = e.target as HTMLInputElement;
-    this.auth = { ...this.auth, [name]: value };
+    this.auth = { ...this.auth, user: { ...this.auth.user, [name]: value } };
+    console.log(this.auth);
   }
 
   render() {

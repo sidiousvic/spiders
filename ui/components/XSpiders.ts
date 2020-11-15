@@ -1,4 +1,4 @@
-import { User } from "spiders";
+import { UserAuth, User } from "spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { StateValue } from "xstate";
 import { themeService, themeMachine } from "../machines/themeMachine";
@@ -9,17 +9,12 @@ import "./XNavbar";
 import "./XWeaver";
 import "./XSignIn";
 
-export interface Auth {
-  user: Partial<User>;
-  token: string;
-}
-
 @customElement("x-spiders")
 export class XSpiders extends X {
   static styles = XSpidersCSS;
 
-  @property() auth: Auth = {
-    user: {},
+  @property() auth: UserAuth = {
+    user: {} as Partial<User>,
     token: null,
   };
   @property() name = "";

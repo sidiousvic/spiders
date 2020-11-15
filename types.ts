@@ -136,6 +136,11 @@ export interface Auth {
   ) => Resolver<Resource, Input>;
 }
 
+export interface UserAuth {
+  user: Partial<User>;
+  token: string;
+}
+
 export interface UserModel {
   find: (partialUser: Partial<User>) => Promise<User>;
   add: (partialUser: Partial<User>) => Promise<User>;
