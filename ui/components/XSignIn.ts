@@ -15,6 +15,9 @@ export default class XSignIn extends X {
           password: "${this.auth.password}"
         }) {
           token
+          user {
+            userId
+          }
         }
       }
     `,
@@ -28,10 +31,10 @@ export default class XSignIn extends X {
     }
 
     const {
-      signIn: { token },
+      signIn: { token, user },
     } = data;
 
-    this.auth = { ...this.auth, token };
+    this.auth = { ...this.auth, token, user };
 
     const onSignIn = event("onSignIn", { auth: this.auth });
     this.dispatchEvent(onSignIn);
