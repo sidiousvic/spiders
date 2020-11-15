@@ -2,17 +2,12 @@ import { css } from "lit-element";
 
 const spidersCodeCSS = css`
   .dark {
-    --code-foreground: var(--foreground);
-    --code-background: var(--background);
-    --keyword: var(--accentGradient);
+    --keyword: var(--accent-gradient);
     --function: var(--accent);
-    --string: var(--accentGradient);
+    --string: var(--accent-gradient);
   }
 
   .light {
-    --code-foreground: var(--spiders-gray);
-    --code-background: var(--spiders-bone-dark);
-    --border: var(--spiders-blue);
     --keyword: var(--spiders-purple);
     --function: var(--spiders-blue-dark);
     --string: var(--spiders-pastel-dark);
@@ -20,6 +15,7 @@ const spidersCodeCSS = css`
 
   pre > code {
     border-radius: 5px;
+    font-size: 1rem;
   }
 
   code[class*="language-"],
@@ -31,14 +27,12 @@ const spidersCodeCSS = css`
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-    white-space: pre;
     white-space: pre-wrap;
     word-wrap: normal;
     font-family: Dank Mono;
     color: var(--code-foreground);
     text-shadow: none;
     cursor: crosshair;
-    overflow-wrap: break-word;
   }
 
   pre > code[class*="language-"] {

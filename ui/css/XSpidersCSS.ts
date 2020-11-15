@@ -3,20 +3,42 @@ import { css } from "lit-element";
 const XSpidersCSS = css`
   :host {
     width: 100%;
-    --spiders-pastel: rgba(255, 78, 181, 0.8);
-    --spiders-pastel-dark: rgb(208, 0, 121);
-    --spiders-pastel-light: rgb(255, 143, 208);
+    --spiders-pastel: rgba(255, 80, 180);
+    --spiders-pastel-dark: rgb(210, 0, 120);
+    --spiders-pastel-light: rgb(250, 140, 200);
     --spiders-purple: rgb(40, 0, 255);
     --spiders-purple-light: #2d15ff;
-    --spiders-mint: rgba(0, 255, 170, 0.8);
     --spiders-green: #24ff06;
+    --spiders-mint: rgba(0, 255, 170);
     --spiders-blue: #195aff;
-    --spiders-blue-dark: rgb(19, 0, 221);
-    --spiders-blue-light: #2591f0;
-    --spiders-bone: rgb(233, 227, 227);
-    --spiders-bone-dark: rgb(237, 230, 230);
-    --spiders-gray: rgb(8, 8, 9);
-    --spiders-gray-light: rgb(16, 18, 17);
+    --spiders-blue-dark: rgb(20, 0, 222);
+    --spiders-blue-light: rgb(40, 20, 222);
+    --spiders-zef: rgb(225, 225, 235);
+    --spiders-zef-dark: rgb(215, 215, 225);
+    --spiders-zef-light: rgb(230, 230, 250);
+    --spiders-bone: rgb(230, 230, 230);
+    --spiders-bone-dark: rgb(220, 220, 220);
+    --spiders-gray: rgb(8, 8, 8);
+    --spiders-gray-light: rgb(12, 12, 12);
+    --spiders-gray-dark: rgb(4, 4, 4);
+  }
+
+  .dark {
+    --background: var(--spiders-gray);
+    --foreground: var(--spiders-bone);
+    --code-background: var(--spiders-gray-light);
+    --weaver-background: var(--spiders-gray-light);
+    --accent: var(--spiders-green);
+    --accent-gradient: var(--spiders-mint);
+  }
+
+  .light {
+    --background: var(--spiders-zef);
+    --foreground: var(--spiders-gray);
+    --code-background: var(--spiders-zef-dark);
+    --weaver-background: var(--spiders-zef-light);
+    --accent: var(--spiders-purple);
+    --accent-gradient: var(--spiders-blue);
   }
 
   #spiders {
@@ -39,24 +61,6 @@ const XSpidersCSS = css`
 
   *::-moz-selection {
     background: var(--spiders-mint-light);
-  }
-
-  .dark {
-    --background: var(--spiders-gray);
-    --foreground: var(--spiders-bone);
-    --accent: var(--spiders-green);
-    --accentGradient: var(--spiders-mint);
-  }
-
-  .light {
-    --background: var(--spiders-bone);
-    --foreground: var(--spiders-gray);
-    --accent: var(--spiders-purple);
-    --accentGradient: var(--spiders-blue);
-  }
-
-  :root:hover {
-    --dev-pastel: none;
   }
 `;
 

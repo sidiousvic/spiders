@@ -43,7 +43,7 @@ const XNavbarCSS = css`
     font-size: 4rem;
     background: -webkit-linear-gradient(
       90deg,
-      var(--accentGradient),
+      var(--accent-gradient),
       var(--accent)
     );
     -webkit-background-clip: text;
