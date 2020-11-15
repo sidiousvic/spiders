@@ -13,20 +13,43 @@ const XWeaverCSS = css`
     display: grid;
     grid-template-columns: 1fr 8fr 1fr 8.5fr 1fr;
     grid-template-rows: 1fr 16fr 1fr;
-    gap: 0px 0px;
+    gap: 20px 0px;
+    max-height: 80vh;
     grid-template-areas:
-      ". . . . ."
-      ". x x x ."
-      ". . . . w";
+      ". ti ti ti ."
+      ". bo bo bo ."
+      ". ta ta ta .";
   }
 
-  #weaver > * {
-    min-height: 70vh;
-  }
-
-  #editor {
+  #title-input {
     padding: 2rem 2rem;
-    grid-area: x;
+    grid-area: ti;
+    font-family: Dank Mono, monospace;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    border: none;
+    color: var(--foreground);
+    background: var(--weaver-background);
+  }
+
+  #body-editor {
+    padding: 2rem 2rem;
+    grid-area: bo;
+    font-family: Dank Mono, monospace;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    border: none;
+    color: var(--foreground);
+    background: var(--weaver-background);
+  }
+
+  #tags-input {
+    padding: 2rem 2rem;
+    grid-area: ta;
     font-family: Dank Mono, monospace;
     font-size: 1.2rem;
     border-radius: 5px;
@@ -42,7 +65,7 @@ const XWeaverCSS = css`
     display: none;
     padding: 1rem 2rem;
     min-width: 0;
-    grid-area: x;
+    grid-area: bo;
     resize: none;
     user-select: none;
     border-radius: 5px;
