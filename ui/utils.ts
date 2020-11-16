@@ -31,13 +31,21 @@ export function getHumanReadableDate(date: Date): string {
   return humanReadableDate;
 }
 
-export async function fireGraphQLQuery(query): Promise<any> {
+export async function fireGraphQLQuery(
+  query,
+  variables,
+  headers?
+): Promise<any> {
   const res = await fetch("/graphql", {
     method: "POST",
     headers: {
+      ...headers,
       "Content-Type": "application/json",
     },
-    body: query,
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
   });
 
   return res.json();

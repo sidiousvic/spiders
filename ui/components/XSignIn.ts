@@ -8,13 +8,9 @@ export default class XSignIn extends X {
   @property() auth: UserAuth;
 
   async handleSignIn() {
-    const signInQuery = JSON.stringify({
-      query: `
-       mutation {
-        signIn(input: {
-          username: "${this.auth.user.username}"
-          password: "${this.auth.user.password}"
-        }) {
+    const signInQuery = `
+       mutation signIn($input: UserSignIn!) {
+        signIn(input: $input) {
           token
           user {
             username
@@ -23,10 +19,16 @@ export default class XSignIn extends X {
           }
         }
       }
-    `,
-    });
+    `;
 
-    const { data, errors } = await fireGraphQLQuery(signInQuery);
+    const variables = {
+      input: {
+        username: this.auth.user.username,
+        password: this.auth.user.password,
+      },
+    };
+
+    const { data, errors } = await fireGraphQLQuery(signInQuery, variables);
 
     if (errors) {
       logGraphQLErrors(errors);

@@ -1,4 +1,4 @@
-import { Post } from "spiders";
+import { Post, UserAuth } from "spiders";
 import {
   LitElement as X,
   html,
@@ -14,15 +14,16 @@ import "prismjs/components/prism-typescript";
 import { indent } from "indent.js";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { spidersCodeCSS } from "../css/SpidersCodeCSS";
-// import { routerService, Routes } from "../machines/routeMachine";
+import { routerService, Routes } from "../machines/routeMachine";
 import { weaverMachine, weaverService } from "../machines/weaverMachine";
+import { fireGraphQLQuery, logGraphQLErrors } from "../utils";
 
 const md = new MarkdownIt();
 md.use(prism, { defaultLanguageForUnknown: "ts" });
 
 @customElement("x-weaver")
 export default class XWeaver extends X {
-  @property() auth;
+  @property() auth: UserAuth;
   @property() theme = "";
   @property() rendered = "";
   @property() raw = indent.html(this.rendered, {
@@ -43,35 +44,7 @@ export default class XWeaver extends X {
       })
       .start();
 
-    // if (!this.auth.token) routerService.send("/signin" as Routes);
-    this.weave(`\`\`\`
-    const authResolvers: AuthResolvers = {
-      Query: {
-        me: authenticated((_, __, { authedUser }) => authedUser),
-      },
-      Mutation: {
-        async signIn(_, { input: signInInput }, { models }) {
-          const user = await models.User.find(signInInput);
-          if (!user) throw new AuthenticationError("User not found.");
-          const verified = verifySignin(signInInput, user);
-          if (!verified) throw new AuthenticationError("Wrong signin.");
-          const token = generateToken(user);
-          return { token, user };
-        },
-        async signUp(_, { input: signUpInput }, { models }) {
-          let user = {};
-          try {
-            user = await models.User.add(signUpInput);
-          } catch ({ code }) {
-            if (code === "23505") throw new UserInputError("User already exists.");
-          }
-          if (!user) throw new AuthenticationError("Unable to sign up user.");
-          return user as User;
-        },
-      },
-    };
-    
-    export { authResolvers };`);
+    if (!this.auth.token) routerService.send("/signin" as Routes);
   }
 
   static styles = [XWeaverCSS, spidersCodeCSS];
@@ -83,7 +56,7 @@ export default class XWeaver extends X {
   handlePostBodyInput(e: KeyboardEvent) {
     const { innerText } = e.target as HTMLInputElement;
     this.weave(innerText);
-    this.postInput = { ...this.postInput, body: innerText.trim() };
+    this.postInput = { ...this.postInput, body: this.rendered };
   }
 
   handleTitleInput(e: KeyboardEvent) {
@@ -103,19 +76,76 @@ export default class XWeaver extends X {
     this.postInput = { ...this.postInput, tags };
   }
 
+  async handleCommitPost() {
+    const addPostQuery = `
+      mutation addPost($input: AddPostInput!) {
+        addPost(
+          input: $input
+        ) {
+          message
+          resource
+        }
+      }
+    `;
+
+    const variables = {
+      input: {
+        userId: this.auth.user.userId,
+        title: this.postInput.title,
+        author: this.auth.user.username,
+        body: this.postInput.body,
+        tags: this.postInput.tags,
+      },
+    };
+
+    const headers = {
+      authorization: this.auth.token,
+    };
+
+    const { data, errors } = await fireGraphQLQuery(
+      addPostQuery,
+      variables,
+      headers
+    );
+
+    if (errors) {
+      logGraphQLErrors(errors);
+      return;
+    }
+
+    const {
+      addPost: { message, resource },
+    } = data;
+    console.log(message, resource);
+  }
+
   render() {
     return html`
-      <div id="weaver" class=${this.theme}>
+    <div id="weaver" class=${this.theme}>
+
       <div id="controls">
+
       <div
       id="weaverModeIndicator"
       @click=${() => {
-        weaverService.send("TOGGLE");
+        weaverService.send("TOGGLE_MODE");
       }}
     >
-      ${this.mode === "weave" ? "🍊" : "🍌"}
+      <icon>${this.mode === "weave" ? "🍊" : "🍌"}</icon>
     </div>
+
+    <div
+    id="stagePostButton"
+    @click=${() => {
+      if (this.mode === "staged") {
+        this.handleCommitPost();
+      } else weaverService.send("STAGE");
+    }}>
+    <icon>${this.mode === "staged" ? "‍👌🏽" : "📮"}</icon>
+  </div>
+
       </div>
+
       <input
           type="text"
           placeholder="Untitled"
@@ -125,12 +155,12 @@ export default class XWeaver extends X {
         <div
           contenteditable
           data-placeholder="Weave something..."
-          id="body-editor"
           @keyup=${this.handlePostBodyInput}
+          id="body-editor"
         ></div>
         <div
           id="rendered"
-          style=${`display: ${this.mode === "read" ? css`block` : css`none`}`}
+          style=${`display: ${this.mode === "weave" ? css`none` : css`block`}`}
         >
           ${unsafeHTML(this.rendered)}
         </div>
@@ -141,6 +171,6 @@ export default class XWeaver extends X {
           @keyup=${this.handleTagsInput}
         ></input>
       </div>
-    `;
+`;
   }
 }
