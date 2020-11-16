@@ -65,6 +65,7 @@ const postTypeDefs = gql`
 
   extend type Mutation {
     addPost(input: AddPostInput!): PostUpdateResponse!
+    deletePosts: PostUpdateResponse!
     deletePost(input: DeletePostInput!): PostUpdateResponse!
     updatePost(input: UpdatePostInput!): PostUpdateResponse!
   }

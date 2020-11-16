@@ -108,6 +108,21 @@ function PostModeler(pool: Pool): PostModel {
       return updatedPost as Post;
     },
 
+    async deleteAll(): Promise<Post[]> {
+      await pool.query(`
+      INSERT INTO deleted.posts 
+      SELECT * FROM posts;
+      UPDATE deleted.posts
+      SET    deleted_at = NOW()
+      `);
+
+      const { rows: deletedPosts } = await pool.query(`
+      DELETE FROM posts
+      RETURNING *
+      `);
+      return deletedPosts as Post[];
+    },
+
     async delete(postId: string): Promise<Post> {
       await pool.query(`
       INSERT INTO deleted.posts 

@@ -94,6 +94,7 @@ export interface PostResolvers {
   };
   Mutation: {
     addPost: Resolver<Promise<PostUpdateResponse<Post>>, Partial<Post>>;
+    deletePosts: Resolver<Promise<PostUpdateResponse<Post[]>>>;
     deletePost: Resolver<
       Promise<PostUpdateResponse<Partial<Post>>>,
       Require<Post, "postId">
@@ -152,6 +153,7 @@ export interface PostModel {
   findByUser: (partialUserWithId: Require<User, "userId">) => Promise<Post[]>;
   add: (partialPost: Partial<Post>) => Promise<Post>;
   update: (partialPostWithId: Require<Post, "postId">) => Promise<Post>;
+  deleteAll: () => Promise<Post[]>;
   delete: (postId: string) => Promise<Post>;
 }
 
