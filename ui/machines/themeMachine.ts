@@ -3,7 +3,7 @@ import { Machine, interpret } from "xstate";
 const themeMachineUtils = {
   getTimeOfDayTheme(): Themes {
     const hour = new Date().getHours();
-    const isAfter18 = hour >= 18;
+    const isAfter18 = hour >= 17;
     const isBefore7 = hour < 7;
     if (isAfter18 || isBefore7) return "dark";
     return "light";
