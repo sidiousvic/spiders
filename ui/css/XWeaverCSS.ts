@@ -81,6 +81,7 @@ const XWeaverCSS = css`
   }
 
   #controls {
+    user-select: none;
     padding: 1rem 1rem;
     grid-area: co;
     font-family: Dank Mono, monospace;
@@ -98,21 +99,27 @@ const XWeaverCSS = css`
     align-items: center;
     /* gap: 20px 20px; */
     grid-template-areas:
-      " wmi "
-      " . "
+      " w "
+      " s "
       " . "
       " . "
       " . ";
   }
 
+  #controls > *:hover {
+    transform: scale(1.2);
+  }
+
   #weaverModeIndicator {
-    grid-area: wmi;
+    grid-area: w;
     font-size: 2rem;
     cursor: pointer;
   }
 
-  #weaverModeIndicator:hover {
-    transform: scale(1.2);
+  #stagePostButton {
+    grid-area: s;
+    font-size: 2rem;
+    cursor: pointer;
   }
 `;
 
