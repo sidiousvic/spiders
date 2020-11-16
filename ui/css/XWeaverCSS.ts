@@ -11,21 +11,23 @@ const XWeaverCSS = css`
     flex: 1;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 8fr 1fr 8.5fr 1fr;
-    grid-template-rows: 1fr 16fr 1fr;
-    gap: 20px 0px;
-    max-height: 80vh;
+    grid-template-columns: 1fr 1fr 8fr 1fr 8.5fr 1fr;
+    grid-template-rows: 0.5fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem) 0.5fr;
+    gap: 20px 20px;
+    min-height: 80vh;
     grid-template-areas:
-      ". ti ti ti ."
-      ". bo bo bo ."
-      ". ta ta ta .";
+      ". .  .  .  .  ."
+      ". co ti ti ti ."
+      ". co bo bo bo ."
+      ". co ta ta ta ."
+      ". .  .  .  .  .";
   }
 
   #title-input {
     padding: 2rem 2rem;
     grid-area: ti;
     font-family: Dank Mono, monospace;
-    font-size: 1.2rem;
+    font-size: 100%;
     border-radius: 5px;
     resize: none;
     outline: none;
@@ -45,6 +47,11 @@ const XWeaverCSS = css`
     border: none;
     color: var(--foreground);
     background: var(--weaver-background);
+  }
+
+  #body-editor:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    color: gray;
   }
 
   #tags-input {
@@ -73,12 +80,34 @@ const XWeaverCSS = css`
     background: var(--weaver-background);
   }
 
+  #controls {
+    padding: 1rem 1rem;
+    grid-area: co;
+    font-family: Dank Mono, monospace;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    resize: none;
+    outline: none;
+    border: none;
+    color: var(--foreground);
+    background: var(--weaver-background);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+    /* gap: 20px 20px; */
+    grid-template-areas:
+      " wmi "
+      " . "
+      " . "
+      " . "
+      " . ";
+  }
+
   #weaverModeIndicator {
+    grid-area: wmi;
     font-size: 2rem;
-    position: absolute;
-    user-select: none;
-    left: 2rem;
-    bottom: 2rem;
     cursor: pointer;
   }
 

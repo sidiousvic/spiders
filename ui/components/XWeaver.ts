@@ -105,15 +105,17 @@ export default class XWeaver extends X {
 
   render() {
     return html`
-      <div
-        id="weaverModeIndicator"
-        @click=${() => {
-          weaverService.send("TOGGLE");
-        }}
-      >
-        ${this.mode === "weave" ? "🍊" : "🍌"}
-      </div>
       <div id="weaver" class=${this.theme}>
+      <div id="controls">
+      <div
+      id="weaverModeIndicator"
+      @click=${() => {
+        weaverService.send("TOGGLE");
+      }}
+    >
+      ${this.mode === "weave" ? "🍊" : "🍌"}
+    </div>
+      </div>
       <input
           type="text"
           placeholder="Untitled"
@@ -122,6 +124,7 @@ export default class XWeaver extends X {
         ></input>
         <div
           contenteditable
+          data-placeholder="Weave something..."
           id="body-editor"
           @keyup=${this.handlePostBodyInput}
         ></div>
