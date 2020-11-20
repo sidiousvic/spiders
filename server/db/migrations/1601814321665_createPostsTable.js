@@ -14,6 +14,7 @@ export async function up(pgm) {
       author: { type: "varchar(255)", notNull: true },
       tags: { type: "varchar(255)", notNull: true },
       body: { type: "text", notNull: true },
+      raw: { type: "text", notNull: true },
       created_at: {
         type: "timestamptz",
         notNull: true,
