@@ -20,6 +20,7 @@ export type Post = {
   author: string;
   tags: string;
   body: string;
+  raw: string;
   createdAt: Date;
   updatedAt: Date;
   userId: string;
