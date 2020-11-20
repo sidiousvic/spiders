@@ -15,13 +15,16 @@ export class XSpiders extends X {
 
   @property() auth: UserAuth = {
     user: {} as Partial<User>,
-    token: null,
+    token: "",
   };
   @property() name = "";
   @property() theme = themeMachine.initialState.value;
   @property() routes = [routerMachine.initialState.value];
 
   firstUpdated() {
+    const auth = JSON.parse(localStorage.getItem("auth"));
+    if (auth) this.auth = auth;
+
     themeService
       .onTransition(({ value }) => {
         this.theme = value;
@@ -39,7 +42,7 @@ export class XSpiders extends X {
   renderRoute(route: StateValue) {
     switch (route) {
       case "/": {
-        return html`<x-posts theme=${this.theme}></x-posts>`;
+        return html`<x-posts .auth=${this.auth} theme=${this.theme}></x-posts>`;
       }
       case "/signin": {
         return html`<x-sign-in .auth=${this.auth}></x-sign-in>`;
