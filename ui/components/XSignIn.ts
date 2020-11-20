@@ -14,8 +14,8 @@ export default class XSignIn extends X {
           token
           user {
             username
-            password
             userId
+            role
           }
         }
       }
@@ -30,16 +30,15 @@ export default class XSignIn extends X {
 
     const { data, errors } = await fireGraphQLQuery(signInQuery, variables);
 
-    if (errors) {
-      logGraphQLErrors(errors);
-      return;
-    }
+    if (errors) logGraphQLErrors(errors);
 
     const {
       signIn: { token, user },
     } = data;
 
     this.auth = { ...this.auth, token, user };
+
+    localStorage.setItem("auth", JSON.stringify(this.auth));
 
     const onSignIn = event("onSignIn", { auth: this.auth });
     this.dispatchEvent(onSignIn);
@@ -48,7 +47,6 @@ export default class XSignIn extends X {
   async handleSignInInput(e: KeyboardEvent) {
     const { value, name } = e.target as HTMLInputElement;
     this.auth = { ...this.auth, user: { ...this.auth.user, [name]: value } };
-    console.log(this.auth);
   }
 
   render() {
