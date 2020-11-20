@@ -16,6 +16,11 @@ const XNavbarCSS = css`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
+  }
+
+  nav > * {
+    cursor: pointer;
   }
 
   #title {
@@ -31,7 +36,7 @@ const XNavbarCSS = css`
     font-size: 2rem;
     top: 2rem;
     left: 2rem;
-    cursor: pointer !important;
+    cursor: pointer;
     user-select: none;
     filter: hue-rotate(90deg);
   }
@@ -53,13 +58,13 @@ const XNavbarCSS = css`
   }
 
   nav > #title > h2 {
-    font-family: Encode Sans, sans-serif;
+    font-family: Dank Mono, sans-serif;
     text-align: center;
     font-size: 1rem;
     font-weight: lighter;
   }
 
-  #navlinks {
+  #nav-links {
     width: 20%;
     font-size: 1.2rem;
     margin-left: auto;

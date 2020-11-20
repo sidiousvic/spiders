@@ -7,6 +7,24 @@ const XWeaverCSS = css`
     width: 100%;
   }
 
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  #weaver > * {
+    animation: fadeUp 500ms ease-out;
+    animation-delay: 0s;
+    animation-fill-mode: backwards;
+    caret-color: var(--accent);
+  }
+
   #weaver {
     flex: 1;
     width: 100%;
@@ -36,6 +54,11 @@ const XWeaverCSS = css`
     background: var(--weaver-background);
   }
 
+  #title-input:empty:before {
+    content: attr(data-placeholder);
+    color: gray;
+  }
+
   #body-editor {
     padding: 2rem 2rem;
     grid-area: bo;
@@ -49,7 +72,7 @@ const XWeaverCSS = css`
     background: var(--weaver-background);
   }
 
-  #body-editor:empty:not(:focus):before {
+  #body-editor:empty:before {
     content: attr(data-placeholder);
     color: gray;
   }
@@ -67,6 +90,11 @@ const XWeaverCSS = css`
     background: var(--weaver-background);
   }
 
+  #tags-input:empty:before {
+    content: attr(data-placeholder);
+    color: gray;
+  }
+
   #rendered {
     position: relative;
     display: none;
@@ -78,6 +106,7 @@ const XWeaverCSS = css`
     border-radius: 5px;
     overflow-wrap: anywhere;
     background: var(--weaver-background);
+    cursor: pointer;
   }
 
   #controls {

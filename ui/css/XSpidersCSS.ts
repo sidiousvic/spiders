@@ -33,15 +33,16 @@ const XSpidersCSS = css`
   }
 
   .light {
-    --background: var(--spiders-zef);
+    --background: lavenderblush;
     --foreground: var(--spiders-gray);
     --code-background: var(--spiders-zef-dark);
-    --weaver-background: var(--spiders-zef-light);
-    --accent: var(--spiders-purple);
-    --accent-gradient: var(--spiders-blue);
+    --weaver-background: floralwhite;
+    --accent: var(--spiders-pastel);
+    --accent-gradient: var(--spiders-pastel-light);
   }
 
   #spiders {
+    font-family: Dank Mono, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
