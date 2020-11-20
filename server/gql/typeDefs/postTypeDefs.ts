@@ -6,6 +6,7 @@ const postTypeDefs = gql`
     author: String!
     title: String!
     body: String!
+    raw: String!
     tags: String!
   }
 
@@ -19,6 +20,7 @@ const postTypeDefs = gql`
     title: String
     author: String
     body: String
+    raw: String
     tags: String
     createdAt: Date
     updatedAt: Date
@@ -32,6 +34,7 @@ const postTypeDefs = gql`
     title: String!
     author: String!
     body: String!
+    raw: String!
     tags: String!
     createdAt: Date!
     updatedAt: Date!
@@ -45,6 +48,7 @@ const postTypeDefs = gql`
     title: String!
     author: String!
     body: String!
+    raw: String!
     tags: String!
     createdAt: Date!
     updatedAt: Date!

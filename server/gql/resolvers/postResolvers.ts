@@ -23,22 +23,22 @@ const postResolvers: PostResolvers = {
         resource: addedPost,
       };
     }, Role.DARKLORD),
-    async deletePosts(_, __, { models }) {
+    deletePosts: authorized(async (_, __, { models }) => {
       const deletedPosts = await models.Post.deleteAll();
       if (!deletedPosts.length) throw new UserInputError("No webs to burn.");
       return {
         message: "Webs successfully burned!",
         resource: deletedPosts,
       };
-    },
-    async deletePost(_, { input: { postId } }, { models }) {
+    }, Role.DARKLORD),
+    deletePost: authorized(async (_, { input: { postId } }, { models }) => {
       const deletedPost = await models.Post.delete(postId);
       if (!deletedPost) throw new UserInputError("Post does not exist.");
       return {
         message: "Web successfully unraveled!",
         resource: deletedPost,
       };
-    },
+    }, Role.DARKLORD),
     async updatePost(_, { input: partialPostWithId }, { models }) {
       const updatedPost = await models.Post.update(partialPostWithId);
       return {

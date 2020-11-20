@@ -64,17 +64,19 @@ function PostModeler(pool: Pool): PostModel {
           author, 
           tags, 
           body, 
+          raw,
           created_at, 
           updated_at, 
           user_id, 
           published) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *`,
         [
           post.title,
           post.author,
           post.tags,
           post.body,
+          post.raw,
           new Date().toISOString(),
           new Date().toISOString(),
           post.userId,
@@ -93,14 +95,13 @@ function PostModeler(pool: Pool): PostModel {
         .join(", ");
 
       const values = Object.values(post);
-
       const {
         rows: [updatedPost],
       } = await pool.query(
         `
       UPDATE posts 
       SET ${params}, updated_at = current_timestamp
-      WHERE id = ${post.postId}
+      WHERE post_id = '${post.postId}'
       RETURNING *
       `,
         values
