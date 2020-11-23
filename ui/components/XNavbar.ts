@@ -42,11 +42,7 @@ export default class XNavbar extends X {
         <div
           id="title"
           @click=${() => {
-            if (!(routerService.state.value !== "/weaver"))
-              if (confirm("The web will not be woven.")) {
-                routerService.send("/" as Routes);
-                weaverService.send("RESET");
-              }
+            routerService.send("/" as Routes);
           }}
         >
           <h1>Spiders</h1>
