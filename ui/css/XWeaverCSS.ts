@@ -30,14 +30,14 @@ const XWeaverCSS = css`
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 8fr 1fr 8.5fr 1fr;
-    grid-template-rows: 0.5fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem) 0.5fr;
+    grid-template-rows: 0.5fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem) auto;
     gap: 20px 20px;
     min-height: 80vh;
     grid-template-areas:
-      ". .  .  .  .  ."
-      ". co ti ti ti ."
-      ". co bo bo bo ."
-      ". co ta ta ta ."
+      ". co co co co ."
+      ". ti ti ti ti ."
+      ". bo bo bo bo ."
+      ". ta ta ta ta ."
       ". .  .  .  .  .";
   }
 
@@ -93,6 +93,7 @@ const XWeaverCSS = css`
   #tags-input:empty:before {
     content: attr(data-placeholder);
     color: gray;
+    white-space: nowrap;
   }
 
   #rendered {
@@ -122,17 +123,12 @@ const XWeaverCSS = css`
     color: var(--foreground);
     background: var(--background-light);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
     /* gap: 20px 20px; */
-    grid-template-areas:
-      " w "
-      " s "
-      " . "
-      " . "
-      " . ";
+    grid-template-areas: "w s . . . . . .";
   }
 
   #controls > *:hover {
