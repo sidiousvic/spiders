@@ -41,14 +41,15 @@ export default class XWeaver extends X {
   }
 
   firstUpdated() {
-    weaverService
-      .onTransition(({ value, context: { post } }) => {
-        if (value === "RESET") weaverService.send("RESET", { post: {} });
-        if (post.postId !== this.postInput.postId)
+    weaverService.onTransition(({ value, context: { post } }) => {
+      if (value === "RESET") {
+        weaverService.send("RESET", { post: {} });
+      }
+      if (post && post.postId !== this.postInput.postId) {
           this.handleUpdatePostStateTransition(post);
+      }
         this.mode = value;
-      })
-      .start();
+    });
 
     if (!this.auth.token) routerService.send("/signin" as Routes);
   }
