@@ -17,7 +17,7 @@ const authTypeDefs = gql`
     password: String!
   }
 
-  type UserSignUpResponse {
+  type UserSignupResponse {
     username: String!
     email: String!
     password: String!
