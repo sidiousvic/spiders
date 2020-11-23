@@ -20,9 +20,15 @@ export default class XNavbar extends X {
 
   renderUserGreeting() {
     if (this.auth.user.username) {
-      return html` <p>Howdy, ${this.auth.user.username}!</p>`;
+  renderLightSwitch() {
+    switch (this.theme) {
+      case "dark":
+        return "🦠";
+      case "light":
+        return "🍑";
+      default:
+        return "⤬";
     }
-    return html``;
   }
 
   render() {
