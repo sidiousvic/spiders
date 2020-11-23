@@ -63,8 +63,10 @@ export const weaverMachine = Machine<
         on: {
           POSTED: "posted",
           TOGGLE_MODE: "weave",
+          RESET: { target: "weave", actions: [assignPost] },
           EMPTY_TITLE_ERROR: "emptyTitleError",
           EMPTY_BODY_ERROR: "emptyBodyError",
+          EMPTY_TAGS_ERROR: "emptyTagsError",
         },
       },
       posted: { on: { RESET: "weave" } },
@@ -79,4 +81,4 @@ export const weaverMachine = Machine<
   }
 );
 
-export const weaverService = interpret(weaverMachine);
+export const weaverService = interpret(weaverMachine).start();
