@@ -1,3 +1,4 @@
+import { weaverService } from "./weaverMachine";
 import { Machine, interpret } from "xstate";
 
 export enum Routes {
@@ -27,14 +28,26 @@ export interface RouterStateSchema {
 
 export type RouterStateEvent = { type: Routes };
 
-export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>({
-  id: "routerMachine",
-  initial: protectRoutes(location.pathname, ["/weaver"]),
-  states: {
-    "/": { on: { "/weaver": "/weaver" } },
-    "/signin": { on: { "/weaver": "/weaver", "/": "/" } },
-    "/weaver": { on: { "/": "/", "/signin": "/signin" } },
+export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>(
+  {
+    id: "routerMachine",
+    initial: protectRoutes(location.pathname, ["/weaver"]),
+    states: {
+      "/": { on: { "/weaver": "/weaver", "/signin": "/signin" } },
+      "/signin": { on: { "/weaver": "/weaver", "/": "/" } },
+      "/weaver": {
+        on: { "/": "/", "/signin": "/signin" },
+        exit: "exitWeaver",
+      },
+    },
   },
-});
+  {
+    actions: {
+      exitWeaver: (_, __) => {
+        weaverService.send("RESET");
+      },
+    },
+  }
+);
 
 export const routerService = interpret(routerMachine);
