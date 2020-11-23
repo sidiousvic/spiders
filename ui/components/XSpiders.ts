@@ -67,6 +67,14 @@ export class XSpiders extends X {
         this.auth = auth;
         routerService.send("/weaver" as Routes);
       }}
+      @onSignout=${() => {
+        this.auth = {
+          user: {} as Partial<User>,
+          token: "",
+        };
+        localStorage.removeItem("auth");
+        routerService.send("/" as Routes);
+      }}
     >
       <x-navbar .auth=${this.auth}></x-navbar>
       ${this.renderRoute([...this.routes].pop())}
