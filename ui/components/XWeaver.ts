@@ -36,10 +36,6 @@ export default class XWeaver extends X {
   @query("#rendered") renderedElement: HTMLDivElement;
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
-  updated() {
-    console.log(this.mode);
-  }
-
   firstUpdated() {
     weaverService.onTransition(({ value, context: { post } }) => {
       if (value === "RESET") {
