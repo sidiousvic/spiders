@@ -1,8 +1,16 @@
+// import { State } from "xstate";
 import { Post, UserAuth } from "spiders";
-import { LitElement as X, html, property, customElement } from "lit-element";
+import {
+  LitElement as X,
+  html,
+  property,
+  customElement,
+  query,
+} from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import truncateHTML from "truncate-html";
 import Prism from "prismjs";
+import { postCardService } from "../machines/postCardMachine";
 import { routerService, Routes } from "../machines/routeMachine";
 import { weaverService } from "../machines/weaverMachine";
 import { XPostCardCSS } from "../css/XPostCardCSS";
@@ -18,13 +26,25 @@ import "prismjs/components/prism-typescript";
 @customElement("x-post-card")
 export default class XPostCard extends X {
   @property() theme = "";
+  @property() state = { value: {}, context: {} };
   @property() auth: UserAuth;
   @property() post: Partial<Post>;
-
+  @query("#delete-post-button") deletePostButton: HTMLDivElement;
   static styles = [XPostCardCSS, spidersCodeCSS];
 
   firstUpdated() {
     Prism.highlightAllUnder(this.shadowRoot);
+    postCardService.onTransition((state) => {
+      this.state = state;
+    });
+  }
+
+  stageDeletePost() {
+    postCardService.send("STAGE_DELETE", { post: this.post });
+  }
+
+  cancelDeletePost() {
+    postCardService.send("RESET");
   }
 
   async handleDeletePost() {
@@ -59,22 +79,48 @@ export default class XPostCard extends X {
     const onPostDelete = event("onPostDelete", { postId: this.post.postId });
     this.dispatchEvent(onPostDelete);
     weaverService.send("RESET");
+    postCardService.send("RESET");
   }
 
   async handleUpdatePost() {
     routerService.send("/weaver" as Routes);
+    console.log(this.post);
     weaverService.send("UPDATE", { post: this.post });
+  }
+
+  isStagedDelete() {
+    return this.state.value === "stagedDelete";
+  }
+
+  isStagedPost() {
+    return (
+      this.post.postId === postCardService.state.context.stagedDeletePost.postId
+    );
   }
 
   renderDeletePostButton() {
     switch (this.auth.user.role) {
       case "DARKLORD": {
         return html`<div
-          id="delete-post-button"
-          @click=${this.handleDeletePost}
-        >
-          <div>DELETE</div>
-        </div>`;
+            id="delete-post-button"
+            @click=${this.isStagedDelete()
+              ? this.handleDeletePost
+              : this.stageDeletePost}
+          >
+            <div>DELETE</div>
+          </div>
+
+          ${this.isStagedDelete() && this.isStagedPost()
+            ? html`<div
+                id="cancel-delete-post-button"
+                class=${this.isStagedDelete() && this.isStagedPost()
+                  ? "staged-delete-highlight"
+                  : ""}
+                @click=${this.cancelDeletePost}
+              >
+                OH SHIT NONONO
+              </div>`
+            : ""} `;
       }
       default:
         return html``;
@@ -105,8 +151,9 @@ export default class XPostCard extends X {
           ${getHumanReadableDate(new Date(this.post.createdAt))}
         </h2>
         <div class="post-card-body">
+          ${unsafeHTML(this.post.body.split("</pre>")[0])}
           ${unsafeHTML(
-            truncateHTML(this.post.body, 20, {
+            truncateHTML(this.post.body.split("</pre>")[1], 20, {
               byWords: true,
               excludes: ["code"],
             })
