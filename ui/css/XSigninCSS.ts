@@ -71,14 +71,14 @@ const XSigninCSS = css`
     color: var(--accent);
     font-family: Dank Mono;
     font-size: 2rem;
-    font-style: italic;
     transition: 200ms ease-in-out;
     overflow: scroll;
+    overflow-y: hidden;
     white-space: nowrap;
   }
 
   #username-input:focus,
-  #password-input:hover {
+  #password-input:focus {
     transform: scale(0.99);
     border: 1px solid var(--accent);
   }
@@ -101,7 +101,7 @@ const XSigninCSS = css`
 
   #password-input:focus,
   #password-input:not(:empty) {
-    -webkit-text-security: circle;
+    -webkit-text-security: square;
   }
 
   #password-input:focus:empty:before {
@@ -110,7 +110,6 @@ const XSigninCSS = css`
 
   #signin-button {
     text-align: center;
-    background: var(--accent);
     cursor: pointer;
     grid-area: bu;
     color: var(--background-light);
@@ -120,6 +119,11 @@ const XSigninCSS = css`
     border-radius: 5px;
     transition: all 200ms ease-in-out 0s;
     line-height: 2.2rem;
+    background: -webkit-linear-gradient(
+      90deg,
+      var(--accent),
+      var(--accent-gradient)
+    );
   }
 
   #signin-button:hover {
