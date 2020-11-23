@@ -235,6 +235,15 @@ export default class XWeaver extends X {
     }
   }
 
+  renderTagsPlaceholder() {
+    switch (this.mode) {
+      case "emptyTagsError":
+        return "Please enter tags for this post!";
+      default:
+        return "Tags here, separated by spaces";
+    }
+  }
+
   render() {
     return html`<div id="weaver" class=${this.theme}>
       <div id="controls">
@@ -281,7 +290,7 @@ export default class XWeaver extends X {
       </div>
       <div
         id="tags-input"
-        data-placeholder="Tags here, separated by spaces"
+        data-placeholder=${this.renderTagsPlaceholder()}
         contenteditable
         @keyup=${this.handleTagsInput}
       ></div>
