@@ -17,13 +17,19 @@ const authTypeDefs = gql`
     password: String!
   }
 
+  type UserSignUpResponse {
+    username: String!
+    email: String!
+    password: String!
+  }
+
   extend type Query {
     me: User!
   }
 
   extend type Mutation {
     signIn(input: UserSignIn!): AuthUser!
-    signUp(input: UserSignUp!): User!
+    signUp(input: UserSignUp!): UserSignupResponse!
   }
 `;
 export { authTypeDefs };
