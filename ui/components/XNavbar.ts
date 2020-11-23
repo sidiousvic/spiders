@@ -82,7 +82,7 @@ export default class XNavbar extends X {
           id="light-switch"
           @click=${() => themeService.send("SWITCH_THEME")}
         >
-          ${this.lightSwitch}
+          ${this.renderLightSwitch()}
         </span>
       </nav>
     `;
