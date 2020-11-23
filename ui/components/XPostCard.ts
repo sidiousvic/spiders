@@ -117,7 +117,7 @@ export default class XPostCard extends X {
                   : ""}
                 @click=${this.cancelDeletePost}
               >
-                OH SHIT NONONO
+                OH SHIT NO
               </div>`
             : ""} `;
       }
