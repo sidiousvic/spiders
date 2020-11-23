@@ -45,7 +45,7 @@ export class XSpiders extends X {
         return html`<x-posts .auth=${this.auth} theme=${this.theme}></x-posts>`;
       }
       case "/signin": {
-        return html`<x-sign-in .auth=${this.auth}></x-sign-in>`;
+        return html`<x-signin .auth=${this.auth}></x-signin>`;
       }
       case "/weaver": {
         return html`<x-weaver
