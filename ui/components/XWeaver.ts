@@ -61,11 +61,13 @@ export default class XWeaver extends X {
   }
 
   handleUpdatePostStateTransition(post: Partial<Post>) {
+    if (post) {
     this.postInput = post;
     this.titleInputElement.innerText = post.title;
     this.bodyEditorElement.innerText = post.raw;
     this.weave(post.raw);
     this.tagsInputElement.innerText = post.tags;
+  }
   }
 
   handlePostBodyInput(e: KeyboardEvent) {
