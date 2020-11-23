@@ -63,7 +63,7 @@ export class XSpiders extends X {
     return html` <div
       id="spiders"
       class=${this.theme}
-      @onSignIn=${({ detail: { auth } }) => {
+      @onSignin=${({ detail: { auth } }) => {
         this.auth = auth;
         routerService.send("/weaver" as Routes);
       }}
