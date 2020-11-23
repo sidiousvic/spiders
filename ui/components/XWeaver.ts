@@ -46,9 +46,9 @@ export default class XWeaver extends X {
         weaverService.send("RESET", { post: {} });
       }
       if (post && post.postId !== this.postInput.postId) {
-          this.handleUpdatePostStateTransition(post);
+        this.handleUpdatePostStateTransition(post);
       }
-        this.mode = value;
+      this.mode = value;
     });
 
     if (!this.auth.token) routerService.send("/signin" as Routes);
@@ -62,12 +62,12 @@ export default class XWeaver extends X {
 
   handleUpdatePostStateTransition(post: Partial<Post>) {
     if (post) {
-    this.postInput = post;
-    this.titleInputElement.innerText = post.title;
-    this.bodyEditorElement.innerText = post.raw;
-    this.weave(post.raw);
-    this.tagsInputElement.innerText = post.tags;
-  }
+      this.postInput = post;
+      this.titleInputElement.innerText = post.title;
+      this.bodyEditorElement.innerText = post.raw;
+      this.weave(post.raw);
+      this.tagsInputElement.innerText = post.tags;
+    }
   }
 
   handlePostBodyInput(e: KeyboardEvent) {
@@ -289,9 +289,9 @@ export default class XWeaver extends X {
         ${this.renderBodyContent()}
       </div>
       <div
+        contenteditable
         id="tags-input"
         data-placeholder=${this.renderTagsPlaceholder()}
-        contenteditable
         @keyup=${this.handleTagsInput}
       ></div>
     </div> `;
