@@ -180,11 +180,11 @@ export default class XWeaver extends X {
   switchModeIcon() {
     switch (this.mode) {
       case "read":
-        return "👁‍🗨";
+        return "✍🏼";
       case "weave":
-        return "🕸";
-      default:
         return "👁‍🗨";
+      default:
+        return "✍🏼";
     }
   }
 
