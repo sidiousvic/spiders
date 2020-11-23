@@ -9,7 +9,7 @@ const XSpidersCSS = css`
     --spiders-peach: rgb(255, 150, 143);
     --spiders-purple: rgb(40, 0, 255);
     --spiders-purple-light: #2d15ff;
-    --spiders-green: #24ff06;
+    --spiders-green: rgb(66, 245, 90);
     --spiders-mint: rgba(0, 255, 170);
     --spiders-blue: #195aff;
     --spiders-blue-dark: rgb(20, 0, 222);
