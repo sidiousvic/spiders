@@ -11,31 +11,52 @@ const XNavbarCSS = css`
   nav {
     top: 0;
     width: 100%;
+    display: grid;
     color: var(--accent);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    grid-template-columns: 4fr 2fr repeat(1fr, auto);
+    grid-template-areas: "spiders nav-links user-greeting light-switch";
     user-select: none;
   }
 
   nav > * {
     cursor: pointer;
+    background: -webkit-linear-gradient(
+      90deg,
+      var(--accent-gradient),
+      var(--accent)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 1.5rem;
   }
 
   #title {
+    grid-area: spiders;
+  }
+
+  #nav-links {
     display: flex;
-    align-items: center;
     justify-content: space-evenly;
-    flex-direction: row;
+    align-items: center;
+    grid-area: nav-links;
+    font-size: 1.2rem;
+  }
+
+  #user-greeting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: user-greeting;
   }
 
   #light-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: light-switch;
     text-align: center;
-    width: 20%;
     font-size: 2rem;
-    top: 2rem;
-    left: 2rem;
     cursor: pointer;
     user-select: none;
     filter: var(--light-switch-hue);
@@ -62,12 +83,6 @@ const XNavbarCSS = css`
     text-align: center;
     font-size: 1rem;
     font-weight: lighter;
-  }
-
-  #nav-links {
-    width: 20%;
-    font-size: 1.2rem;
-    margin-left: auto;
   }
 `;
 export { XNavbarCSS };
