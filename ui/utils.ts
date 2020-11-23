@@ -51,7 +51,12 @@ export async function fireGraphQLQuery(
   return res.json();
 }
 
-export function event(eventName, detail) {
+export function event(
+  eventName: string,
+  detail?: {
+    [key: string]: any;
+  }
+) {
   return new CustomEvent(eventName, {
     detail,
     bubbles: true,
