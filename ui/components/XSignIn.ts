@@ -52,6 +52,14 @@ export default class XSignIn extends X {
     this.dispatchEvent(onSignin);
   }
 
+  preventMultilineInput(e: KeyboardEvent) {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      e.preventDefault();
+      (e.target as HTMLDivElement).blur();
+    }
+  }
+
   async handleSignInInput(e: KeyboardEvent) {
     const {
       innerHTML,
@@ -73,14 +81,16 @@ export default class XSignIn extends X {
         type="text"
         data-name="username"
         @keyup=${this.handleSignInInput}
+        @keydown=${this.preventMultilineInput}
         data-placeholder="username"
       ></div>
       <div
         contenteditable
         id="password-input"
-        type="password"
+        type="text"
         data-name="password"
         @keyup=${this.handleSignInInput}
+        @keydown=${this.preventMultilineInput}
         data-placeholder="password"
       ></div>
       <div id="signin-button" @click=${this.handleSignIn}>SIGN IN</div>
