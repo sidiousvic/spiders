@@ -2,10 +2,18 @@ import { UserAuth } from "spiders";
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
 import { fireGraphQLQuery, event, logGraphQLErrors } from "../utils";
+import { routerService, Routes } from "../machines/routeMachine";
+import { XSigninCSS } from "../css/XSigninCSS";
 
-@customElement("x-sign-in")
+@customElement("x-signin")
 export default class XSignIn extends X {
   @property() auth: UserAuth;
+
+  firstUpdated() {
+    if (this.auth.token) routerService.send("/weaver" as Routes);
+  }
+
+  static styles = [XSigninCSS];
 
   async handleSignIn() {
     const signInQuery = `
@@ -40,30 +48,42 @@ export default class XSignIn extends X {
 
     localStorage.setItem("auth", JSON.stringify(this.auth));
 
-    const onSignIn = event("onSignIn", { auth: this.auth });
-    this.dispatchEvent(onSignIn);
+    const onSignin = event("onSignin", { auth: this.auth });
+    this.dispatchEvent(onSignin);
   }
 
   async handleSignInInput(e: KeyboardEvent) {
-    const { value, name } = e.target as HTMLInputElement;
-    this.auth = { ...this.auth, user: { ...this.auth.user, [name]: value } };
+    const {
+      innerHTML,
+      dataset: { name },
+    } = e.target as HTMLDivElement;
+
+    this.auth = {
+      ...this.auth,
+      user: { ...this.auth.user, [name]: innerHTML },
+    };
   }
 
   render() {
-    return html`<div>
-      <input
+    return html`<div id="signin">
+      <h1 id="signin-heading">Who are you?</h1>
+      <div
+        contenteditable
+        id="username-input"
         type="text"
-        name="username"
+        data-name="username"
         @keyup=${this.handleSignInInput}
-        placeholder="username"
-      />
-      <input
+        data-placeholder="username"
+      ></div>
+      <div
+        contenteditable
+        id="password-input"
         type="password"
-        name="password"
+        data-name="password"
         @keyup=${this.handleSignInInput}
-        placeholder="password"
-      />
-      <button @click=${this.handleSignIn}>SIGN IN</button>
+        data-placeholder="password"
+      ></div>
+      <div id="signin-button" @click=${this.handleSignIn}>SIGN IN</div>
     </div>`;
   }
 }
