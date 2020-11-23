@@ -1,3 +1,4 @@
+import { StateValue } from "xstate";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { routerService, Routes } from "../machines/routeMachine";
 import { themeService } from "../machines/themeMachine";
@@ -6,13 +7,12 @@ import { weaverService } from "../machines/weaverMachine";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
-  @property() lightSwitch: string = "🌑";
+  @property() theme: StateValue = "";
   @property() auth;
 
   firstUpdated() {
-    themeService.onTransition((state) => {
-      if (state.value === "dark") this.lightSwitch = "🌞";
-      else this.lightSwitch = "🌜";
+    themeService.onTransition(({ value }) => {
+      this.theme = value;
     });
   }
 
