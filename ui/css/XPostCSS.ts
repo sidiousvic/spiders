@@ -2,7 +2,7 @@ import { css } from "lit-element";
 
 const XPostCSS = css`
   .post {
-    background: var(--weaver-background);
+    background: var(--background-light);
     border-radius: 5px;
     padding: 2rem;
   }

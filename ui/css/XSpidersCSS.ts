@@ -4,8 +4,9 @@ const XSpidersCSS = css`
   :host {
     width: 100%;
     --spiders-pastel: rgba(255, 80, 180);
-    --spiders-pastel-dark: rgb(210, 0, 120);
+    --spiders-pastel-dark: rgb(209 133 176);
     --spiders-pastel-light: rgb(250, 140, 200);
+    --spiders-peach: rgb(255, 150, 143);
     --spiders-purple: rgb(40, 0, 255);
     --spiders-purple-light: #2d15ff;
     --spiders-green: #24ff06;
@@ -27,16 +28,18 @@ const XSpidersCSS = css`
     --background: var(--spiders-gray);
     --foreground: var(--spiders-bone);
     --code-background: var(--spiders-gray-light);
-    --weaver-background: var(--spiders-gray-light);
+    --code-foreground: var(--spiders-bone-dark);
+    --background-light: var(--spiders-gray-light);
     --accent: var(--spiders-green);
     --accent-gradient: var(--spiders-mint);
   }
 
   .light {
     --background: lavenderblush;
-    --foreground: var(--spiders-gray);
-    --code-background: var(--spiders-zef-dark);
-    --weaver-background: floralwhite;
+    --foreground: var(--spiders-pastel-dark);
+    --code-background: floralwhite;
+    --code-foreground: var(--spiders-peach);
+    --background-light: floralwhite;
     --accent: var(--spiders-pastel);
     --accent-gradient: var(--spiders-pastel-light);
   }

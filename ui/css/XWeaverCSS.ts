@@ -51,7 +51,7 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    background: var(--weaver-background);
+    background: var(--background-light);
   }
 
   #title-input:empty:before {
@@ -69,7 +69,7 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    background: var(--weaver-background);
+    background: var(--background-light);
   }
 
   #body-editor:empty:before {
@@ -87,7 +87,7 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    background: var(--weaver-background);
+    background: var(--background-light);
   }
 
   #tags-input:empty:before {
@@ -105,7 +105,7 @@ const XWeaverCSS = css`
     user-select: none;
     border-radius: 5px;
     overflow-wrap: anywhere;
-    background: var(--weaver-background);
+    background: var(--background-light);
     cursor: pointer;
   }
 
@@ -120,7 +120,7 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    background: var(--weaver-background);
+    background: var(--background-light);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;

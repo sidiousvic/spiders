@@ -8,9 +8,9 @@ const spidersCodeCSS = css`
   }
 
   .light {
-    --keyword: var(--spiders-purple);
-    --function: var(--spiders-blue-dark);
-    --string: var(--spiders-pastel-dark);
+    --keyword: var(--accent-gradient);
+    --function: var(--accent);
+    --string: var(--accent-gradient);
   }
 
   pre > code {
@@ -123,7 +123,7 @@ const spidersCodeCSS = css`
   }
 
   .token.punctuation {
-    color: #bebec5;
+    color: var(--code-foreground);
   }
 
   .token.entity {

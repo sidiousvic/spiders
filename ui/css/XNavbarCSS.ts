@@ -38,7 +38,7 @@ const XNavbarCSS = css`
     left: 2rem;
     cursor: pointer;
     user-select: none;
-    filter: hue-rotate(90deg);
+    filter: var(--light-switch-hue);
   }
 
   nav > #title > h1 {

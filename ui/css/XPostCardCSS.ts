@@ -2,7 +2,7 @@ import { css } from "lit-element";
 
 const XPostCardCSS = css`
   .post-card {
-    background: var(--weaver-background);
+    background: var(--background-light);
     border: 1px solid transparent;
     border-radius: 5px;
     padding: 2rem;
@@ -12,7 +12,7 @@ const XPostCardCSS = css`
 
   .post-card:hover {
     transform: scale(0.98) translateY(-5px);
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-gradient);
     cursor: pointer;
     transition: 200ms ease-in-out;
   }
@@ -62,26 +62,31 @@ const XPostCardCSS = css`
 
   .post-card-tags {
     font-family: Dank Mono, sans-serif;
-    color: var(--accent);
+    color: var(--accent-gradient);
   }
 
   #post-buttons {
     display: grid;
     gap: 1rem;
-    grid-template-columns: 5fr 1fr 1fr;
+    grid-template-columns: minmax(1fr, auto) auto 1fr 1fr;
     grid-template-rows: repeat(auto-fill);
-    grid-template-areas: ". delete update";
+    grid-template-areas: ". candel delete update";
     padding: 1rem;
   }
 
   #post-buttons > * {
-    color: var(--accent);
-    text-align: center;
+    color: var(--accent-gradient);
     background: var(--background);
-    border: 1px solid var(--accent);
+    text-align: center;
+    border: 1px solid var(--accent-gradient);
     border-radius: 3px;
     font-size: 1rem;
     padding: 0.5rem;
+  }
+
+  #post-buttons > .staged-delete-highlight {
+    color: var(--background);
+    background: var(--accent-gradient);
   }
 
   #post-buttons > *:hover {
@@ -89,7 +94,13 @@ const XPostCardCSS = css`
   }
 
   #delete-post-button {
+    color: var(--accent-gradient);
+    background: var(--background);
     grid-area: delete;
+  }
+
+  #cancel-delete-post-button {
+    grid-area: candel;
   }
 
   #update-post-button {
