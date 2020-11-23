@@ -3,7 +3,7 @@ import { LitElement as X, html, property, customElement } from "lit-element";
 import { routerService, Routes } from "../machines/routeMachine";
 import { themeService } from "../machines/themeMachine";
 import { XNavbarCSS } from "../css/XNavbarCSS";
-import { weaverService } from "../machines/weaverMachine";
+import { event } from "../utils";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
@@ -59,6 +59,15 @@ export default class XNavbar extends X {
             }}
           >
             Weaver
+          </div>
+          <div
+          <div
+            id="signout-link"
+            @click=${() => {
+              this.dispatchEvent(event("onSignout"));
+            }}
+          >
+            Signout
           </div>
         </div>
         <div id="user-greeting">${this.renderUserGreeting()}</div>
