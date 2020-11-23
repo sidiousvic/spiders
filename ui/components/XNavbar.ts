@@ -61,6 +61,13 @@ export default class XNavbar extends X {
             Weaver
           </div>
           <div
+            id="signin-link"
+            @click=${() => {
+              routerService.send("/signin" as Routes);
+            }}
+          >
+            Signin
+          </div>
           <div
             id="signout-link"
             @click=${() => {
