@@ -57,7 +57,7 @@ export default class XPosts extends X {
   render() {
     return html`
       <div class="posts" @onPostDelete=${this.fetchPosts}>
-        ${this.posts ? this.renderPosts() : "Loading"}
+        ${this.posts ? this.renderPosts() : html`<div>⏱</div>`}
       </div>
     `;
   }
