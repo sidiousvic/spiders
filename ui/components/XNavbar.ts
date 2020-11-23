@@ -16,7 +16,7 @@ export default class XNavbar extends X {
     });
   }
 
-  static styles = XNavbarCSS;
+  static styles = [XNavbarCSS];
 
   renderUserGreeting() {
     if (this.auth.user.username) {
