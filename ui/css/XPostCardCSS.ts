@@ -2,17 +2,17 @@ import { css } from "lit-element";
 
 const XPostCardCSS = css`
   .post-card {
-    background: var(--background-light);
+    background: var(--background-2);
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 0px;
     padding: 2rem;
     user-select: none;
-    min-height: 30rem;
+    box-shadow: var(--shadows) 5px 5px;
   }
 
   .post-card:hover {
     transform: scale(0.98) translateY(-5px);
-    border: 1px solid var(--accent-gradient);
+    border: 1px solid var(--accent-2);
     cursor: pointer;
     transition: 200ms ease-in-out;
   }
@@ -23,23 +23,18 @@ const XPostCardCSS = css`
   }
 
   .post-card-title {
+    font-weight: 500;
     overflow-wrap: break-word;
-    font-family: Dank Mono, sans-serif;
-    margin: 2rem 0rem;
-    font-size: 3rem;
+    margin: 1rem 0rem;
+    font-size: 2.5rem;
     /* spiders gradient */
-    background: -webkit-linear-gradient(
-      90deg,
-      var(--accent-gradient),
-      var(--accent)
-    );
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .post-card-subtitle {
-    font-family: Dank Mono, sans-serif;
     color: var(--foreground);
     font-size: 0.9rem;
     font-weight: 500;
@@ -50,9 +45,9 @@ const XPostCardCSS = css`
     text-align: left;
     font-size: 1rem;
     color: var(--foreground);
-    font-family: Dank Mono, sans-serif;
     line-height: 2.5rem;
     font-weight: lighter;
+    font-stretch: 20px;
   }
 
   #links {
@@ -61,8 +56,8 @@ const XPostCardCSS = css`
   }
 
   .post-card-tags {
-    font-family: Dank Mono, sans-serif;
-    color: var(--accent-gradient);
+    font-weight: 100;
+    color: var(--accent-2);
   }
 
   #post-buttons {
@@ -71,30 +66,36 @@ const XPostCardCSS = css`
     grid-template-columns: minmax(1fr, auto) auto 1fr 1fr;
     grid-template-rows: repeat(auto-fill);
     grid-template-areas: ". candel delete update";
-    padding: 1rem;
+    padding: 2rem 0 0 0;
+  }
+
+  #post-buttons:empty {
+    display: none;
   }
 
   #post-buttons > * {
-    color: var(--accent-gradient);
+    color: var(--accent-2);
     background: var(--background);
     text-align: center;
-    border: 1px solid var(--accent-gradient);
-    border-radius: 3px;
+    border: 1px solid var(--accent-2);
+    border-radius: 0px;
     font-size: 1rem;
     padding: 0.5rem;
   }
 
   #post-buttons > .staged-delete-highlight {
     color: var(--background);
-    background: var(--accent-gradient);
+    background: var(--accent-2);
   }
 
   #post-buttons > *:hover {
+    background: var(--accent-2);
+    color: var(--background);
     transform: translateY(1px);
   }
 
   #delete-post-button {
-    color: var(--accent-gradient);
+    color: var(--accent-2);
     background: var(--background);
     grid-area: delete;
   }
