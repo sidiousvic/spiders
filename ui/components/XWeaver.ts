@@ -271,26 +271,6 @@ export default class XWeaver extends X {
 
   render() {
     return html`<div id="weaver" class=${this.theme}>
-      <div id="controls">
-        <div
-          id="weaverModeIndicator"
-          @click=${() => {
-            weaverService.send("TOGGLE_MODE");
-          }}
-        >
-          <icon> ${this.switchModeIcon()} </icon>
-        </div>
-        <div
-          id="stagePostButton"
-          @click=${() => {
-            if (this.mode === "staged") {
-              this.handleCommitPost();
-            } else weaverService.send("STAGE");
-          }}
-        >
-          <icon> ${this.switchStagePostIcon()} </icon>
-        </div>
-      </div>
       <div
         id="title-input"
         data-placeholder=${this.renderTitlePlaceholder()}
