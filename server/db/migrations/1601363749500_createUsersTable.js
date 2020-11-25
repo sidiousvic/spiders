@@ -1,6 +1,6 @@
-import { PgLiteral } from "node-pg-migrate";
+const { PgLiteral } = require("node-pg-migrate");
 
-export async function up(pgm) {
+module.exports.up = async function up(pgm) {
   await pgm.createExtension("uuid-ossp", {
     ifNotExists: true,
     schema: "public",
@@ -33,4 +33,4 @@ export async function up(pgm) {
       ifNotExists: true,
     }
   );
-}
+};
