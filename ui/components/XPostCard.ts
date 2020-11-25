@@ -1,4 +1,3 @@
-// import { State } from "xstate";
 import { Post, UserAuth } from "spiders";
 import {
   LitElement as X,
@@ -8,7 +7,7 @@ import {
   query,
 } from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
-import truncateHTML from "truncate-html";
+// import truncateHTML from "truncate-html";
 import Prism from "prismjs";
 import { postCardService } from "../machines/postCardMachine";
 import { routerService, Routes } from "../machines/routeMachine";
@@ -104,10 +103,14 @@ export default class XPostCard extends X {
         return html`<div
             id="delete-post-button"
             @click=${this.isStagedDelete()
-              ? this.handleDeletePost
+              ? this.cancelDeletePost
               : this.stageDeletePost}
           >
-            <div>DELETE</div>
+            <div>
+              ${this.isStagedDelete() && this.isStagedPost()
+                ? "OH SHIT!"
+                : "DELETE"}
+            </div>
           </div>
 
           ${this.isStagedDelete() && this.isStagedPost()
@@ -116,9 +119,9 @@ export default class XPostCard extends X {
                 class=${this.isStagedDelete() && this.isStagedPost()
                   ? "staged-delete-highlight"
                   : ""}
-                @click=${this.cancelDeletePost}
+                @click=${this.handleDeletePost}
               >
-                OH SHIT NO
+                DELETE
               </div>`
             : ""} `;
       }
@@ -143,6 +146,13 @@ export default class XPostCard extends X {
   }
 
   render() {
+    const postBodyVisual = unsafeHTML(this.post.body.split("</pre>")[0]);
+    // const postBodyText = unsafeHTML(
+    //   truncateHTML(this.post.body.split("</pre>")[1] || "NO VISUAL", 12, {
+    //     byWords: true,
+    //     excludes: ["code"],
+    //   })
+    // );
     return html`
       <div
         class="post-card ${this.theme}"
@@ -151,18 +161,9 @@ export default class XPostCard extends X {
       >
         <h1 class="post-card-title">${this.post.title}</h1>
         <h2 class="post-card-subtitle">
-          by ${this.post.author} @
           ${getHumanReadableDate(new Date(this.post.createdAt))}
         </h2>
-        <div class="post-card-body">
-          ${unsafeHTML(this.post.body.split("</pre>")[0])}
-          ${unsafeHTML(
-            truncateHTML(this.post.body.split("</pre>")[1], 20, {
-              byWords: true,
-              excludes: ["code"],
-            })
-          )}
-        </div>
+        <div class="post-card-body">${postBodyVisual}</div>
         <sub class="post-card-tags">${this.post.tags}</sub>
         <div id="post-buttons">
           ${this.renderDeletePostButton()} ${this.renderUpdatePostButton()}
@@ -171,3 +172,4 @@ export default class XPostCard extends X {
     `;
   }
 }
+// by ${this.post.author} @
