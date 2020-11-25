@@ -85,7 +85,11 @@ export default class XWeaver extends X {
   handlePostBodyInput(e: KeyboardEvent) {
     const { innerText } = e.target as HTMLInputElement;
     this.weave(innerText);
-    this.postInput = { ...this.postInput, body: this.rendered, raw: innerText };
+    this.postInput = {
+      ...this.postInput,
+      body: this.rendered,
+      raw: innerText,
+    };
   }
 
   handleTitleInput(e: KeyboardEvent) {
