@@ -192,11 +192,11 @@ export default class XWeaver extends X {
   switchModeIcon() {
     switch (this.mode) {
       case "read":
-        return "✍🏼";
+        return html`<div class="control">🏴‍☠️ VIEW</div>`;
       case "weave":
-        return "👁‍🗨";
+        return html`<div class="control">🏴 VIEW</div>`;
       default:
-        return "✍🏼";
+        return html`<div class="control">🏴‍☠️ VIEW</div>`;
     }
   }
 
