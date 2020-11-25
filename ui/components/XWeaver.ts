@@ -31,12 +31,28 @@ export default class XWeaver extends X {
   });
   @property() mode = weaverMachine.initialState.value;
   @property() postInput: Partial<Post> = {};
+  @property() postVisual = `
+  \`\`\`
+  +----------------------------+
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  |. . . . . . . . . . . . . . |
+  +----------------------------+
+  \`\`\`
+  `;
+
   @query("#title-input") titleInputElement: HTMLDivElement;
   @query("#body-editor") bodyEditorElement: HTMLDivElement;
   @query("#rendered") renderedElement: HTMLDivElement;
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
   firstUpdated() {
+    this.bodyEditorElement.innerText = this.postVisual;
     weaverService.onTransition(({ value, context: { post } }) => {
       if (value === "RESET") {
         weaverService.send("RESET", { post: {} });
