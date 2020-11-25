@@ -53,7 +53,6 @@ export default class XSignIn extends X {
   }
 
   preventMultilineInput(e: KeyboardEvent) {
-    console.log(e.key);
     if (e.key === "Enter") {
       e.preventDefault();
       (e.target as HTMLDivElement).blur();
