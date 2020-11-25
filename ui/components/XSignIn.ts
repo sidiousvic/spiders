@@ -74,7 +74,7 @@ export default class XSignIn extends X {
 
   render() {
     return html`<div id="signin">
-      <h1 id="signin-heading">Who are you?</h1>
+      <h1 id="signin-heading">WHO ARE YOU ?</h1>
       <div
         contenteditable
         id="username-input"
