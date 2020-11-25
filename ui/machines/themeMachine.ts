@@ -23,7 +23,7 @@ export type Themes = "light" | "dark";
 
 export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>({
   id: "themeMachine",
-  initial: getTimeOfDayTheme(),
+  initial: (localStorage.getItem("theme") as Themes) || getTimeOfDayTheme(),
   states: {
     light: { on: { SWITCH_THEME: "dark" } },
     dark: { on: { SWITCH_THEME: "light" } },

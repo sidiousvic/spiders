@@ -24,19 +24,19 @@ export class XSpiders extends X {
   @property() floodlights = floodLightService.initialState.value;
 
   firstUpdated() {
-    // WEAVER DEVELOPMENT
-    routerService.send("/weaver" as Routes);
-    // WEAVER DEVELOPMENT
-
     const auth = JSON.parse(localStorage.getItem("auth"));
     if (auth) this.auth = auth;
 
     themeService.onTransition(({ value }) => {
+      // defuse floodlights if theme is light
       if (value === "light") floodLightService.send("DEFUSE");
       else floodLightService.send("FUSE");
+      // turn on floodlights at specific routes
       if ([...this.routes].pop() === "/") floodLightService.send("ONLINE");
       if ([...this.routes].pop() === "/signin")
         floodLightService.send("ONLINE");
+      // store theme in local storage
+      localStorage.setItem("theme", value as string);
       this.theme = value;
     });
 
