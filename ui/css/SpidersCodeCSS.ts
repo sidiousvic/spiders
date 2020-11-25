@@ -2,19 +2,19 @@ import { css } from "lit-element";
 
 const spidersCodeCSS = css`
   .dark {
-    --keyword: var(--accent-gradient);
+    --keyword: var(--accent-2);
     --function: var(--accent);
-    --string: var(--accent-gradient);
+    --string: var(--accent-2);
   }
 
   .light {
-    --keyword: var(--accent-gradient);
+    --keyword: var(--accent-2);
     --function: var(--accent);
-    --string: var(--accent-gradient);
+    --string: var(--accent-2);
   }
 
   pre > code {
-    border-radius: 5px;
+    border-radius: 0px;
     font-size: 1rem;
   }
 
@@ -29,8 +29,7 @@ const spidersCodeCSS = css`
     hyphens: none;
     white-space: pre-wrap;
     word-wrap: normal;
-    font-family: Dank Mono;
-    color: var(--code-foreground);
+    color: var(--foreground-2);
     text-shadow: none;
     cursor: crosshair;
   }
@@ -40,7 +39,7 @@ const spidersCodeCSS = css`
 
   pre[class*="language-"],
   :not(pre) > code[class*="language-"] {
-    background: var(--code-background);
+    background: var(--background-2);
   }
 
   :not(pre) > code[class*="language-"] {
@@ -49,7 +48,7 @@ const spidersCodeCSS = css`
 
   pre[class*="language-"] {
     padding: 1rem 2rem;
-    border-radius: 5px;
+    border-radius: 0px;
     border: 0px dashed var(--border);
     overflow: auto;
     position: relative;
@@ -123,7 +122,7 @@ const spidersCodeCSS = css`
   }
 
   .token.punctuation {
-    color: var(--code-foreground);
+    color: var(--foreground-2);
   }
 
   .token.entity {
