@@ -48,12 +48,8 @@ const XSigninCSS = css`
     grid-area: he;
     text-align: center;
     margin: 0;
-    font-size: 3rem;
-    background: -webkit-linear-gradient(
-      90deg,
-      var(--accent-gradient),
-      var(--accent)
-    );
+    font-size: 2.5rem;
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -62,19 +58,19 @@ const XSigninCSS = css`
   #username-input,
   #password-input {
     padding: 1rem;
-    border-radius: 5px;
-    background: var(--background-light);
+    border-radius: 0px;
+    background: var(--background-2);
     outline: none;
-    border: 1px solid var(--background-light);
+    border: 1px solid var(--background-2);
     border-spacing: 10px;
     caret-color: var(--accent);
     color: var(--accent);
-    font-family: Dank Mono;
     font-size: 2rem;
     transition: 200ms ease-in-out;
     overflow: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    font-weight: 100;
   }
 
   #username-input:focus,
@@ -112,18 +108,13 @@ const XSigninCSS = css`
     text-align: center;
     cursor: pointer;
     grid-area: bu;
-    color: var(--background-light);
-    font-family: "Dank Mono";
+    color: var(--background-2);
     font-size: 1.5rem;
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 0px;
     transition: all 200ms ease-in-out 0s;
     line-height: 2.2rem;
-    background: -webkit-linear-gradient(
-      90deg,
-      var(--accent),
-      var(--accent-gradient)
-    );
+    background: -webkit-linear-gradient(90deg, var(--accent), var(--accent-2));
   }
 
   #signin-button:hover {
@@ -135,11 +126,10 @@ const XSigninCSS = css`
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active,
   input:-webkit-autofill:first-line {
-    font-family: Dank Mono;
     font-style: italic;
     -webkit-text-fill-color: var(--accent);
     font-size: 2rem;
-    -webkit-box-shadow: 0 0 0 100px var(--background-light) inset;
+    -webkit-box-shadow: 0 0 0 100px var(--background-2) inset;
   }
 `;
 
