@@ -50,4 +50,4 @@ export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>(
   }
 );
 
-export const routerService = interpret(routerMachine);
+export const routerService = interpret(routerMachine).start();

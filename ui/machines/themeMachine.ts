@@ -30,4 +30,4 @@ export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>({
   },
 });
 
-export const themeService = interpret(themeMachine);
+export const themeService = interpret(themeMachine).start();
