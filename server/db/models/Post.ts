@@ -17,6 +17,7 @@ function PostModeler(pool: Pool): PostModel {
       published_at as "publishedAt",
       deleted_at as "deletedAt"
       FROM posts
+      ORDER BY "createdAt" DESC;
       `);
       return foundPosts;
     },
