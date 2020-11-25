@@ -11,6 +11,7 @@ export default class XNavbar extends X {
   @property() theme: StateValue = themeService.initialState.value;
   @property() floodlights: StateValue = floodLightService.initialState.value;
   @property() auth;
+  @property() showDropdown: boolean = false;
 
   firstUpdated() {
     themeService.onTransition(({ value }) => {
@@ -47,12 +48,23 @@ export default class XNavbar extends X {
     }
   }
 
-  renderFloodLights() {}
-
   renderDropdownMenu() {
-    return html`<div id="menu">
+    return html`<div
+      id="menu"
+      @mouseenter=${() => {
+        this.showDropdown = true;
+      }}
+      @mouseleave=${() => {
+        this.showDropdown = false;
+      }}
+    >
       Menu
-      <div id="menu-dropdown">
+      <div
+        class="menu-dropdown ${this.showDropdown ? "visible" : "hidden"}"
+        @click=${() => {
+          this.showDropdown = false;
+        }}
+      >
         <div
           class="menu-dropdown-link"
           id="spiders-link"

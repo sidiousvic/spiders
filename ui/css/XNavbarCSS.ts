@@ -90,19 +90,27 @@ const XNavbarCSS = css`
     background: var(--background);
     border-radius: 5px 5px 0 0;
   }
-  #menu:hover #menu-dropdown {
-    display: block;
-  }
 
-  #menu-dropdown {
+  .menu-dropdown {
     top: 100%;
     width: 100%;
     position: absolute;
     text-align: center;
-    display: none;
+    visibility: hidden;
     z-index: 1;
     background: var(--gradient-dark);
     border-radius: 5px;
+    transition: visibility 200ms, opacity 200ms ease-in-out;
+  }
+
+  .visible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .hidden {
+    visibility: hidden;
+    opacity: 0;
   }
 
   .menu-dropdown-link {
