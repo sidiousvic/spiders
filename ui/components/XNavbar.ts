@@ -1,6 +1,7 @@
 import { StateValue } from "xstate";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { routerService, Routes } from "../machines/routeMachine";
+import { floodLightService } from "../machines/floodLightMachine";
 import { themeService } from "../machines/themeMachine";
 import { XNavbarCSS } from "../css/XNavbarCSS";
 import { event } from "../utils";
@@ -22,13 +23,6 @@ export default class XNavbar extends X {
 
   static styles = [XNavbarCSS];
 
-  renderUserGreeting() {
-    if (this.auth.user.username) {
-      return html` <p>Howdy, ${this.auth.user.username}! 👽</p>`;
-    }
-    return html`A web journal.`;
-  }
-
   renderLightSwitch() {
     switch (this.theme) {
       case "dark":
@@ -40,9 +34,77 @@ export default class XNavbar extends X {
     }
   }
 
+  renderNavFloodlights() {
+    switch (this.floodlights) {
+      case "on":
+        return "floodlights";
+      case "off":
+        return "";
+      case "defused":
+        return "";
+      default:
+        return "floodlights";
+    }
+  }
+
+  renderFloodLights() {}
+
+  renderDropdownMenu() {
+    return html`<div id="menu">
+      Menu
+      <div id="menu-dropdown">
+        <div
+          class="menu-dropdown-link"
+          id="spiders-link"
+          @click=${() => {
+            routerService.send("/" as Routes);
+          }}
+        >
+          Spiders
+        </div>
+        <div
+          class="menu-dropdown-link"
+          id="weaver-link"
+          @click=${() => {
+            routerService.send("/weaver" as Routes);
+          }}
+        >
+          Weave
+        </div>
+
+        ${!this.auth.token
+          ? html`<div
+              class="menu-dropdown-link"
+              id="signin-link"
+              @click=${() => {
+                routerService.send("/signin" as Routes);
+              }}
+            >
+              S/in
+            </div>`
+          : html`<div
+              class="menu-dropdown-link"
+              id="signout-link"
+              @click=${() => {
+                this.dispatchEvent(event("onSignout"));
+              }}
+            >
+              S/out
+            </div>`}
+      </div>
+    </div>`;
+  }
+
+  renderUserGreeting() {
+    if (this.auth.user.username) {
+      return html`Howdy, ${this.auth.user.username}! 👽`;
+    }
+    return html`A web journal.`;
+  }
+
   render() {
     return html`
-      <nav>
+      <nav class=${this.renderNavFloodlights()}>
         <div
           id="title"
           @click=${() => {
@@ -51,39 +113,13 @@ export default class XNavbar extends X {
         >
           <h1>Spiders</h1>
         </div>
-        <div id="nav-links">
-          <div
-            id="weaver-link"
-            @click=${() => {
-              routerService.send("/weaver" as Routes);
-            }}
-          >
-            Weaver
-          </div>
-          <div
-            id="signin-link"
-            @click=${() => {
-              routerService.send("/signin" as Routes);
-            }}
-          >
-            Signin
-          </div>
-          <div
-            id="signout-link"
-            @click=${() => {
-              this.dispatchEvent(event("onSignout"));
-            }}
-          >
-            Signout
-          </div>
-        </div>
-        <div id="user-greeting">${this.renderUserGreeting()}</div>
         <span
           id="light-switch"
           @click=${() => themeService.send("SWITCH_THEME")}
         >
           ${this.renderLightSwitch()}
         </span>
+        ${this.renderDropdownMenu()}
       </nav>
     `;
   }
