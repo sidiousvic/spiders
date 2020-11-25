@@ -43,7 +43,6 @@ export class XSpiders extends X {
     routerService.onTransition(({ value }) => {
       if (value === "/") floodLightService.send("ONLINE");
       if (value === "/signin") floodLightService.send("ONLINE");
-      history.pushState(null, null, value as string);
       this.routes = [...this.routes, value];
     });
 
