@@ -18,25 +18,31 @@ export class XSpiders extends X {
     token: "",
   };
   @property() name = "";
-  @property() theme = themeMachine.initialState.value;
-  @property() routes = [routerMachine.initialState.value];
+  @property() floodlights = floodLightService.initialState.value;
 
   firstUpdated() {
     const auth = JSON.parse(localStorage.getItem("auth"));
     if (auth) this.auth = auth;
 
-    themeService
-      .onTransition(({ value }) => {
+    themeService.onTransition(({ value }) => {
+      if (value === "light") floodLightService.send("DEFUSE");
+      else floodLightService.send("FUSE");
+      if ([...this.routes].pop() === "/") floodLightService.send("ONLINE");
+      if ([...this.routes].pop() === "/signin")
+        floodLightService.send("ONLINE");
         this.theme = value;
-      })
-      .start();
+    });
 
-    routerService
-      .onTransition(({ value }) => {
+    routerService.onTransition(({ value }) => {
+      if (value === "/") floodLightService.send("ONLINE");
+      if (value === "/signin") floodLightService.send("ONLINE");
         history.pushState(null, null, value as string);
         this.routes = [...this.routes, value];
-      })
-      .start();
+    });
+
+    floodLightService.onTransition(({ value }) => {
+      this.floodlights = value;
+    });
   }
 
   renderRoute(route: StateValue) {
@@ -59,6 +65,19 @@ export class XSpiders extends X {
     }
   }
 
+  renderFooterFloodlights() {
+    switch (this.floodlights) {
+      case "on":
+        return "floodlights";
+      case "off":
+        return "";
+      case "defused":
+        return "";
+      default:
+        return "floodlights";
+    }
+  }
+
   render() {
     return html` <div
       id="spiders"
@@ -78,6 +97,8 @@ export class XSpiders extends X {
     >
       <x-navbar .auth=${this.auth}></x-navbar>
       ${this.renderRoute([...this.routes].pop())}
+      <div id="footer" class=${this.renderFooterFloodlights()}>🏴‍☠️ by sidiousvic</div>
+      </div>
     </div>`;
   }
 }

@@ -18,6 +18,10 @@ const XNavbarCSS = css`
     user-select: none;
   }
 
+  .floodlights {
+    box-shadow: 0px 20px 200px var(--floodlights);
+  }
+
   nav > * {
     cursor: pointer;
     background: -webkit-linear-gradient(

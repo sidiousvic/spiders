@@ -7,12 +7,16 @@ import { event } from "../utils";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
-  @property() theme: StateValue = "";
+  @property() theme: StateValue = themeService.initialState.value;
+  @property() floodlights: StateValue = floodLightService.initialState.value;
   @property() auth;
 
   firstUpdated() {
     themeService.onTransition(({ value }) => {
       this.theme = value;
+    });
+    floodLightService.onTransition(({ value }) => {
+      this.floodlights = value;
     });
   }
 

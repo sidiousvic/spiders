@@ -13,6 +13,7 @@ import Prism from "prismjs";
 import { postCardService } from "../machines/postCardMachine";
 import { routerService, Routes } from "../machines/routeMachine";
 import { weaverService } from "../machines/weaverMachine";
+import { floodLightService } from "../machines/floodLightMachine";
 import { XPostCardCSS } from "../css/XPostCardCSS";
 import { spidersCodeCSS } from "../css/SpidersCodeCSS";
 import {
@@ -143,7 +144,11 @@ export default class XPostCard extends X {
 
   render() {
     return html`
-      <div class="post-card ${this.theme}">
+      <div
+        class="post-card ${this.theme}"
+        @mouseenter=${() => floodLightService.send("OFF")}
+        @mouseleave=${() => floodLightService.send("ONLINE")}
+      >
         <h1 class="post-card-title">${this.post.title}</h1>
         <h2 class="post-card-subtitle">
           by ${this.post.author} @

@@ -66,6 +66,9 @@ const XSpidersCSS = css`
   *::-moz-selection {
     background: var(--spiders-mint-light);
   }
+  .floodlights {
+    box-shadow: 0px -20px 200px var(--floodlights);
+  }
 `;
 
 export { XSpidersCSS };
