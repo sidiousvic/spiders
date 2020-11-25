@@ -200,18 +200,26 @@ export default class XWeaver extends X {
     }
   }
 
-  switchStagePostIcon() {
+  switchStagePostButton() {
     switch (this.mode) {
       case "staged":
-        return "🔋";
+        return html`<div class="control" id="commit-post-button">
+          ⚡️ POST&nbsp;
+        </div>`;
       case "posted":
-        return "✅";
+        return html`<div class="control" id="posted-post-indicator">
+          ✅ DONE&nbsp;
+        </div>`;
       case "emptyTitleError":
-        return "❌";
+        return html`<div class="control" id="empty-title-indicator">
+          🚨 ERROR
+        </div>`;
       case "emptyBodyError":
-        return "❌";
+        return html`<div class="control" id="empty-body-indicator">
+          🚨 ERROR
+        </div>`;
       default:
-        return "⚡️";
+        return html`<div class="control" id="stage-post-button">🔋 STAGE</div>`;
     }
   }
 
@@ -325,7 +333,7 @@ export default class XWeaver extends X {
             } else weaverService.send("STAGE");
           }}
         >
-          <icon> ${this.switchStagePostIcon()} </icon>
+          <icon> ${this.switchStagePostButton()} </icon>
         </div>
       </div>
     </div> `;
