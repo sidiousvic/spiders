@@ -87,7 +87,8 @@ const XNavbarCSS = css`
 
   /* dropdown */
   #menu:hover {
-    background: var(--background-2);
+    background: var(--background);
+    border-radius: 5px 5px 0 0;
   }
   #menu:hover #menu-dropdown {
     display: block;
@@ -100,20 +101,44 @@ const XNavbarCSS = css`
     text-align: center;
     display: none;
     z-index: 1;
-    background: var(--background-2);
-  }
-
-  #menu-dropdown > *:last-child {
+    background: var(--gradient-dark);
+    border-radius: 5px;
   }
 
   .menu-dropdown-link {
     padding: 1rem;
-    background: var(--background-2);
+    border-radius: 5px;
   }
 
   .menu-dropdown-link:hover {
-    background: var(--accent-2);
+    background: var(--gradient);
     color: var(--background-2);
+    box-shadow: 20px 0px 200px var(--floodlights);
+    animation: stretchY 1s ease-in-out infinite;
+  }
+
+  @keyframes bounceBackAndForth {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.04);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes stretchY {
+    0% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.04);
+    }
+    100% {
+      transform: scaleY(1);
+    }
   }
 `;
 export { XNavbarCSS };

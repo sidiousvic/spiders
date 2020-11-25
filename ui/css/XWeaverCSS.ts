@@ -143,10 +143,10 @@ const XWeaverCSS = css`
   }
 
   .control:hover {
-    animation: metallize 1s ease-in-out infinite;
+    animation: bounceBackAndForth 1s ease-in-out infinite;
   }
 
-  @keyframes metallize {
+  @keyframes bounceBackAndForth {
     0% {
       transform: scale(1);
     }

@@ -40,6 +40,12 @@ const XSpidersCSS = css`
       var(--accent),
       var(--accent-2)
     );
+    --gradient-dark: -webkit-linear-gradient(
+      90deg,
+      var(--background-2),
+      black,
+      var(--background-2)
+    );
     --gradient-2: -webkit-linear-gradient(
       90deg,
       var(--background-2),
@@ -68,6 +74,12 @@ const XSpidersCSS = css`
       var(--spiders-peach),
       var(--accent),
       var(--accent-2)
+    );
+    --gradient-dark: -webkit-linear-gradient(
+      90deg,
+      var(--background-2),
+      var(--background),
+      var(--background-2)
     );
     --gradient-2: -webkit-linear-gradient(90deg, navy, cyan, blue);
     --gradient-3: -webkit-linear-gradient(90deg, red, lightpink, red);
