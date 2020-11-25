@@ -7,23 +7,19 @@ const XSigninCSS = css`
 
   #signin {
     display: grid;
-    grid-template-columns: 1fr 1fr 35vh 1fr 1fr;
+    grid-template-columns: 1fr 23rem 1fr;
     grid-template-rows:
-      1fr
-      minmax(1rem, 4rem)
-      minmax(1rem, 4rem)
-      minmax(1rem, 4rem)
-      minmax(1rem, 4rem)
-      4fr;
-    gap: 20px 20px;
+      1fr minmax(1rem, 4rem) minmax(1rem, 4rem) minmax(1rem, 4rem)
+      minmax(1rem, 4rem) 4fr;
+    gap: 20px;
     min-height: 100vh;
     grid-template-areas:
-      ".  .  .  .  . "
-      ".  .  he .  . "
-      ".  .  un .  . "
-      ".  .  pw .  . "
-      ".  .  bu .  . "
-      ".  .  .  .  . ";
+      ". . ."
+      ". he ."
+      ". un ."
+      ". pw ."
+      ". bu ."
+      ". . .";
   }
 
   @keyframes fadeUp {
