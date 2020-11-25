@@ -215,15 +215,15 @@ export default class XWeaver extends X {
     }
   }
 
-  renderRenderedStyles() {
+  renderEditorElement(id) {
     switch (this.mode) {
       case "weave":
         return css`
-          display: none;
+          display: ${id === "rendered" ? css`none` : css`block`};
         `;
       default:
         return css`
-          display: block;
+          display: ${id === "rendered" ? css`block` : css`none`};
         `;
     }
   }
@@ -289,10 +289,11 @@ export default class XWeaver extends X {
         data-placeholder="Weave something..."
         @keyup=${this.handlePostBodyInput}
         id="body-editor"
+        style=${this.renderEditorElement("editor")}
       ></div>
       <div
         id="rendered"
-        style=${this.renderRenderedStyles()}
+        style=${this.renderEditorElement("rendered")}
         @click=${() => {
           this.bodyEditorElement.focus();
           weaverService.send("TOGGLE_MODE");
