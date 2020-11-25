@@ -2,8 +2,8 @@ import { css } from "lit-element";
 
 const XPostCSS = css`
   .post {
-    background: var(--background-light);
-    border-radius: 5px;
+    background: var(--background-2);
+    border-radius: 0px;
     padding: 2rem;
   }
 
@@ -14,22 +14,16 @@ const XPostCSS = css`
 
   .post-title {
     overflow-wrap: break-word;
-    font-family: Dank Mono, sans-serif;
     margin: 2rem 0rem;
     font-size: 6rem;
     /* spiders gradient */
-    background: -webkit-linear-gradient(
-      90deg,
-      var(--accent-gradient),
-      var(--accent)
-    );
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .post-subtitle {
-    font-family: Encode Sans, sans-serif;
     color: var(--foreground);
     font-size: 0.9rem;
     font-weight: 500;
@@ -51,7 +45,6 @@ const XPostCSS = css`
   }
 
   .tags {
-    font-family: Dank Mono, sans-serif;
     color: var(--accent);
   }
 `;
