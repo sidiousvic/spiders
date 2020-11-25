@@ -9,13 +9,18 @@ const XNavbarCSS = css`
   }
 
   nav {
+    background: var(--background);
     top: 0;
-    width: 100%;
+    width: inherit;
     display: grid;
     color: var(--accent);
-    grid-template-columns: 4fr 2fr repeat(1fr, auto);
-    grid-template-areas: "spiders nav-links user-greeting light-switch";
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr minmax(10rem, 15rem) 3fr;
+    grid-template-areas: "spiders light-switch menu .";
     user-select: none;
+    padding: 1rem;
+    border-bottom: 1px var(--accent-2) solid;
+    transition: ease-in-out 100ms;
   }
 
   .floodlights {
@@ -24,34 +29,10 @@ const XNavbarCSS = css`
 
   nav > * {
     cursor: pointer;
-    background: -webkit-linear-gradient(
-      90deg,
-      var(--accent-gradient),
-      var(--accent)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 1.5rem;
   }
 
   #title {
     grid-area: spiders;
-  }
-
-  #nav-links {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    grid-area: nav-links;
-    font-size: 1.2rem;
-  }
-
-  #user-greeting {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-area: user-greeting;
   }
 
   #light-switch {
@@ -66,27 +47,73 @@ const XNavbarCSS = css`
     filter: var(--light-switch-hue);
   }
 
+  #greeting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: greeting;
+  }
+
   nav > #title > h1 {
-    width: fit-content;
     font-family: Swamp Witch;
     font-weight: lighter;
     font-size: 4rem;
     background: -webkit-linear-gradient(
       90deg,
-      var(--accent-gradient),
-      var(--accent)
+      var(--background),
+      var(--accent),
+      var(--accent-2)
     );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 1.5rem;
+    margin: 0.5rem 0 0.5rem 2rem;
   }
 
   nav > #title > h2 {
-    font-family: Dank Mono, sans-serif;
     text-align: center;
     font-size: 1rem;
     font-weight: lighter;
+  }
+
+  #menu {
+    grid-area: menu;
+    padding: 1rem;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* dropdown */
+  #menu:hover {
+    background: var(--background-2);
+  }
+  #menu:hover #menu-dropdown {
+    display: block;
+  }
+
+  #menu-dropdown {
+    top: 100%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    display: none;
+    z-index: 1;
+    background: var(--background-2);
+  }
+
+  #menu-dropdown > *:last-child {
+  }
+
+  .menu-dropdown-link {
+    padding: 1rem;
+    background: var(--background-2);
+  }
+
+  .menu-dropdown-link:hover {
+    background: var(--accent-2);
+    color: var(--background-2);
   }
 `;
 export { XNavbarCSS };
