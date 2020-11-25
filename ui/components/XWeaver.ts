@@ -78,8 +78,8 @@ export default class XWeaver extends X {
       this.postInput = post;
       this.titleInputElement.innerText = post.title;
       this.bodyEditorElement.innerText = post.raw;
-      this.weave(post.raw);
       this.tagsInputElement.innerText = post.tags.replaceAll("#", "");
+      this.weave(post.raw);
     }
   }
 
