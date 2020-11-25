@@ -306,6 +306,27 @@ export default class XWeaver extends X {
         data-placeholder=${this.renderTagsPlaceholder()}
         @keyup=${this.handleTagsInput}
       ></div>
+      <div id="controls">
+        <div
+          id="weaverModeIndicator"
+          @click=${() => {
+            weaverService.send("TOGGLE_MODE");
+          }}
+        >
+          <icon> ${this.switchModeIcon()} </icon>
+        </div>
+        <div
+          id="post-button"
+          @click=${async () => {
+            if (this.mode === "staged") {
+              await this.handleCommitPost();
+              routerService.send("/" as Routes);
+            } else weaverService.send("STAGE");
+          }}
+        >
+          <icon> ${this.switchStagePostIcon()} </icon>
+        </div>
+      </div>
     </div> `;
   }
 }
