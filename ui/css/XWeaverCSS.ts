@@ -3,7 +3,6 @@ import { css } from "lit-element";
 const XWeaverCSS = css`
   :host {
     display: flex;
-    font-family: Dank Mono, monospace;
     width: 100%;
   }
 
@@ -19,39 +18,46 @@ const XWeaverCSS = css`
   }
 
   #weaver > * {
-    animation: fadeUp 500ms ease-out;
+    animation: fadeUp 400ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
+    font-family: Share Tech Mono, monospace;
     caret-color: var(--accent);
+    border: var(--theme-borders);
   }
 
   #weaver {
-    flex: 1;
+    animation: fadeUp 500ms ease-out;
+    animation-delay: 0s;
+    animation-fill-mode: backwards;
+    flex: 1 1 0%;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 8fr 1fr 8.5fr 1fr;
-    grid-template-rows: 0.5fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem) auto;
-    gap: 20px 20px;
-    min-height: 80vh;
+    grid-template-columns: 1fr 8fr 1fr;
+    grid-template-rows:
+      0.2fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem)
+      minmax(5rem, 5rem) minmax(3rem, 0.2fr);
+    gap: 20px;
     grid-template-areas:
-      ". co co co co ."
-      ". ti ti ti ti ."
-      ". bo bo bo bo ."
-      ". ta ta ta ta ."
-      ". .  .  .  .  .";
+      ". .   . "
+      ". ti  ."
+      ". bo  ."
+      ". ta  ."
+      ". co  ."
+      ". .   . ";
+    overflow: scroll;
+    min-height: 95vh;
   }
 
   #title-input {
     padding: 2rem 2rem;
     grid-area: ti;
-    font-family: Dank Mono, monospace;
     font-size: 100%;
     border-radius: 5px;
     resize: none;
     outline: none;
-    border: none;
     color: var(--foreground);
-    background: var(--background-light);
+    background: var(--background-2);
   }
 
   #title-input:empty:before {
@@ -62,14 +68,12 @@ const XWeaverCSS = css`
   #body-editor {
     padding: 2rem 2rem;
     grid-area: bo;
-    font-family: Dank Mono, monospace;
     font-size: 1.2rem;
     border-radius: 5px;
     resize: none;
     outline: none;
-    border: none;
     color: var(--foreground);
-    background: var(--background-light);
+    background: var(--background-2);
   }
 
   #body-editor:empty:before {
@@ -80,14 +84,12 @@ const XWeaverCSS = css`
   #tags-input {
     padding: 2rem 2rem;
     grid-area: ta;
-    font-family: Dank Mono, monospace;
     font-size: 1.2rem;
     border-radius: 5px;
     resize: none;
     outline: none;
-    border: none;
     color: var(--foreground);
-    background: var(--background-light);
+    background: var(--background-2);
   }
 
   #tags-input:empty:before {
@@ -106,7 +108,7 @@ const XWeaverCSS = css`
     user-select: none;
     border-radius: 5px;
     overflow-wrap: anywhere;
-    background: var(--background-light);
+    background: var(--background-2);
     cursor: pointer;
   }
 
@@ -114,25 +116,46 @@ const XWeaverCSS = css`
     user-select: none;
     padding: 1rem 1rem;
     grid-area: co;
-    font-family: Dank Mono, monospace;
     font-size: 1.2rem;
     border-radius: 5px;
     resize: none;
     outline: none;
     border: none;
     color: var(--foreground);
-    background: var(--background-light);
+    /* background: var(--background-2); */
     display: grid;
-    grid-template-columns: auto;
+    gap: 1rem;
+    grid-template-columns: 2fr 2fr 10fr;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
     /* gap: 20px 20px; */
-    grid-template-areas: "w s . . . . . .";
+    grid-template-areas: "w s .";
   }
 
-  #controls > *:hover {
-    transform: scale(1.2);
+  .control {
+    padding: 0.5rem;
+    border-radius: 5px;
+    background: var(--gradient);
+    color: var(--background);
+    transition: ease-in-out 100ms;
+    border: var(--theme-borders);
+  }
+
+  .control:hover {
+    animation: metallize 1s ease-in-out infinite;
+  }
+
+  @keyframes metallize {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
   #weaverModeIndicator {
@@ -141,10 +164,23 @@ const XWeaverCSS = css`
     cursor: pointer;
   }
 
-  #stagePostButton {
+  #post-button {
     grid-area: s;
     font-size: 2rem;
     cursor: pointer;
+  }
+
+  #commit-post-button {
+    background: var(--gradient-2);
+    color: var(--dark-foreground);
+    transition: ease-in-out 100ms;
+  }
+
+  #empty-title-indicator,
+  #empty-body-indicator {
+    background: var(--gradient-3);
+    color: var(--dark-foreground);
+    transition: ease-in-out 100ms;
   }
 `;
 
