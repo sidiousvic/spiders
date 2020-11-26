@@ -156,7 +156,7 @@ export default class XPostCard extends X {
     return html`
       <div
         class="post-card ${this.theme}"
-        @mouseenter=${() => floodLightService.send("OFF")}
+        @mouseenter=${() => floodLightService.send("OFFLINE")}
         @mouseleave=${() => floodLightService.send("ONLINE")}
       >
         <h1 class="post-card-title">${this.post.title}</h1>

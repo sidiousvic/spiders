@@ -39,7 +39,7 @@ export default class XNavbar extends X {
     switch (this.floodlights) {
       case "on":
         return "floodlights";
-      case "off":
+      case "offline":
         return "";
       case "defused":
         return "";

@@ -3,21 +3,23 @@ import { Machine, interpret } from "xstate";
 export interface ThemeStateSchema {
   states: {
     online: {};
-    off: {};
+    offline: {};
     defused: {};
   };
 }
 
-export type ThemeStateEvent = { type: "ONLINE" | "OFF" | "DEFUSE" | "FUSE" };
+export type ThemeStateEvent = {
+  type: "ONLINE" | "OFFLINE" | "DEFUSE" | "FUSE";
+};
 
 export const floodLightMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>(
   {
     id: "floodLightMachine",
-    initial: "online",
+    initial: "offline",
     states: {
-      online: { on: { OFF: "off", DEFUSE: "defused" } },
-      off: { on: { ONLINE: "online", DEFUSE: "defused" } },
-      defused: { on: { FUSE: "off" } },
+      online: { on: { OFFLINE: "offline", DEFUSE: "defused" } },
+      offline: { on: { ONLINE: "online", DEFUSE: "defused" } },
+      defused: { on: { FUSE: "offline" } },
     },
   }
 );
