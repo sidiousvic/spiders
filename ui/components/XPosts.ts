@@ -16,9 +16,6 @@ export default class XPosts extends X {
     if (!this.posts.length) {
       floodLightService.send("OFFLINE");
       this.fetchPosts();
-      setTimeout(() => {
-        if (!this.posts.length) this.loadingMessage = "No webs found.";
-      }, 3000);
     }
   }
 
@@ -66,6 +63,9 @@ export default class XPosts extends X {
   }
 
   render() {
+    setTimeout(() => {
+      if (!this.posts.length) this.loadingMessage = "No webs found.";
+    }, 3000);
     return html`
       <div class="posts" @onPostDelete=${this.fetchPosts}>
         ${this.posts.length
