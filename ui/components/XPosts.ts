@@ -7,7 +7,7 @@ import { XPostsCSS } from "../css/XPostsCSS";
 @customElement("x-posts")
 export default class XPosts extends X {
   @property() theme = "";
-  @property() loadingMessage = "W e a v i n g ...";
+  @property() loadingMessage = "Weaving webs...";
   @property() auth: UserAuth;
   @property() posts = [];
 
