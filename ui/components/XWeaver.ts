@@ -191,6 +191,7 @@ export default class XWeaver extends X {
     weaverService.send("POSTED");
     setTimeout(() => {
       weaverService.send("RESET");
+      routerService.send("/" as Routes);
     }, 1000);
   }
 
@@ -323,7 +324,6 @@ export default class XWeaver extends X {
           @click=${async () => {
             if (this.mode === "staged") {
               await this.handleCommitPost();
-              routerService.send("/" as Routes);
             } else weaverService.send("STAGE");
           }}
         >
