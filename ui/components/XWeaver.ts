@@ -228,6 +228,13 @@ export default class XWeaver extends X {
     }
   }
 
+  preventMultilineInput(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      (e.target as HTMLDivElement).blur();
+    }
+  }
+
   renderEditorElement(id) {
     switch (this.mode) {
       case "weave":
@@ -276,6 +283,7 @@ export default class XWeaver extends X {
         data-placeholder=${this.renderTitlePlaceholder()}
         contenteditable
         @keyup=${this.handleTitleInput}
+        @keydown=${this.preventMultilineInput}
       ></div>
       <div
         contenteditable
@@ -299,6 +307,7 @@ export default class XWeaver extends X {
         id="tags-input"
         data-placeholder=${this.renderTagsPlaceholder()}
         @keyup=${this.handleTagsInput}
+        @keydown=${this.preventMultilineInput}
       ></div>
       <div id="controls">
         <div
