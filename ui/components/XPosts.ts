@@ -46,7 +46,7 @@ export default class XPosts extends X {
     } = await res.json();
 
     setTimeout(() => {
-      this.posts = [findPosts];
+      this.posts = findPosts;
     }, 700);
   }
 
