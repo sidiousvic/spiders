@@ -87,7 +87,7 @@ const XSpidersCSS = css`
   }
 
   #spiders {
-    font-family: Wired Mono, monospace;
+    font-family: WiredMono, monospace;
     display: flex;
     flex-direction: column;
     align-items: center;

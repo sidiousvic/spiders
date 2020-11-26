@@ -21,7 +21,7 @@ const XWeaverCSS = css`
     animation: fadeUp 400ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
-    font-family: Share Tech Mono, monospace;
+    font-family: ShareTechMono, monospace;
     caret-color: var(--accent);
     border: var(--theme-borders);
   }
@@ -56,7 +56,7 @@ const XWeaverCSS = css`
   #title-input {
     padding: 2rem 2rem;
     grid-area: ti;
-    font-size: 100%;
+    font-size: 1.2rem;
     border-radius: 5px;
     resize: none;
     outline: none;
@@ -75,7 +75,7 @@ const XWeaverCSS = css`
   #body-editor {
     padding: 2rem 2rem;
     grid-area: bo;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     border-radius: 5px;
     resize: none;
     outline: none;
@@ -112,6 +112,7 @@ const XWeaverCSS = css`
   }
 
   #rendered {
+    font-size: 1.4rem;
     position: relative;
     display: none;
     padding: 1rem 2rem;
@@ -126,6 +127,7 @@ const XWeaverCSS = css`
   }
 
   #controls {
+    font-weight: normal;
     user-select: none;
     padding: 1rem 1rem;
     grid-area: co;
