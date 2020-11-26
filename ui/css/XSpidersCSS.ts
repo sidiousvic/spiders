@@ -1,16 +1,6 @@
 import { css } from "lit-element";
 
 const XSpidersCSS = css`
-  @import url("./fonts/SwampWitch.ttf");
-
-  @import url("./fonts/WiredMono-Regular.ttf");
-
-  @import url("./fonts/WiredMono-Bold.ttf");
-
-  @import url("./fonts/WiredMono-Light.ttf");
-
-  @import url("./fonts/ShareTechMono-Regular.ttf");
-
   :host {
     width: 100%;
     --spiders-pastel: rgba(255, 80, 180);
