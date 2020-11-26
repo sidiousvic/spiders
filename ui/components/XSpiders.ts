@@ -96,7 +96,7 @@ export class XSpiders extends X {
     >
       <x-navbar .auth=${this.auth}></x-navbar>
       ${this.renderRoute([...this.routes].pop())}
-      <div id="footer" class=${this.renderFooterFloodlights()}>🏴‍☠️ by sidiousvic</div>
+      <div id="footer" class=${this.renderFooterFloodlights()}><a href="https://www.github.com/sidiousvic" target="_blank" id="github-link">🏴‍☠️ by sidiousvic</a></div>
       </div>
     </div>`;
   }

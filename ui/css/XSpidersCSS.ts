@@ -129,6 +129,31 @@ const XSpidersCSS = css`
   .floodlights {
     box-shadow: 0px -20px 200px var(--floodlights);
   }
+
+  #github-link {
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+    font-style: italic;
+    transition: 200ms ease-in-out;
+  }
+
+  #github-link:hover {
+    letter-spacing: 0.5rem;
+    animation: metalColor 800ms ease-in-out infinite;
+  }
+
+  @keyframes metalColor {
+    0% {
+      color: var(--background-2);
+    }
+    50% {
+      color: var(--accent-2);
+    }
+    100% {
+      color: var(--background-2);
+    }
+  }
 `;
 
 export { XSpidersCSS };
