@@ -21,7 +21,7 @@ const XWeaverCSS = css`
     animation: fadeUp 400ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
-    font-family: Share Tech Mono, monospace;
+    font-family: "ST", monospace;
     caret-color: var(--accent);
     border: var(--theme-borders);
   }

@@ -14,7 +14,34 @@
 
   <body>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
+      @font-face {
+        font-family: "SW";
+        src: url("./fonts/SwampWitch.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "WM";
+        src: url("./fonts/WiredMono-Regular.ttf") format("woff2");
+        font-weight: normal;
+      }
+
+      @font-face {
+        font-family: "WM";
+        src: url("./fonts/WiredMono-Bold.ttf") format("woff2");
+        font-weight: bold;
+      }
+
+      @font-face {
+        font-family: "WM";
+        src: url("./fonts/WiredMono-Light.ttf") format("woff2");
+        font-weight: 100;
+      }
+
+      @font-face {
+        font-family: "ST";
+        src: url("./fonts/ShareTechMono-Regular.ttf") format("woff2");
+        font-weight: normal;
+      }
 
       html,
       body {
@@ -22,7 +49,8 @@
         width: 100%;
         overflow: auto;
         display: flex;
-        font-family: monospace;
+        font-family: "WM", monospace;
+        font-size: 12px;
       }
     </style>
     <x-spiders></x-spiders>

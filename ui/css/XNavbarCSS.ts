@@ -55,9 +55,9 @@ const XNavbarCSS = css`
   }
 
   nav > #title > h1 {
-    font-family: Swamp Witch;
+    font-family: "SW", Comic Sans, sans-serif;
+    font-size: 4.5rem;
     font-weight: lighter;
-    font-size: 4rem;
     background: -webkit-linear-gradient(
       90deg,
       var(--background),
@@ -78,6 +78,7 @@ const XNavbarCSS = css`
 
   #menu {
     grid-area: menu;
+    font-size: 1.3rem;
     padding: 1rem;
     display: flex;
     align-self: center;
