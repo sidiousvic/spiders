@@ -272,7 +272,7 @@ export default class XWeaver extends X {
       case "emptyTagsError":
         return "Please enter tags for this post!";
       default:
-        return "Tags here, separated by spaces";
+        return "Tags, separated by spaces";
     }
   }
 
