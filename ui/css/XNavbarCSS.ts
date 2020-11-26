@@ -121,6 +121,7 @@ const XNavbarCSS = css`
   .menu-dropdown-link:hover {
     background: var(--gradient);
     color: var(--background-2);
+    font-style: italic;
     box-shadow: 20px 0px 200px var(--floodlights);
     animation: stretchY 1s ease-in-out infinite;
   }
