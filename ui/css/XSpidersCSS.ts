@@ -95,7 +95,7 @@ const XSpidersCSS = css`
     background: var(--background-pattern);
     color: var(--foreground);
     transition: ease-in-out 0.3s;
-    height: calc(100vh - 2rem);
+    height: calc(100vh - 4rem);
     overflow: none;
     position: relative;
     overflow: scroll;
@@ -113,7 +113,7 @@ const XSpidersCSS = css`
   #footer {
     font-size: 1rem;
     border-top: 1px var(--accent-2) solid;
-    height: 2rem;
+    height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
