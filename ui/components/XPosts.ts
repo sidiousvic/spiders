@@ -6,12 +6,17 @@ import { XPostsCSS } from "../css/XPostsCSS";
 @customElement("x-posts")
 export default class XPosts extends X {
   @property() theme = "";
+  @property() postsFetched = false;
+  @property() loadingMessage = "W e a v i n g ...";
   @property() auth: UserAuth;
   @property() posts = null;
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.posts) this.fetchPosts();
+    if (!this.postsFetched) this.fetchPosts();
+    setTimeout(() => {
+      if (!this.postsFetched) this.loadingMessage = "No webs found.";
+    }, 3000);
   }
 
   async fetchPosts() {
@@ -40,6 +45,9 @@ export default class XPosts extends X {
     } = await res.json();
 
     this.posts = findPosts;
+    setTimeout(() => {
+      this.postsFetched = true;
+    }, 700);
   }
 
   static styles = [XPostsCSS];
@@ -57,7 +65,11 @@ export default class XPosts extends X {
   render() {
     return html`
       <div class="posts" @onPostDelete=${this.fetchPosts}>
-        ${this.posts ? this.renderPosts() : html`<div>⏱</div>`}
+        ${this.postsFetched
+          ? this.renderPosts()
+          : html`<div id="posts-loading-indicator">
+              ${this.loadingMessage}
+            </div>`}
       </div>
     `;
   }
