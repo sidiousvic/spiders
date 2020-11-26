@@ -1,6 +1,16 @@
 import { css } from "lit-element";
 
 const XSpidersCSS = css`
+  @import url("./fonts/SwampWitch.ttf");
+
+  @import url("./fonts/WiredMono-Regular.ttf");
+
+  @import url("./fonts/WiredMono-Bold.ttf");
+
+  @import url("./fonts/WiredMono-Light.ttf");
+
+  @import url("./fonts/ShareTechMono-Regular.ttf");
+
   :host {
     width: 100%;
     --spiders-pastel: rgba(255, 80, 180);
@@ -87,7 +97,7 @@ const XSpidersCSS = css`
   }
 
   #spiders {
-    font-family: "WM", monospace;
+    font-family: Wired Mono, monospace;
     display: flex;
     flex-direction: column;
     align-items: center;

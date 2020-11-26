@@ -34,7 +34,7 @@ const XPostCSS = css`
     text-align: left;
     font-size: 1rem;
     color: var(--foreground);
-    font-family: "ST", monospace;
+    font-family: Share Tech Mono, monospace;
     line-height: 2.5rem;
     font-weight: lighter;
   }

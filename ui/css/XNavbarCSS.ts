@@ -55,7 +55,7 @@ const XNavbarCSS = css`
   }
 
   nav > #title > h1 {
-    font-family: "SW", Comic Sans, sans-serif;
+    font-family: Swamp Witch, Comic Sans, sans-serif;
     font-size: 4.5rem;
     font-weight: lighter;
     background: -webkit-linear-gradient(
