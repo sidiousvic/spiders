@@ -92,7 +92,7 @@ export default class XNavbar extends X {
                 routerService.send("/signin" as Routes);
               }}
             >
-              S/in
+              Sign in
             </div>`
           : html`<div
               class="menu-dropdown-link"
@@ -101,7 +101,7 @@ export default class XNavbar extends X {
                 this.dispatchEvent(event("onSignout"));
               }}
             >
-              S/out
+              Sign out
             </div>`}
       </div>
     </div>`;
