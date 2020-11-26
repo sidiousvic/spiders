@@ -30,14 +30,13 @@ const XWeaverCSS = css`
     animation: fadeUp 500ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
-    flex: 1 1 0%;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 8fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
-      0.2fr minmax(5rem, 5rem) 5fr minmax(5rem, 5rem)
-      minmax(5rem, 5rem) minmax(3rem, 0.2fr);
-    gap: 20px;
+      3rem 5rem 5fr 5rem
+      5rem 3rem;
+    gap: 1rem;
     grid-template-areas:
       ". .   . "
       ". ti  ."
@@ -46,7 +45,12 @@ const XWeaverCSS = css`
       ". co  ."
       ". .   . ";
     overflow: scroll;
-    min-height: 95vh;
+  }
+
+  @media only screen and (orientation: portrait) {
+    #weaver {
+      grid-template-columns: 1fr 25fr 1fr;
+    }
   }
 
   #title-input {
@@ -58,11 +62,14 @@ const XWeaverCSS = css`
     outline: none;
     color: var(--foreground);
     background: var(--background-2);
+    overflow-x: scroll;
+    transition: ease-in-out 200ms;
   }
 
   #title-input:empty:before {
     content: attr(data-placeholder);
     color: gray;
+    white-space: nowrap;
   }
 
   #body-editor {
@@ -95,6 +102,12 @@ const XWeaverCSS = css`
   #tags-input:empty:before {
     content: attr(data-placeholder);
     color: gray;
+  }
+
+  #tags-input,
+  #title-input {
+    overflow: scroll;
+    overflow-y: hidden;
     white-space: nowrap;
   }
 
@@ -144,6 +157,7 @@ const XWeaverCSS = css`
 
   .control:hover {
     animation: bounceBackAndForth 1s ease-in-out infinite;
+    box-shadow: 0px 0px 100px var(--floodlights);
   }
 
   @keyframes bounceBackAndForth {
@@ -171,15 +185,13 @@ const XWeaverCSS = css`
   }
 
   #commit-post-button {
-    background: var(--gradient-2);
-    color: var(--dark-foreground);
+    filter: hue-rotate(90deg);
     transition: ease-in-out 100ms;
   }
 
   #empty-title-indicator,
   #empty-body-indicator {
-    background: var(--gradient-3);
-    color: var(--dark-foreground);
+    filter: hue-rotate(220deg);
     transition: ease-in-out 100ms;
   }
 `;

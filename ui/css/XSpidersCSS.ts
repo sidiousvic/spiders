@@ -95,11 +95,11 @@ const XSpidersCSS = css`
     background: var(--background-pattern);
     color: var(--foreground);
     transition: ease-in-out 0.3s;
-    height: 95vh;
+    height: calc(100vh - 2rem);
     overflow: none;
     position: relative;
     overflow: scroll;
-    scroll-padding-bottom: 15vh;
+    scroll-padding-bottom: 18rem;
   }
 
   *::selection {
@@ -110,13 +110,10 @@ const XSpidersCSS = css`
     background: var(--spiders-mint-light);
   }
 
-  #spiders:nth-child(2) {
-    /* height: 30vh; */
-  }
-
   #footer {
+    font-size: 1rem;
     border-top: 1px var(--accent-2) solid;
-    height: 5vh;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
