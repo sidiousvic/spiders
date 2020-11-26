@@ -16,10 +16,10 @@ export default class XPosts extends X {
     if (!this.posts.length) {
       floodLightService.send("OFFLINE");
       this.fetchPosts();
+      setTimeout(() => {
+        if (!this.posts.length) this.loadingMessage = "No webs found.";
+      }, 3000);
     }
-    setTimeout(() => {
-      if (!this.posts.length) this.loadingMessage = "No webs found.";
-    }, 3000);
   }
 
   async fetchPosts() {
