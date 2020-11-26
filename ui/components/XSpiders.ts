@@ -31,8 +31,6 @@ export class XSpiders extends X {
       // defuse floodlights if theme is light
       if (value === "light") floodLightService.send("DEFUSE");
       else floodLightService.send("FUSE");
-      // turn on floodlights at specific routes
-      if ([...this.routes].pop() === "/") floodLightService.send("ONLINE");
       if ([...this.routes].pop() === "/signin")
         floodLightService.send("ONLINE");
       // store theme in local storage
@@ -41,7 +39,6 @@ export class XSpiders extends X {
     });
 
     routerService.onTransition(({ value }) => {
-      if (value === "/") floodLightService.send("ONLINE");
       if (value === "/signin") floodLightService.send("ONLINE");
       this.routes = [...this.routes, value];
     });

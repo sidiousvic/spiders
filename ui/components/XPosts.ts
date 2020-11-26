@@ -1,5 +1,6 @@
 import { UserAuth } from "spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
+import { floodLightService } from "../machines/floodLightMachine";
 import "./XPostCard";
 import { XPostsCSS } from "../css/XPostsCSS";
 
@@ -12,7 +13,10 @@ export default class XPosts extends X {
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.posts.length) this.fetchPosts();
+    if (!this.posts.length) {
+      floodLightService.send("OFFLINE");
+      this.fetchPosts();
+    }
     setTimeout(() => {
       if (!this.posts.length) this.loadingMessage = "No webs found.";
     }, 3000);
@@ -51,6 +55,7 @@ export default class XPosts extends X {
   static styles = [XPostsCSS];
 
   renderPosts() {
+    floodLightService.send("ONLINE");
     return this.posts.map(
       (post) => html` <x-post-card
         theme=${this.theme}
