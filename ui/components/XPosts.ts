@@ -20,6 +20,7 @@ export default class XPosts extends X {
   }
 
   async fetchPosts() {
+    this.posts = [];
     const res = await fetch("/graphql", {
       method: "POST",
       headers: {
@@ -45,7 +46,7 @@ export default class XPosts extends X {
     } = await res.json();
 
     setTimeout(() => {
-      this.posts = findPosts;
+      this.posts = [findPosts];
     }, 700);
   }
 
@@ -62,17 +63,17 @@ export default class XPosts extends X {
     );
   }
 
-  render() {
+  renderLoadingMessage() {
     setTimeout(() => {
       if (!this.posts.length) this.loadingMessage = "No webs found.";
     }, 3000);
+    return html`<div id="posts-loading-indicator">${this.loadingMessage}</div>`;
+  }
+
+  render() {
     return html`
       <div class="posts" @onPostDelete=${this.fetchPosts}>
-        ${this.posts.length
-          ? this.renderPosts()
-          : html`<div id="posts-loading-indicator">
-              ${this.loadingMessage}
-            </div>`}
+        ${this.posts.length ? this.renderPosts() : this.renderLoadingMessage()}
       </div>
     `;
   }
