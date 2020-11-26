@@ -28,12 +28,8 @@ export class XSpiders extends X {
     if (auth) this.auth = auth;
 
     themeService.onTransition(({ value }) => {
-      // defuse floodlights if theme is light
       if (value === "light") floodLightService.send("DEFUSE");
       else floodLightService.send("FUSE");
-      if ([...this.routes].pop() === "/signin")
-        floodLightService.send("ONLINE");
-      // store theme in local storage
       localStorage.setItem("theme", value as string);
       this.theme = value;
     });

@@ -63,8 +63,17 @@ export default class XWeaver extends X {
       }
       this.mode = value;
     });
-    floodLightService.send("OFFLINE");
     if (!this.auth.token) routerService.send("/signin" as Routes);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    floodLightService.send("DEFUSE");
+  }
+
+  disconnectedCallback() {
+    floodLightService.send("FUSE");
+    super.disconnectedCallback();
   }
 
   static styles = [XWeaverCSS, spidersCodeCSS];

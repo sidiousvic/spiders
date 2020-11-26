@@ -3,6 +3,7 @@ import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
 import { fireGraphQLQuery, event, logGraphQLErrors } from "../utils";
 import { routerService, Routes } from "../machines/routeMachine";
+import { floodLightService } from "../machines/floodLightMachine";
 import { XSigninCSS } from "../css/XSigninCSS";
 
 @customElement("x-signin")
@@ -11,6 +12,16 @@ export default class XSignIn extends X {
 
   firstUpdated() {
     if (this.auth.token) routerService.send("/weaver" as Routes);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    floodLightService.send("DEFUSE");
+  }
+
+  disconnectedCallback() {
+    floodLightService.send("FUSE");
+    super.disconnectedCallback();
   }
 
   static styles = [XSigninCSS];

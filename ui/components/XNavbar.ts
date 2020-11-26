@@ -116,7 +116,11 @@ export default class XNavbar extends X {
 
   render() {
     return html`
-      <nav class=${this.renderNavFloodlights()}>
+      <nav
+        class=${this.renderNavFloodlights()}
+        @mouseenter=${() => floodLightService.send("OFFLINE")}
+        @mouseleave=${() => floodLightService.send("ONLINE")}
+      >
         <div
           id="title"
           @click=${() => {
