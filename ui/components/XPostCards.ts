@@ -2,10 +2,10 @@ import { UserAuth } from "spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { floodLightService } from "../machines/floodLightMachine";
 import "./XPostCard";
-import { XPostsCSS } from "../css/XPostsCSS";
+import { XPostCardsCSS } from "../css/XPostCardsCSS";
 
-@customElement("x-posts")
-export default class XPosts extends X {
+@customElement("x-post-cards")
+export default class XPostCards extends X {
   @property() theme = "";
   @property() loadingMessage = "Weaving webs...";
   @property() auth: UserAuth;
@@ -50,7 +50,7 @@ export default class XPosts extends X {
     }, 700);
   }
 
-  static styles = [XPostsCSS];
+  static styles = [XPostCardsCSS];
 
   renderPosts() {
     floodLightService.send("ONLINE");

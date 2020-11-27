@@ -1,6 +1,6 @@
 import { css } from "lit-element";
 
-const XPostsCSS = css`
+const XPostCardsCSS = css`
   :host {
     width: 100%;
   }
@@ -62,4 +62,4 @@ const XPostsCSS = css`
   }
 `;
 
-export { XPostsCSS };
+export { XPostCardsCSS };

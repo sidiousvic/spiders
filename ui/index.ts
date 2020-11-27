@@ -3,7 +3,7 @@ import "./fonts/SwampWitch.woff2";
 import "./fonts/WiredMono-Bold.woff2";
 import "./fonts/WiredMono-Light.woff2";
 import "./fonts/WiredMono-Regular.woff2";
-import "./components/XPosts";
+import "./components/XPostCards";
 import "./components/XNavbar";
 import "./components/XWeaver";
 import "./components/XSignIn";

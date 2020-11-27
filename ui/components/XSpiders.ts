@@ -43,7 +43,7 @@ export class XSpiders extends X {
   renderRoute(route: StateValue) {
     switch (route) {
       case "/": {
-        return html`<x-posts .auth=${this.auth} theme=${this.theme}></x-posts>`;
+        return html`<x-post-cards .auth=${this.auth} theme=${this.theme}></x-posts>`;
       }
       case "/signin": {
         return html`<x-signin .auth=${this.auth}></x-signin>`;
