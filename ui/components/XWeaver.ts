@@ -207,11 +207,11 @@ export default class XWeaver extends X {
   switchModeIcon() {
     switch (this.mode) {
       case "read":
-        return html`<div class="control">🏴‍☠️ VIEW</div>`;
+        return html`<div class="control">🏴‍☠️&nbspVIEW</div>`;
       case "weave":
-        return html`<div class="control">🏴 VIEW</div>`;
+        return html`<div class="control">🏴&nbspVIEW</div>`;
       default:
-        return html`<div class="control">🏴‍☠️ VIEW</div>`;
+        return html`<div class="control">🏴‍☠️&nbspVIEW</div>`;
     }
   }
 
@@ -219,22 +219,24 @@ export default class XWeaver extends X {
     switch (this.mode) {
       case "staged":
         return html`<div class="control" id="commit-post-button">
-          ⚡️ POST&nbsp;
+          ⚡️&nbspPOST&nbsp;
         </div>`;
       case "posted":
         return html`<div class="control" id="posted-post-indicator">
-          ✅ DONE&nbsp;
+          ✅&nbspDONE&nbsp;
         </div>`;
       case "emptyTitleError":
         return html`<div class="control" id="empty-title-indicator">
-          🚨 ERROR
+          🚨&nbspERROR
         </div>`;
       case "emptyBodyError":
         return html`<div class="control" id="empty-body-indicator">
-          🚨 ERROR
+          🚨&nbspERROR
         </div>`;
       default:
-        return html`<div class="control" id="stage-post-button">🔋 STAGE</div>`;
+        return html`<div class="control" id="stage-post-button">
+          🔋&nbspSTAGE
+        </div>`;
     }
   }
 
