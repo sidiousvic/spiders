@@ -7,17 +7,6 @@ export enum Routes {
   "/signin" = "/signin",
 }
 
-const routerMachineUtils = {
-  protectRoutes(route: string, protectedRoutes: string[]) {
-    if (protectedRoutes.includes(route) || !(route in Routes)) {
-      history.pushState(null, null, "/");
-      return "/";
-    }
-    return route as Routes;
-  },
-};
-const { protectRoutes } = routerMachineUtils;
-
 export interface RouterStateSchema {
   states: {
     "/": {};
