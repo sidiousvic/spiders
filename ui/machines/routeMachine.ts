@@ -20,7 +20,7 @@ export type RouterStateEvent = { type: Routes };
 export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>(
   {
     id: "routerMachine",
-    initial: "/",
+    initial: location.pathname as Routes,
     states: {
       "/": { on: { "/weaver": "/weaver", "/signin": "/signin" } },
       "/signin": { on: { "/weaver": "/weaver", "/": "/" } },
