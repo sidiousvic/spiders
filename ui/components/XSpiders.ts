@@ -19,7 +19,8 @@ export class XSpiders extends X {
   @property() routes = [routerService.initialState.value];
   @property() floodlights = floodLightService.initialState.value;
 
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback();
     const auth = JSON.parse(localStorage.getItem("auth"));
     if (auth) this.auth = auth;
 
