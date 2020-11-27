@@ -35,7 +35,7 @@ const XWeaverCSS = css`
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
       3rem 5rem 5fr 5rem
-      5rem 3rem;
+      5rem 10rem;
     gap: 1rem;
     grid-template-areas:
       ". .   . "
