@@ -5,6 +5,7 @@ export enum Routes {
   "/" = "/",
   "/weaver" = "/weaver",
   "/signin" = "/signin",
+  "/post" = "/post",
 }
 
 export interface RouterStateSchema {
@@ -12,6 +13,7 @@ export interface RouterStateSchema {
     "/": {};
     "/weaver": {};
     "/signin": {};
+    "/post": {};
   };
 }
 
@@ -22,12 +24,15 @@ export const routerMachine = Machine<{}, RouterStateSchema, RouterStateEvent>(
     id: "routerMachine",
     initial: location.pathname as Routes,
     states: {
-      "/": { on: { "/weaver": "/weaver", "/signin": "/signin" } },
+      "/": {
+        on: { "/weaver": "/weaver", "/signin": "/signin", "/post": "/post" },
+      },
       "/signin": { on: { "/weaver": "/weaver", "/": "/" } },
       "/weaver": {
         on: { "/": "/", "/signin": "/signin" },
         exit: "exitWeaver",
       },
+      "/post": { on: { "/weaver": "/weaver", "/": "/", "/signin": "/signin" } },
     },
   },
   {
