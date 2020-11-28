@@ -114,7 +114,6 @@ const XWeaverCSS = css`
   #rendered {
     font-size: 1.4rem;
     position: relative;
-    display: none;
     padding: 1rem 2rem;
     min-width: 0;
     grid-area: bo;
@@ -174,7 +173,7 @@ const XWeaverCSS = css`
     }
   }
 
-  #weaverModeIndicator {
+  #weaver-mode-indicator {
     grid-area: w;
     font-size: 2rem;
     cursor: pointer;
@@ -195,6 +194,14 @@ const XWeaverCSS = css`
   #empty-body-indicator {
     filter: hue-rotate(220deg);
     transition: ease-in-out 100ms;
+  }
+
+  [data-display="true"] {
+    display: block;
+  }
+
+  [data-display="false"] {
+    display: none;
   }
 `;
 
