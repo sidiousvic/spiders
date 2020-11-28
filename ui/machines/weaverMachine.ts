@@ -2,7 +2,11 @@ import { Post } from "spiders";
 import { Machine, interpret, assign } from "xstate";
 
 const assignPost = assign({
-  post: (ctx, e) => (e as WeaverStateEvent).post,
+  post: (_, e) => (e as WeaverStateEvent).post,
+});
+
+const clearPost = assign({
+  post: () => ({}),
 });
 
 export type WeaverEvents =
@@ -47,7 +51,7 @@ export const weaverMachine = Machine<
         on: {
           TOGGLE_MODE: "read",
           STAGE: "staged",
-          RESET: { target: "weave", actions: [assignPost] },
+          RESET: { target: "weave", actions: [clearPost] },
           UPDATE: { target: "weave", actions: [assignPost] },
         },
       },
@@ -55,7 +59,7 @@ export const weaverMachine = Machine<
         on: {
           TOGGLE_MODE: "weave",
           STAGE: "staged",
-          RESET: { target: "weave", actions: [assignPost] },
+          RESET: { target: "weave", actions: [clearPost] },
           UPDATE: { target: "weave", actions: [assignPost] },
         },
       },
@@ -63,7 +67,7 @@ export const weaverMachine = Machine<
         on: {
           POSTED: "posted",
           TOGGLE_MODE: "weave",
-          RESET: { target: "weave", actions: [assignPost] },
+          RESET: { target: "weave", actions: [clearPost] },
           EMPTY_TITLE_ERROR: "emptyTitleError",
           EMPTY_BODY_ERROR: "emptyBodyError",
           EMPTY_TAGS_ERROR: "emptyTagsError",
@@ -77,7 +81,7 @@ export const weaverMachine = Machine<
     },
   },
   {
-    actions: { assignPost },
+    actions: { assignPost, clearPost },
   }
 );
 
