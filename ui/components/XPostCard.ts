@@ -7,14 +7,13 @@ import {
   query,
 } from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
-// import truncateHTML from "truncate-html";
 import Prism from "prismjs";
 import { postCardService } from "../machines/postCardMachine";
 import { routerService, Routes } from "../machines/routeMachine";
 import { weaverService } from "../machines/weaverMachine";
 import { floodLightService } from "../machines/floodLightMachine";
 import { XPostCardCSS } from "../css/XPostCardCSS";
-import { spidersCodeCSS } from "../css/SpidersCodeCSS";
+import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
 import {
   event,
   fireGraphQLQuery,
@@ -30,7 +29,8 @@ export default class XPostCard extends X {
   @property() auth: UserAuth;
   @property() post: Partial<Post>;
   @query("#delete-post-button") deletePostButton: HTMLDivElement;
-  static styles = [XPostCardCSS, spidersCodeCSS];
+
+  static styles = [XPostCardCSS, SpidersCodeCSS];
 
   firstUpdated() {
     Prism.highlightAllUnder(this.shadowRoot);
@@ -155,7 +155,8 @@ export default class XPostCard extends X {
     // );
     return html`
       <div
-        class="post-card ${this.theme}"
+        class="post-card"
+        data-theme=${this.theme}
         @mouseenter=${() => floodLightService.send("OFFLINE")}
         @mouseleave=${() => floodLightService.send("ONLINE")}
       >

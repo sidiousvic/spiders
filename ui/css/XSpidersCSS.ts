@@ -22,7 +22,7 @@ const XSpidersCSS = css`
     --spiders-gray-dark: rgb(4, 4, 4);
   }
 
-  .dark {
+  [data-theme="dark"] {
     --background: var(--spiders-gray);
     --background-2: var(--spiders-gray-light);
     --background-pattern: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAR0lEQVQoU43Q0QkAIAgE0HON23821zAKjLQL8k99omUAAh9hCpKEu5fxCybquMDePPMN1bq5O+sLvlAeOftGMvrh6hPkqxUcp58jT1ArFZIAAAAASUVORK5CYII=)
@@ -57,7 +57,7 @@ const XSpidersCSS = css`
     --dark-foreground: var(--foreground);
   }
 
-  .light {
+  [data-theme="light"] {
     --background: ghostwhite;
     --background-2: ghostwhite;
     --background-pattern: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAATElEQVQoU2P88eP/fwYkwH50H8NPaydkITCbEVkhTBE2xXCF6JLofLBCXNYhizP+37v3PzY3wRwJU4ziRgwfQAVAiolSiOFrXCaCxAGDUzoDcAdK2gAAAABJRU5ErkJggg==)

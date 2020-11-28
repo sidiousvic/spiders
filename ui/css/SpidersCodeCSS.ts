@@ -1,19 +1,26 @@
 import { css } from "lit-element";
 
-const spidersCodeCSS = css`
-  .dark {
+const SpidersCodeCSS = css`
+  [data-theme="dark"] {
     --keyword: var(--accent-2);
     --function: var(--accent);
     --string: var(--accent-2);
   }
 
-  .light {
+  [data-theme="light"] {
     --keyword: var(--accent-2);
     --function: var(--accent);
     --string: var(--accent-2);
+  }
+
+  code {
+    font-family: Wired Mono, monospace;
+    color: var(--accent-2);
   }
 
   pre > code {
+    font-family: Wired Mono, monospace;
+    font-weight: 100;
     border-radius: 0px;
     font-size: 1rem;
   }
@@ -202,4 +209,4 @@ const spidersCodeCSS = css`
   }
 `;
 
-export { spidersCodeCSS };
+export { SpidersCodeCSS };
