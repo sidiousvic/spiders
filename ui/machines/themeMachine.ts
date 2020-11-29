@@ -44,11 +44,9 @@ export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>(
   {
     actions: {
       defuseFloodLights() {
-        console.log("defused from themeMachine");
         floodLightService.send("DEFUSE");
       },
       fuseFloodLights() {
-        console.log("fused from themeMachine");
         floodLightService.send("FUSE");
       },
     },
