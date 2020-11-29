@@ -1,4 +1,5 @@
 import { Machine, interpret } from "xstate";
+import { floodLightService } from "./floodLightMachine";
 
 const themeMachineUtils = {
   getTimeOfDayTheme(): Themes {
@@ -18,16 +19,40 @@ export interface ThemeStateSchema {
   };
 }
 
-export type ThemeStateEvent = { type: "SWITCH_THEME" };
+export type ThemeStateEvent = { type: "SWITCH_THEME" | "INIT" };
 export type Themes = "light" | "dark";
 
-export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>({
-  id: "themeMachine",
-  initial: (localStorage.getItem("theme") as Themes) || getTimeOfDayTheme(),
-  states: {
-    light: { on: { SWITCH_THEME: "dark" } },
-    dark: { on: { SWITCH_THEME: "light" } },
+export const themeMachine = Machine<{}, ThemeStateSchema, ThemeStateEvent>(
+  {
+    id: "themeMachine",
+    initial: (localStorage.getItem("theme") as Themes) || getTimeOfDayTheme(),
+    states: {
+      light: {
+        onEntry: ["defuseFloodLights"],
+        on: {
+          SWITCH_THEME: { target: "dark", actions: ["fuseFloodLights"] },
+        },
+      },
+      dark: {
+        onEntry: ["fuseFloodLights"],
+        on: {
+          SWITCH_THEME: { target: "light" },
+        },
+      },
+    },
   },
-});
+  {
+    actions: {
+      defuseFloodLights() {
+        console.log("defused from themeMachine");
+        floodLightService.send("DEFUSE");
+      },
+      fuseFloodLights() {
+        console.log("fused from themeMachine");
+        floodLightService.send("FUSE");
+      },
+    },
+  }
+);
 
 export const themeService = interpret(themeMachine).start();

@@ -78,7 +78,9 @@ export default class XNavbar extends X {
           class="menu-dropdown-link"
           id="weaver-link"
           @click=${() => {
-            routerService.send("/weaver" as Routes);
+            routerService.send("/weaver" as Routes, {
+              auth: { token: this.auth.token },
+            });
           }}
         >
           Weave

@@ -19,7 +19,6 @@ import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
 import { routerService, Routes } from "../machines/routeMachine";
 import { weaverMachine, weaverService } from "../machines/weaverMachine";
 import { fireGraphQLQuery, logGraphQLErrors } from "../utils";
-import { floodLightService } from "../machines/floodLightMachine";
 
 const md = new MarkdownIt();
 md.use(prism, { defaultLanguage: "typescript" });
@@ -61,17 +60,6 @@ export default class XWeaver extends X {
   @query("#body-editor") bodyEditorElement: HTMLDivElement;
   @query("#rendered") renderedElement: HTMLDivElement;
   @query("#tags-input") tagsInputElement: HTMLDivElement;
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (!this.auth.token) routerService.send("/signin" as Routes);
-    floodLightService.send("DEFUSE");
-  }
-
-  disconnectedCallback() {
-    floodLightService.send("FUSE");
-    super.disconnectedCallback();
-  }
 
   firstUpdated() {
     this.bodyEditorElement.innerText = this.weaverBodyTemplate;

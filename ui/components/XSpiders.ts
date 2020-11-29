@@ -25,14 +25,11 @@ export class XSpiders extends X {
     if (auth) this.auth = auth;
 
     themeService.onTransition(({ value }) => {
-      if (value === "light") floodLightService.send("DEFUSE");
-      else floodLightService.send("FUSE");
       localStorage.setItem("theme", value as string);
       this.theme = value;
     });
 
     routerService.onTransition(({ value }) => {
-      if (value === "/signin") floodLightService.send("ONLINE");
       this.routes = [...this.routes, value];
     });
 
@@ -80,7 +77,9 @@ export class XSpiders extends X {
       data-theme=${this.theme}
       @onSignin=${({ detail: { auth } }) => {
         this.auth = auth;
-        routerService.send("/weaver" as Routes);
+        routerService.send("/weaver" as Routes, {
+          auth: { token: this.auth.token },
+        });
       }}
       @onSignout=${() => {
         this.auth = {

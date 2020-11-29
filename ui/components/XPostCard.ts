@@ -83,7 +83,9 @@ export default class XPostCard extends X {
   }
 
   async handleUpdatePost() {
-    routerService.send("/weaver" as Routes);
+    routerService.send("/weaver" as Routes, {
+      auth: { token: this.auth.token },
+    });
     weaverService.send("UPDATE", { post: this.post });
   }
 
