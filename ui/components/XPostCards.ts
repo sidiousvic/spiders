@@ -1,6 +1,5 @@
-import { UserAuth } from "spiders";
+import { UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
-import { floodLightService } from "../machines/floodLightMachine";
 import "./XPostCard";
 import { XPostCardsCSS } from "../css/XPostCardsCSS";
 

@@ -1,8 +1,6 @@
+import { UserAuth } from "@spiders";
 import { StateValue } from "xstate";
 import { LitElement as X, html, property, customElement } from "lit-element";
-import { routerService, Routes } from "../machines/routeMachine";
-import { floodLightService } from "../machines/floodLightMachine";
-import { themeService } from "../machines/themeMachine";
 import { XNavbarCSS } from "../css/XNavbarCSS";
 import { event } from "../utils";
 

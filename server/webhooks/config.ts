@@ -1,4 +1,4 @@
-import { WebhooksConfig } from "spiders";
+import { WebhooksConfig } from "@spiders";
 
 const env = process.env.NODE_ENV;
 const port = 9992;

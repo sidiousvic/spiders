@@ -1,13 +1,5 @@
-import { Post } from "spiders";
+import { Post } from "@spiders";
 import { Machine, interpret, assign } from "xstate";
-
-const assignPost = assign({
-  post: (_, e) => (e as WeaverStateEvent).post,
-});
-
-const clearPost = assign({
-  post: () => ({}),
-});
 
 export type WeaverEvents =
   | "TOGGLE_MODE"

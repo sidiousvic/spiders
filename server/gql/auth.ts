@@ -1,4 +1,4 @@
-import { Auth, VerifiedUser } from "spiders";
+import { Auth, VerifiedUser } from "@spiders";
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 

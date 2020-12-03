@@ -1,4 +1,4 @@
-import { Post, DeletedPost, PostModel, Require, User } from "spiders";
+import { Post, DeletedPost, PostModel, Require, User } from "@spiders";
 import { Pool } from "pg";
 // eslint-disable-next-line camelcase
 import { camelTo_snake } from "../utils";

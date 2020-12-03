@@ -1,4 +1,4 @@
-import { GraphQLConfig } from "spiders";
+import { GraphQLConfig } from "@spiders";
 import { makeExecutableSchema } from "apollo-server";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";

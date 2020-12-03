@@ -1,4 +1,4 @@
-import { User, UserModel } from "spiders";
+import { User, UserModel } from "@spiders";
 import { Pool } from "pg";
 
 function UserModeler(pool: Pool): UserModel {

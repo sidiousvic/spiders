@@ -1,4 +1,4 @@
-import { UserAuth, User } from "spiders";
+import { UserAuth, Role } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { StateValue } from "xstate";
 import { themeService } from "../machines/themeMachine";

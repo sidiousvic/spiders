@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { ApolloServer } from "apollo-server";
-import { GraphQLConfig, Models, User } from "spiders";
+import { GraphQLConfig, Models, User } from "@spiders";
 
 async function GraphQLServer(
   models: Models,

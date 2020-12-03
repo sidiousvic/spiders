@@ -1,4 +1,4 @@
-import { Post, UserAuth } from "spiders";
+import { Post, UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import "./XPostCard";
 import truncateHTML from "truncate-html";

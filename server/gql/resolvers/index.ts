@@ -1,4 +1,4 @@
-import { Resolvers } from "spiders";
+import { Resolvers } from "@spiders";
 import { authResolvers } from "./authResolvers";
 import { postResolvers } from "./postResolvers";
 import { userResolvers } from "./userResolvers";

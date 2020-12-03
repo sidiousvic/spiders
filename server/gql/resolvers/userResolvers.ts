@@ -1,4 +1,4 @@
-import { UserResolvers } from "spiders";
+import { UserResolvers } from "@spiders";
 
 /** @todo */
 const userResolvers: UserResolvers = {

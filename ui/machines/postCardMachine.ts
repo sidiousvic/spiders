@@ -1,4 +1,4 @@
-import { Post } from "spiders";
+import { Post } from "@spiders";
 import { Machine, interpret, assign } from "xstate";
 import { WeaverStateEvent } from "./weaverMachine";
 
