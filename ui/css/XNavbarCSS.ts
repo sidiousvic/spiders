@@ -23,7 +23,7 @@ const XNavbarCSS = css`
     transition: ease-in-out 100ms;
   }
 
-  .floodlights {
+  .lights {
     box-shadow: 0px 20px 200px var(--floodlights);
   }
 

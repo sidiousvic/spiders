@@ -6,9 +6,8 @@ import { event } from "../utils";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
-  @property() theme: StateValue = themeService.initialState.value;
-  @property() floodlights: StateValue = floodLightService.initialState.value;
-  @property() auth;
+  @property() lights: StateValue = "online";
+  @property() auth: UserAuth;
   @property() showDropdown: boolean = false;
 
   firstUpdated() {
@@ -33,16 +32,16 @@ export default class XNavbar extends X {
     }
   }
 
-  renderNavFloodlights() {
-    switch (this.floodlights) {
-      case "on":
-        return "floodlights";
+  renderNavLights() {
+    switch (this.lights) {
+      case "online":
+        return "lights";
       case "offline":
         return "";
       case "defused":
         return "";
       default:
-        return "floodlights";
+        return "lights";
     }
   }
 

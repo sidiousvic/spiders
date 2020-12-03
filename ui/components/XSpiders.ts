@@ -15,9 +15,8 @@ export class XSpiders extends X {
     token: "",
   };
   @property() name = "";
-  @property() theme = themeService.initialState.value;
-  @property() routes = [routerService.initialState.value];
-  @property() floodlights = floodLightService.initialState.value;
+  @property() lights: StateValue = "online";
+  @property() route = "";
 
   connectedCallback() {
     super.connectedCallback();
@@ -58,16 +57,16 @@ export class XSpiders extends X {
     }
   }
 
-  renderFooterFloodlights() {
-    switch (this.floodlights) {
+  renderFooterLights() {
+    switch (this.lights) {
       case "on":
-        return "floodlights";
+        return "lights";
       case "offline":
         return "";
       case "defused":
         return "";
       default:
-        return "floodlights";
+        return "lights";
     }
   }
 
@@ -90,9 +89,9 @@ export class XSpiders extends X {
         routerService.send("/" as Routes);
       }}
     >
-      <x-navbar .auth=${this.auth}></x-navbar>
-      ${this.renderRoute([...this.routes].pop())}
-      <div id="footer" class=${this.renderFooterFloodlights()}><a href="https://www.github.com/sidiousvic" target="_blank" id="github-link">🏴‍☠️ by sidiousvic</a></div>
+      .lights=${this.lights} 
+      .theme=${this.theme}>
+      <div id="footer" class=${this.renderFooterLights()}><a href="https://www.github.com/sidiousvic" target="_blank" id="github-link">🏴‍☠️ by sidiousvic</a></div>
       </div>
     </div>`;
   }

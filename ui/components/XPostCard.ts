@@ -1,4 +1,4 @@
-import { Post, UserAuth } from "spiders";
+import { Post, UserAuth } from "@spiders";
 import {
   LitElement as X,
   html,
