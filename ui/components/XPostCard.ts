@@ -79,13 +79,9 @@ export default class XPostCard extends X {
     const onPostDelete = event("onPostDelete", { postId: this.post.postId });
     this.dispatchEvent(onPostDelete);
     weaverService.send("RESET");
-    postCardService.send("RESET");
   }
 
   async handleUpdatePost() {
-    routerService.send("/weaver" as Routes, {
-      auth: { token: this.auth.token },
-    });
     weaverService.send("UPDATE", { post: this.post });
   }
 
