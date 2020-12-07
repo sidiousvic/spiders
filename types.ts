@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo, GraphQLSchema } from "graphql";
 import { Request } from "express";
 
-export enum Role {
+export const enum Role {
   DARKLORD = "DARKLORD",
   GUEST = "GUEST",
 }
@@ -139,7 +139,7 @@ export interface Auth {
 }
 
 export interface UserAuth {
-  user: Partial<User>;
+  user: Require<User, "username" | "role">;
   token: string;
 }
 

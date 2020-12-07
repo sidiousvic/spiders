@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "preserveConstEnums": true,
     "target": "es5",
     "module": "commonjs",
     "esModuleInterop": true,
