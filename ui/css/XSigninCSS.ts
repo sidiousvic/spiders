@@ -127,6 +127,13 @@ const XSigninCSS = css`
     font-size: 2rem;
     -webkit-box-shadow: 0 0 0 100px var(--background-2) inset;
   }
+
+  /**💚 */
+  #signin > *:focus {
+    outline: none;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 10px var(--accent-2);
+  }
 `;
 
 export { XSigninCSS };

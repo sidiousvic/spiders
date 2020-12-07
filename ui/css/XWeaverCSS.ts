@@ -31,11 +31,16 @@ const XWeaverCSS = css`
     animation-delay: 0s;
     animation-fill-mode: backwards;
     width: 100%;
+    min-height: 90vh;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
-      3rem 5rem 5fr 5rem
-      5rem 10rem;
+      3rem
+      5rem
+      1fr
+      5rem
+      5rem
+      10rem;
     gap: 1rem;
     grid-template-areas:
       ". .   . "
@@ -191,7 +196,8 @@ const XWeaverCSS = css`
   }
 
   #empty-title-indicator,
-  #empty-body-indicator {
+  #empty-body-indicator,
+  #empty-tags-indicator {
     filter: hue-rotate(220deg);
     transition: ease-in-out 100ms;
   }
