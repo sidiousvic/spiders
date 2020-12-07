@@ -2,22 +2,14 @@ import { UserAuth } from "@spiders";
 import { StateValue } from "xstate";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { XNavbarCSS } from "../css/XNavbarCSS";
-import { event } from "../utils";
+import { spidersMachine } from "../machines/spidersMachine";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
+  @property() theme: StateValue = "dark";
   @property() lights: StateValue = "online";
   @property() auth: UserAuth;
   @property() showDropdown: boolean = false;
-
-  firstUpdated() {
-    themeService.onTransition(({ value }) => {
-      this.theme = value;
-    });
-    floodLightService.onTransition(({ value }) => {
-      this.floodlights = value;
-    });
-  }
 
   static styles = [XNavbarCSS];
 
@@ -66,7 +58,7 @@ export default class XNavbar extends X {
           class="menu-dropdown-link"
           id="spiders-link"
           @click=${() => {
-            routerService.send("/" as Routes);
+            spidersMachine.send("/");
           }}
         >
           Spiders
@@ -75,20 +67,19 @@ export default class XNavbar extends X {
           class="menu-dropdown-link"
           id="weaver-link"
           @click=${() => {
-            routerService.send("/weaver" as Routes, {
-              auth: { token: this.auth.token },
-            });
+            spidersMachine.send("/weaver", { auth: this.auth });
           }}
         >
           Weave
         </div>
 
         ${!this.auth.token
-          ? html`<div
+          ? /** @TODO consistent event sending */
+            html`<div
               class="menu-dropdown-link"
               id="signin-link"
               @click=${() => {
-                routerService.send("/signin" as Routes);
+                spidersMachine.send("/signin");
               }}
             >
               Sign in
@@ -97,7 +88,8 @@ export default class XNavbar extends X {
               class="menu-dropdown-link"
               id="signout-link"
               @click=${() => {
-                this.dispatchEvent(event("onSignout"));
+                spidersMachine.send("SIGNOUT");
+                spidersMachine.send("/");
               }}
             >
               Sign out
@@ -116,21 +108,21 @@ export default class XNavbar extends X {
   render() {
     return html`
       <nav
-        class=${this.renderNavFloodlights()}
-        @mouseenter=${() => floodLightService.send("OFFLINE")}
-        @mouseleave=${() => floodLightService.send("ONLINE")}
+        class=${this.renderNavLights()}
+        @mouseenter=${() => spidersMachine.send("OFF")}
+        @mouseleave=${() => spidersMachine.send("ON")}
       >
         <div
           id="title"
           @click=${() => {
-            routerService.send("/" as Routes);
+            spidersMachine.send("/");
           }}
         >
           <h1>Spiders</h1>
         </div>
         <span
           id="light-switch"
-          @click=${() => themeService.send("SWITCH_THEME")}
+          @click=${() => spidersMachine.send("SWITCH_THEME")}
         >
           ${this.renderLightSwitch()}
         </span>

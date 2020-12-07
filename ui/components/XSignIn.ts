@@ -1,50 +1,37 @@
-import { UserAuth } from "spiders";
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
-import { fireGraphQLQuery, event, logGraphQLErrors } from "../utils";
 import { XSigninCSS } from "../css/XSigninCSS";
+import { spidersMachine } from "../machines/spidersMachine";
+
+interface SignInInput {
+  username: string;
+  password: string;
+}
 
 @customElement("x-signin")
 export default class XSignIn extends X {
-  @property() auth: UserAuth;
+  @property() signinInput: SignInInput = {
+    username: "",
+    password: "",
+  };
 
   static styles = [XSigninCSS];
 
-  async handleSignIn() {
-    const signInQuery = `
-       mutation signIn($input: UserSignIn!) {
-        signIn(input: $input) {
-          token
-          user {
-            username
-            userId
-            role
-          }
-        }
-      }
-    `;
+  handleSignIn(e: MouseEvent & KeyboardEvent) {
+    switch (e.type) {
+      case "keydown":
+        if (e.key === "Enter") this.signIn();
+        break;
+      case "click":
+        this.signIn();
+        break;
+      default:
+        break;
+    }
+  }
 
-    const variables = {
-      input: {
-        username: this.auth.user.username,
-        password: this.auth.user.password,
-      },
-    };
-
-    const { data, errors } = await fireGraphQLQuery(signInQuery, variables);
-
-    if (errors) logGraphQLErrors(errors);
-
-    const {
-      signIn: { token, user },
-    } = data;
-
-    this.auth = { ...this.auth, token, user };
-
-    localStorage.setItem("auth", JSON.stringify(this.auth));
-
-    const onSignin = event("onSignin", { auth: this.auth });
-    this.dispatchEvent(onSignin);
+  async signIn() {
+    spidersMachine.send("SIGNIN", { signInInput: this.signinInput });
   }
 
   preventMultilineInput(e: KeyboardEvent) {
@@ -60,9 +47,9 @@ export default class XSignIn extends X {
       dataset: { name },
     } = e.target as HTMLDivElement;
 
-    this.auth = {
-      ...this.auth,
-      user: { ...this.auth.user, [name]: innerHTML },
+    this.signinInput = {
+      ...this.signinInput,
+      [name]: innerHTML,
     };
   }
 
@@ -71,6 +58,7 @@ export default class XSignIn extends X {
       <h1 id="signin-heading">WHO ARE YOU ?</h1>
       <div
         contenteditable
+        tabindex="1"
         id="username-input"
         type="text"
         data-name="username"
@@ -80,6 +68,7 @@ export default class XSignIn extends X {
       ></div>
       <div
         contenteditable
+        tabindex="2"
         id="password-input"
         type="text"
         data-name="password"
@@ -87,7 +76,14 @@ export default class XSignIn extends X {
         @keydown=${this.preventMultilineInput}
         data-placeholder="password"
       ></div>
-      <div id="signin-button" @click=${this.handleSignIn}>SIGN IN</div>
+      <div
+        tabindex="3"
+        id="signin-button"
+        @click=${this.handleSignIn}
+        @keydown=${this.handleSignIn}
+      >
+        SIGN IN
+      </div>
     </div>`;
   }
 }

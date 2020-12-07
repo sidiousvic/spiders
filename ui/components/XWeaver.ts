@@ -13,12 +13,9 @@ import MarkdownIt from "markdown-it";
 import prism from "markdown-it-prism";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
-import { indent } from "indent.js";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
-import { routerService, Routes } from "../machines/routeMachine";
-import { weaverMachine, weaverService } from "../machines/weaverMachine";
-import { fireGraphQLQuery, logGraphQLErrors } from "../utils";
+import { spidersMachine } from "../machines/spidersMachine";
 
 const md = new MarkdownIt();
 md.use(prism, { defaultLanguage: "typescript" });
@@ -29,32 +26,15 @@ type WeaverPost = Pick<Post, "postId" | "title" | "body" | "raw" | "tags">;
 export default class XWeaver extends X {
   @property() auth: UserAuth;
   @property() theme = "";
-  @property() state: StateValue = weaverMachine.initialState.value;
+  @property() state: StateValue = "read";
   @property() weaverPostInput: WeaverPost = {
-    postId: null,
-    title: "Untitled",
-    body: null,
-    raw: null,
-    tags: null,
+    postId: "",
+    title: "",
+    body: "",
+    raw: "",
+    tags: "",
   };
-  @property() weaverBodyTemplate = `
-  \`\`\`
-  +----------------------------+
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  |. . . . . . . . . . . . . . |
-  +----------------------------+
-  \`\`\`
-  `;
-  @property() raw = indent.html(this.weaverBodyTemplate, {
-    tabString: "  ",
-  });
-  @property() rendered = md.render(this.raw);
+  @property() rendered = md.render(this.weaverPostInput.raw);
   @property() title = md.render(this.weaverPostInput.title);
   @query("#title-input") titleInputElement: HTMLDivElement;
   @query("#body-editor") bodyEditorElement: HTMLDivElement;
@@ -62,93 +42,32 @@ export default class XWeaver extends X {
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
   firstUpdated() {
-    this.bodyEditorElement.innerText = this.weaverBodyTemplate;
-    weaverService.onTransition(({ value, context: { post }, event }) => {
-      if (event.type === "UPDATE")
-        this.fillWeaverWithUpdateePost(post as WeaverPost);
-      this.state = value;
+    spidersMachine.onTransition(({ children: { weaverMachine }, event }) => {
+      const { state: weaverState } = weaverMachine;
+      console.log(weaverState.value);
+      this.state = weaverState.value;
+      if (event.type === "weaver/UPDATE")
+        this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
     });
   }
 
   static styles = [XWeaverCSS, SpidersCodeCSS];
 
   weave(value: string) {
-    this.rendered = md.render(`# ${this.weaverPostInput.title} ${value}`);
+    this.rendered = md.render(`# ${this.weaverPostInput.title} \n ${value}`);
   }
 
-  /** @todo Slim this beastie down */
-  async handleCommitPost() {
+  stagePost() {
+    spidersMachine.send("weaver/STAGE");
+  }
+
+  async handlePost() {
     if (this.someInputsAreEmpty()) return;
 
-    const addPostQuery = `
-      mutation addPost($input: AddPostInput!) {
-        addPost(
-          input: $input
-        ) {
-          message
-          resource
-        }
-      }
-    `;
-
-    const addPostQueryVariables = {
-      input: {
-        userId: this.auth.user.userId,
-        title: this.weaverPostInput.title,
-        author: this.auth.user.username,
-        body: this.weaverPostInput.body,
-        raw: this.weaverPostInput.raw,
-        tags: this.weaverPostInput.tags,
-      },
-    };
-
-    const updatePostQuery = `
-      mutation updatePost($input: UpdatePostInput!) {
-        updatePost(
-          input: $input
-        ) {
-          message
-          resource
-        }
-      }
-    `;
-
-    const updatePostQueryVariables = {
-      input: {
-        postId: this.weaverPostInput.postId,
-        title: this.weaverPostInput.title,
-        author: this.auth.user.username,
-        body: this.weaverPostInput.body,
-        raw: this.weaverPostInput.raw,
-        tags: this.weaverPostInput.tags,
-      },
-    };
-
-    const upsertQuery = this.weaverPostInput.postId
-      ? updatePostQuery
-      : addPostQuery;
-
-    const variables = this.weaverPostInput.postId
-      ? updatePostQueryVariables
-      : addPostQueryVariables;
-
-    const headers = {
-      authorization: this.auth.token,
-    };
-
-    const { errors } = await fireGraphQLQuery(upsertQuery, variables, headers);
-
-    if (errors) {
-      logGraphQLErrors(errors);
-      weaverService.send("POST_ERROR");
-      setTimeout(() => weaverService.send("RESET"), 1000);
-      return;
-    }
-
-    weaverService.send("POSTED");
-
-    setTimeout(() => weaverService.send("RESET"), 1000);
-    setTimeout(() => routerService.send("/" as Routes), 1000);
+    spidersMachine.send("weaver/POST", {
+      auth: this.auth,
+      weaverPostInput: this.weaverPostInput,
+    });
   }
 
   fillWeaverWithUpdateePost(post: WeaverPost) {
@@ -161,16 +80,12 @@ export default class XWeaver extends X {
 
   handleWeaverBodyInput(e: KeyboardEvent) {
     const { innerText } = e.target as HTMLInputElement;
-    this.weave(innerText);
     this.weaverPostInput = {
       ...this.weaverPostInput,
-      body: this.rendered,
+      body: this.rendered.split("</h1>")[1],
       raw: innerText,
     };
-  }
-
-  renderTitleOnFirstLineOfEditor() {
-    this.weave(this.raw);
+    this.weave(this.weaverPostInput.raw);
   }
 
   handleWeaverTitleInput(e: KeyboardEvent) {
@@ -180,7 +95,7 @@ export default class XWeaver extends X {
       ...this.weaverPostInput,
       title,
     };
-    this.weave(this.raw);
+    this.weave(this.weaverPostInput.raw);
   }
 
   handleWeaverTagsInput(e: KeyboardEvent) {
@@ -197,24 +112,15 @@ export default class XWeaver extends X {
 
   someInputsAreEmpty() {
     if (!this.weaverPostInput.title) {
-      weaverService.send("EMPTY_TITLE_ERROR");
-      setTimeout(() => {
-        weaverService.send("RESET");
-      }, 1000);
+      spidersMachine.send("EMPTY_TITLE_ERROR");
       return true;
     }
     if (!this.weaverPostInput.body) {
-      weaverService.send("EMPTY_BODY_ERROR");
-      setTimeout(() => {
-        weaverService.send("RESET");
-      }, 1000);
+      spidersMachine.send("EMPTY_BODY_ERROR");
       return true;
     }
     if (!this.weaverPostInput.tags) {
-      weaverService.send("EMPTY_TAGS_ERROR");
-      setTimeout(() => {
-        weaverService.send("RESET");
-      }, 1000);
+      spidersMachine.send("EMPTY_TAGS_ERROR");
       return true;
     }
     return false;
@@ -234,24 +140,50 @@ export default class XWeaver extends X {
   renderStagePostButton(state: StateValue) {
     switch (state) {
       case "staged":
-        return html`<div class="control" id="commit-post-button">
-          ⚡️&nbspPOST&nbsp;
+        return html`<div id="post-button" @click=${this.handlePost}>
+          <icon>
+            <div class="control" id="commit-post-button">
+              ⚡️&nbspPOST&nbsp;
+            </div>
+          </icon>
         </div>`;
-      case "posted":
-        return html`<div class="control" id="posted-post-indicator">
-          ✅&nbspDONE&nbsp;
+      case "posting":
+        return html`<div id="post-button">
+          <icon>
+            <div class="control" id="posted-post-indicator">
+              ✅&nbspDONE&nbsp;
+            </div>
+          </icon>
         </div>`;
       case "emptyTitleError":
-        return html`<div class="control" id="empty-title-indicator">
-          🚨&nbspERROR
+        return html`<div id="post-button" @click=${this.handlePost}>
+          <icon
+            ><div class="control" id="empty-title-indicator">
+              🚨&nbspERROR
+            </div></icon
+          >
         </div>`;
       case "emptyBodyError":
-        return html`<div class="control" id="empty-body-indicator">
-          🚨&nbspERROR
+        return html`<div id="post-button" @click=${this.handlePost}>
+          <icon
+            ><div class="control" id="empty-body-indicator">
+              🚨&nbspERROR
+            </div></icon
+          >
+        </div>`;
+      case "emptyTagsError":
+        return html`<div id="post-button" @click=${this.handlePost}>
+          <icon
+            ><div class="control" id="empty-tags-indicator">
+              🚨&nbspERROR
+            </div></icon
+          >
         </div>`;
       default:
-        return html`<div class="control" id="stage-post-button">
-          🔋&nbspSTAGE
+        return html`<div id="post-button" @click=${this.stagePost}>
+          <icon>
+            <div class="control" id="stage-post-button">🔋&nbspSTAGE</div>
+          </icon>
         </div>`;
     }
   }
@@ -262,6 +194,15 @@ export default class XWeaver extends X {
         return "Please enter a title!";
       default:
         return "Untitled";
+    }
+  }
+
+  renderBodyPlaceholder(state: StateValue) {
+    switch (state) {
+      case "emptyBodyError":
+        return "Nothing to weave!";
+      default:
+        return this.weaverPostInput.raw;
     }
   }
 
@@ -305,7 +246,7 @@ export default class XWeaver extends X {
       ></div>
       <div
         id="body-editor"
-        data-placeholder="Weave something..."
+        data-placeholder=${this.renderBodyPlaceholder(this.state)}
         style=${this.displayEditorOrRendered(this.state, true)}
         @keyup=${this.handleWeaverBodyInput}
         contenteditable
@@ -315,7 +256,7 @@ export default class XWeaver extends X {
         style=${this.displayEditorOrRendered(this.state, false)}
         @click=${() => {
           this.bodyEditorElement.focus();
-          weaverService.send("TOGGLE_MODE");
+          spidersMachine.send("TOGGLE_MODE");
         }}
       >
         ${unsafeHTML(this.rendered)}
@@ -330,19 +271,11 @@ export default class XWeaver extends X {
       <div id="controls">
         <div
           id="weaver-mode-indicator"
-          @click=${() => weaverService.send("TOGGLE_MODE")}
+          @click=${() => spidersMachine.send("TOGGLE_MODE")}
         >
           <icon> ${this.renderModeIcon(this.state)}</icon>
         </div>
-        <div
-          id="post-button"
-          @click=${async () => {
-            if (this.state === "staged") await this.handleCommitPost();
-            else weaverService.send("STAGE");
-          }}
-        >
-          <icon> ${this.renderStagePostButton(this.state)} </icon>
-        </div>
+        ${this.renderStagePostButton(this.state)}
       </div>
     </div> `;
   }

@@ -1,59 +1,77 @@
 import { UserAuth, Role } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { StateValue } from "xstate";
-import { themeService } from "../machines/themeMachine";
-import { routerService, Routes } from "../machines/routeMachine";
+import { spidersMachine } from "../machines/spidersMachine";
 import { XSpidersCSS } from "../css/XSpidersCSS";
-import { floodLightService } from "../machines/floodLightMachine";
 
 @customElement("x-spiders")
 export class XSpiders extends X {
   static styles = XSpidersCSS;
-
   @property() auth: UserAuth = {
-    user: {} as Partial<User>,
+    user: { username: "", role: Role.GUEST },
     token: "",
   };
   @property() name = "";
+  @property() theme: StateValue = "dark";
   @property() lights: StateValue = "online";
   @property() route = "";
 
+  firstUpdated() {
+    spidersMachine.start();
+  }
+
   connectedCallback() {
     super.connectedCallback();
-    const auth = JSON.parse(localStorage.getItem("auth"));
-    if (auth) this.auth = auth;
+    spidersMachine.onTransition(
+      ({
+        children: { routerMachine, lightMachine, themeMachine, authMachine },
+        event,
+      }) => {
+        const authState = authMachine.state;
+        const routerState = routerMachine.state;
+        const lightState = lightMachine.state;
+        const themeState = themeMachine.state;
 
-    themeService.onTransition(({ value }) => {
-      localStorage.setItem("theme", value as string);
-      this.theme = value;
-    });
+        this.route = routerState.value;
 
-    routerService.onTransition(({ value }) => {
-      this.routes = [...this.routes, value];
-    });
+        /** @TODO move this to state machine ↯ */
+        history.pushState(
+          routerState.value,
+          routerState.value,
+          routerState.value
+        );
 
-    floodLightService.onTransition(({ value }) => {
-      this.floodlights = value;
-    });
+        this.auth = authMachine.state.context || {};
+        this.lights = lightState.value;
+        this.theme = themeState.value;
+
+        /** @TODO move this to state machine ↯ */
+        localStorage.setItem("theme", themeState.value);
+
+        console.log("🍎", event);
+        console.table({
+          auth: authState.value,
+          light: lightState.value,
+          router: routerState.value,
+          theme: themeState.value,
+        });
+      }
+    );
   }
 
   renderRoute(route: StateValue) {
     switch (route) {
-      case "/": {
+      case "/":
         return html`<x-post-cards .auth=${this.auth} theme=${this.theme}></x-posts>`;
-      }
-      case "/signin": {
+      case "/signin":
         return html`<x-signin .auth=${this.auth}></x-signin>`;
-      }
-      case "/weaver": {
+      case "/weaver":
         return html`<x-weaver
           .auth=${this.auth}
           theme=${this.theme}
         ></x-weaver>`;
-      }
-      default: {
+      default:
         return html``;
-      }
     }
   }
 
@@ -74,23 +92,13 @@ export class XSpiders extends X {
     return html` <div
       id="spiders"
       data-theme=${this.theme}
-      @onSignin=${({ detail: { auth } }) => {
-        this.auth = auth;
-        routerService.send("/weaver" as Routes, {
-          auth: { token: this.auth.token },
-        });
-      }}
-      @onSignout=${() => {
-        this.auth = {
-          user: {} as Partial<User>,
-          token: "",
-        };
-        localStorage.removeItem("auth");
-        routerService.send("/" as Routes);
-      }}
     >
+      <x-navbar 
+      .auth=${this.auth} 
       .lights=${this.lights} 
       .theme=${this.theme}>
+      </x-navbar>
+      ${this.renderRoute(this.route)}
       <div id="footer" class=${this.renderFooterLights()}><a href="https://www.github.com/sidiousvic" target="_blank" id="github-link">🏴‍☠️ by sidiousvic</a></div>
       </div>
     </div>`;
