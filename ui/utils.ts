@@ -1,10 +1,8 @@
 import { ApolloError } from "@apollo/client";
 
-export function logGraphQLErrors(errors: ApolloError[]) {
-  errors.forEach((error: ApolloError) => {
-    console.error(`GraphQL response error: ${error.message}`);
-  });
-  return errors;
+export function logGraphQLErrors([error]: ApolloError[]) {
+  const { message } = error;
+  throw message;
 }
 
 export function getHumanReadableDate(date: Date): string {
@@ -36,7 +34,7 @@ export async function fireGraphQLQuery(
   variables,
   headers?
 ): Promise<any> {
-  const res = await fetch("/graphql", {
+  const httpRes = await fetch("/graphql", {
     method: "POST",
     headers: {
       ...headers,
@@ -48,7 +46,9 @@ export async function fireGraphQLQuery(
     }),
   });
 
-  return res.json();
+  const gqlRes = await httpRes.json();
+
+  return { data: gqlRes.data || {}, errors: gqlRes.errors || [] };
 }
 
 export function event(
@@ -73,4 +73,24 @@ export function isMobile() {
     return true;
 
   return false;
+}
+
+export function states(service) {
+  const children = { ...service.state.children };
+  const childStates = {};
+  Object.entries(children).forEach(([k, v]) => {
+    /** @ts-ignore @TODO */
+    childStates[k] = v.state;
+  });
+  console.log(childStates);
+  return childStates as any;
+}
+
+export class Warning extends Error {
+  constructor(message) {
+    super();
+    this.message = message;
+    this.name = "Warning";
+    this.stack = undefined;
+  }
 }
