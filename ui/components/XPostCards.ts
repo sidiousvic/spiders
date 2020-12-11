@@ -2,7 +2,6 @@ import { UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import "./XPostCard";
 import { XPostCardsCSS } from "../css/XPostCardsCSS";
-import { spidersMachine } from "../machines/spidersMachine";
 
 @customElement("x-post-cards")
 export default class XPostCards extends X {
@@ -14,8 +13,8 @@ export default class XPostCards extends X {
   connectedCallback() {
     super.connectedCallback();
     if (!this.posts.length) {
-      spidersMachine.send("OFF");
-      this.fetchPosts();
+      // spidersMachine.send("OFF");
+      // this.fetchPosts();
     }
   }
 
@@ -53,7 +52,7 @@ export default class XPostCards extends X {
   static styles = [XPostCardsCSS];
 
   renderPosts() {
-    spidersMachine.send("ON");
+    // spidersMachine.send("LIGHTS_ON");
     return this.posts.map(
       (post) => html` <x-post-card
         theme=${this.theme}

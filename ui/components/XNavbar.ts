@@ -109,8 +109,8 @@ export default class XNavbar extends X {
     return html`
       <nav
         class=${this.renderNavLights()}
-        @mouseenter=${() => spidersMachine.send("OFF")}
-        @mouseleave=${() => spidersMachine.send("ON")}
+        @mouseenter=${() => spidersMachine.send("LIGHTS_ON")}
+        @mouseleave=${() => spidersMachine.send("LIGHTS_OFF")}
       >
         <div
           id="title"

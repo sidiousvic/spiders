@@ -42,11 +42,10 @@ export default class XWeaver extends X {
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
   firstUpdated() {
-    spidersMachine.onTransition(({ children: { weaverMachine }, event }) => {
-      const { state: weaverState } = weaverMachine;
-      console.log(weaverState.value);
-      this.state = weaverState.value;
-      if (event.type === "weaver/UPDATE")
+    //@ts-ignore
+    spidersMachine.onTransition(({ value: { weaver }, event }) => {
+      this.state = weaver;
+      if (event.type === "UPDATE_WEAVER_POST")
         this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
     });
   }

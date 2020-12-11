@@ -23,37 +23,28 @@ export class XSpiders extends X {
   connectedCallback() {
     super.connectedCallback();
     spidersMachine.onTransition(
-      ({
-        children: { routerMachine, lightMachine, themeMachine, authMachine },
-        event,
-      }) => {
-        const authState = authMachine.state;
-        const routerState = routerMachine.state;
-        const lightState = lightMachine.state;
-        const themeState = themeMachine.state;
+      //@ts-ignore
+      ({ value: { router, auth, theme, light }, event, context }) => {
+        // const authState = auth;
 
-        this.route = routerState.value;
+        this.route = router;
 
         /** @TODO move this to state machine ↯ */
-        history.pushState(
-          routerState.value,
-          routerState.value,
-          routerState.value
-        );
+        history.pushState(router, router, router);
 
-        this.auth = authMachine.state.context || {};
-        this.lights = lightState.value;
-        this.theme = themeState.value;
+        this.auth = { user: context.user, token: context.token };
+        this.lights = light;
+        this.theme = theme;
 
         /** @TODO move this to state machine ↯ */
-        localStorage.setItem("theme", themeState.value);
+        localStorage.setItem("theme", theme);
 
         console.log("🍎", event);
         console.table({
-          auth: authState.value,
-          light: lightState.value,
-          router: routerState.value,
-          theme: themeState.value,
+          auth,
+          light,
+          router,
+          theme,
         });
       }
     );

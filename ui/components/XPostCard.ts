@@ -28,8 +28,9 @@ export default class XPostCard extends X {
   connectedCallback() {
     super.connectedCallback();
     Prism.highlightAllUnder(this.shadowRoot);
-    spidersMachine.onTransition(({ children: { postCardMachine } }) => {
-      this.state = postCardMachine.state;
+    //@ts-ignore
+    spidersMachine.onTransition(({ value: { postCard } }) => {
+      this.state = postCard;
     });
   }
 
@@ -52,7 +53,7 @@ export default class XPostCard extends X {
 
   async handleUpdatePost() {
     spidersMachine.send("/weaver");
-    spidersMachine.send("weaver/UPDATE", { postToUpdate: this.post });
+    spidersMachine.send("UPDATE_WEAVER_POST", { postToUpdate: this.post });
   }
 
   isStagedDelete() {
@@ -107,8 +108,8 @@ export default class XPostCard extends X {
       <div
         class="post-card"
         data-theme=${this.theme}
-        @mouseenter=${() => spidersMachine.send("OFF")}
-        @mouseleave=${() => spidersMachine.send("ON")}
+        @mouseenter=${() => spidersMachine.send("LIGHTS_OFF")}
+        @mouseleave=${() => spidersMachine.send("LIGHTS_ON")}
       >
         <h1 class="post-card-title">${this.post.title}</h1>
         <h2 class="post-card-subtitle">

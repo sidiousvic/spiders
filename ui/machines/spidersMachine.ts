@@ -1,165 +1,205 @@
 import { Role } from "@spiders";
 /** @TODO refactor this wasteland */
-import { Machine, interpret, sendParent, assign } from "xstate";
+import { Machine, interpret, assign, send } from "xstate";
 import { fireGraphQLQuery, Warning } from "../utils";
 
-function invoke(src) {
-  const { id } = src;
-  return {
-    [id]: {
-      invoke: {
-        id,
-        src,
-        autoForward: true,
-      },
-    },
-  };
-}
-
-const routerBlueprint = Machine({
-  id: "routerMachine",
-  initial: location.pathname,
-  on: {
-    UNAUTHED: "/signin",
-    "/weaver": "/weaver",
-    "/signin": "/signin",
-    "/post": "/post",
-    "/": "/",
-  },
-  states: {
-    "/": {},
-    "/signin": {},
-    "/weaver": {
-      entry: [sendParent("DEFUSE"), sendParent("GUARD")],
-      exit: [sendParent("FUSE")],
-    },
-    "/post": {},
-  },
-});
-
-const lightBlueprint = Machine({
-  id: "lightMachine",
-  initial: "offline",
-  states: {
-    online: {
-      entry: [],
-      on: {
-        OFF: { target: "offline" },
-        DEFUSE: { target: "defused" },
-      },
-    },
-    offline: {
-      entry: [],
-      on: {
-        ON: { target: "online" },
-        DEFUSE: { target: "defused" },
-      },
-    },
-    defused: {
-      entry: [],
-      on: {
-        FUSE: { target: "offline" },
-      },
-    },
-  },
-});
-
-const themeBlueprint = Machine({
-  id: "themeMachine",
-  initial: "dark",
-  states: {
-    dark: {
-      entry: [sendParent("FUSE")],
-      on: {
-        SWITCH_THEME: { target: "light" },
-      },
-    },
-    light: {
-      entry: [sendParent("DEFUSE")],
-      on: {
-        SWITCH_THEME: { target: "dark" },
-      },
-    },
-  },
-});
-
-const weaverBlueprint = Machine(
+const spidersBlueprint = Machine(
   {
-    id: "weaverMachine",
-    initial: "weave",
+    id: "spiders",
+    type: "parallel",
     context: {
       post: {},
+      user: {
+        username: "",
+        role: Role.GUEST,
+      },
+      token: "",
+      message: "",
     },
     on: {
-      WEAVE: "weave",
-      "weaver/UPDATE": { target: "weave" },
-      EMPTY_TITLE_ERROR: "emptyTitleError",
-      EMPTY_BODY_ERROR: "emptyBodyError",
-      EMPTY_TAGS_ERROR: "emptyTagsError",
+      WEAVE: ".weaver.weave",
+      UPDATE_WEAVER_POST: { target: ".weaver.weave" },
+      EMPTY_TITLE_ERROR: ".weaver.emptyTitleError",
+      EMPTY_BODY_ERROR: ".weaver.emptyBodyError",
+      EMPTY_TAGS_ERROR: ".weaver.emptyTagsError",
+      SIGNIN: { target: ".auth.authing" },
     },
     states: {
-      weave: {
+      router: {
+        initial: location.pathname,
         on: {
-          TOGGLE_MODE: "read",
-          "weaver/STAGE": "staged",
+          "/": { target: "router./" },
+          "/weaver": { target: "router./weaver" },
+          "/signin": { target: "router./signin" },
+          "/post": { target: "router./post" },
+        },
+        states: {
+          "/": {},
+          "/signin": {},
+          "/weaver": { entry: "guarded" },
+          "/post": {},
         },
       },
-      read: {
-        on: {
-          TOGGLE_MODE: "weave",
-          "weaver/STAGE": "staged",
+      auth: {
+        initial: "unauthed",
+        states: {
+          unauthed: {
+            invoke: {
+              src: "tryLocalStorage",
+              onDone: { target: "authed", actions: "onSuccess" },
+              onError: { actions: "onWarning" },
+            },
+          },
+          authing: {
+            invoke: [
+              {
+                src: "signIn",
+                onDone: {
+                  target: "authed",
+                  actions: ["onSuccess"],
+                },
+                onError: {
+                  target: "unauthed",
+                  actions: ["onError"],
+                },
+              },
+            ],
+          },
+          authed: {
+            on: {
+              SIGNOUT: { target: "unauthing" },
+            },
+          },
+          unauthing: {
+            invoke: {
+              src: "signOut",
+              onDone: { target: "unauthed", actions: "onSuccess" },
+              onError: { target: "unauthed", actions: "onError" },
+            },
+          },
         },
       },
-      staged: {
-        on: {
-          "weaver/POST": "posting",
-          TOGGLE_MODE: "weave",
+      light: {
+        initial: "offline",
+        states: {
+          online: {
+            on: {
+              LIGHTS_OFF: { target: "offline" },
+            },
+          },
+          offline: {
+            on: {
+              LIGHTS_ON: { target: "online" },
+            },
+          },
         },
       },
-      posting: {
-        invoke: {
-          src: "post",
-          onDone: { target: "posted", actions: "onSuccess" },
-          onError: { target: "postError", actions: "onError" },
+      theme: {
+        initial: "dark",
+        states: {
+          dark: {
+            on: {
+              SWITCH_THEME: { target: "light" },
+            },
+          },
+          light: {
+            entry: ["LIGHTS_OFF"],
+            on: {
+              SWITCH_THEME: { target: "dark" },
+            },
+          },
         },
       },
-      posted: {
-        invoke: {
-          src: "clearPost",
-          onDone: { target: "weave", actions: "onSuccess" },
-          onError: { target: "weave", actions: "onError" },
+      weaver: {
+        initial: "weave",
+        states: {
+          weave: {
+            on: {
+              TOGGLE_MODE: "read",
+              "weaver/STAGE": "staged",
+            },
+          },
+          read: {
+            on: {
+              TOGGLE_MODE: "weave",
+              "weaver/STAGE": "staged",
+            },
+          },
+          staged: {
+            on: {
+              "weaver/POST": "posting",
+              TOGGLE_MODE: "weave",
+            },
+          },
+          posting: {
+            invoke: {
+              src: "post",
+              onDone: { target: "posted", actions: "onSuccess" },
+              onError: { target: "postError", actions: "onError" },
+            },
+          },
+          posted: {
+            invoke: {
+              src: "clearPost",
+              onDone: { target: "weave", actions: "onSuccess" },
+              onError: { target: "weave", actions: "onError" },
+            },
+            entry: ["/"],
+            on: { WEAVE: "weave" },
+          },
+          postError: {
+            entry: ["WEAVE"],
+          },
+          emptyTitleError: {
+            entry: ["WEAVE"],
+          },
+          emptyBodyError: {
+            entry: ["WEAVE"],
+          },
+          emptyTagsError: {
+            entry: ["WEAVE"],
+          },
         },
-        entry: [sendParent("/", { delay: 1000 })],
-        on: { WEAVE: "weave" },
       },
-      postError: {
-        entry: [sendParent("WEAVE", { delay: 1000 })],
-      },
-      emptyTitleError: {
-        entry: [sendParent("WEAVE", { delay: 1000 })],
-      },
-      emptyBodyError: {
-        entry: [sendParent("WEAVE", { delay: 1000 })],
-      },
-      emptyTagsError: {
-        entry: [sendParent("WEAVE", { delay: 1000 })],
+      postCard: {
+        initial: "boot",
+        context: {
+          message: "",
+        },
+        states: {
+          boot: {
+            on: { "STAGE/DELETE": { target: "stagedDelete" } },
+          },
+          stagedDelete: {
+            on: {
+              "CONFIRM/DELETE": { target: "deletingPost" },
+              "CANCEL/DELETE": { target: "boot" },
+            },
+          },
+          deletingPost: {
+            invoke: {
+              src: "deletePost",
+              onDone: { target: "boot", actions: ["/"] },
+              onError: { target: "boot", actions: "onError" },
+            },
+          },
+        },
       },
     },
   },
-
   {
     services: {
       async post(X, { auth, weaverPostInput }) {
         const addPostQuery = `
-        mutation addPost($input: AddPostInput!) {
-          addPost(
-            input: $input
-          ) {
-            message
-            resource
-          }
+      mutation addPost($input: AddPostInput!) {
+        addPost(
+          input: $input
+        ) {
+          message
+          resource
         }
-      `;
+      }
+    `;
 
         const addPostQueryVariables = {
           input: {
@@ -173,15 +213,15 @@ const weaverBlueprint = Machine(
         };
 
         const updatePostQuery = `
-        mutation updatePost($input: UpdatePostInput!) {
-          updatePost(
-            input: $input
-          ) {
-            message
-            resource
-          }
+      mutation updatePost($input: UpdatePostInput!) {
+        updatePost(
+          input: $input
+        ) {
+          message
+          resource
         }
-      `;
+      }
+    `;
 
         const updatePostQueryVariables = {
           input: {
@@ -222,69 +262,34 @@ const weaverBlueprint = Machine(
           message: undefined,
         };
       },
-    },
-    actions: {
-      onSuccess: assign((X, { data }: any) => {
-        return { ...data };
-      }),
-      /** @ts-ignore @TODO */
-      onError: assign((X, { data }: any) => {
-        const message = data;
-        console.error(message);
-        return { message };
-      }),
-    },
-  }
-);
+      async stagePostDeletion(X, { postToBeDeleted }) {
+        return postToBeDeleted;
+      },
+      async deletePost(X, { postToBeDeleted: { postId }, auth }) {
+        const deletePostMutation = `
+        mutation deletePost($input: DeletePostInput!) {
+          deletePost(input: $input) {
+            message
+            resource
+          }
+        }
+        `;
 
-const authBlueprint = Machine(
-  {
-    id: "authMachine",
-    initial: "unauthed",
-    context: {
-      user: {
-        username: "",
-        role: Role.GUEST,
+        const variables = { input: { postId } };
+
+        const headers = {
+          authorization: auth.token,
+        };
+
+        const {
+          data: { deletePost },
+          errors: [error],
+        } = await fireGraphQLQuery(deletePostMutation, variables, headers);
+
+        if (error) throw new Error("Could not delete post.");
+
+        return { ...deletePost };
       },
-      token: "",
-      message: "",
-    },
-    on: {
-      GUARD: { actions: ["onGuard"] },
-    },
-    states: {
-      unauthed: {
-        invoke: {
-          src: "tryLocalStorage",
-          onDone: { target: "authed", actions: "onSuccess" },
-          onError: { actions: "onWarning" },
-        },
-        on: { SIGNIN: { target: "authing" } },
-      },
-      authing: {
-        invoke: {
-          src: "signIn",
-          onDone: { target: "authed", actions: "onSuccess" },
-          onError: { target: "unauthed", actions: "onError" },
-        },
-      },
-      authed: {
-        entry: [sendParent("/weaver")],
-        on: {
-          SIGNOUT: { target: "unauthing" },
-        },
-      },
-      unauthing: {
-        invoke: {
-          src: "signOut",
-          onDone: { target: "unauthed", actions: "onSuccess" },
-          onError: { target: "unauthed", actions: "onError" },
-        },
-      },
-    },
-  },
-  {
-    services: {
       async signIn(X, { signInInput: { username, password } }) {
         const signInQuery = `
         mutation signIn($input: UserSignIn!) {
@@ -332,9 +337,15 @@ const authBlueprint = Machine(
       },
     },
     actions: {
+      guarded: send((ctx) => {
+        console.log("🔥🔥🔥🔥CTX", ctx);
+        if (ctx.user.role === "DARKLORD") return { type: "ACCESS_GRANTED" };
+        return { type: "/signin" };
+      }),
       onSuccess: assign((X, { data }: any) => {
         return { ...data };
       }),
+      /** @ts-ignore @TODO */
       onError: assign((X, { data }: any) => {
         const message = data;
         console.error(message);
@@ -345,95 +356,10 @@ const authBlueprint = Machine(
         console.warn(message);
         return { message };
       }),
-      onGuard: sendParent(({ token }) => {
-        return token ? { type: "AUTHED" } : { type: "UNAUTHED" };
-      }),
     },
   }
 );
 
-const postCardBlueprint = Machine(
-  {
-    id: "postCardMachine",
-    initial: "boot",
-    context: {
-      message: "",
-    },
-    states: {
-      boot: {
-        on: { "STAGE/DELETE": { target: "stagedDelete" } },
-      },
-      stagedDelete: {
-        on: {
-          "CONFIRM/DELETE": { target: "deletingPost" },
-          "CANCEL/DELETE": { target: "boot" },
-        },
-      },
-      deletingPost: {
-        invoke: {
-          src: "deletePost",
-          onDone: { target: "boot", actions: [sendParent("/")] },
-          onError: { target: "boot", actions: "onError" },
-        },
-      },
-    },
-  },
-  {
-    services: {
-      async stagePostDeletion(X, { postToBeDeleted }) {
-        return postToBeDeleted;
-      },
-      async deletePost(X, { postToBeDeleted: { postId }, auth }) {
-        const deletePostMutation = `
-        mutation deletePost($input: DeletePostInput!) {
-          deletePost(input: $input) {
-            message
-            resource
-          }
-        }
-        `;
+const spidersMachine = interpret(spidersBlueprint);
 
-        const variables = { input: { postId } };
-
-        const headers = {
-          authorization: auth.token,
-        };
-
-        const {
-          data: { deletePost },
-          errors: [error],
-        } = await fireGraphQLQuery(deletePostMutation, variables, headers);
-
-        if (error) throw new Error("Could not delete post.");
-
-        return { ...deletePost };
-      },
-    },
-    actions: {
-      onSuccess: assign((X, { data }: any) => {
-        return { ...data };
-      }),
-      /** @ts-ignore @TODO */
-      onError: assign((X, { data }: any) => {
-        const message = data;
-        console.error(message);
-        return { message };
-      }),
-    },
-  }
-);
-
-const spidersBlueprint = Machine({
-  id: "spidersMachine",
-  type: "parallel",
-  states: {
-    ...invoke(routerBlueprint),
-    ...invoke(authBlueprint),
-    ...invoke(lightBlueprint),
-    ...invoke(themeBlueprint),
-    ...invoke(weaverBlueprint),
-    ...invoke(postCardBlueprint),
-  },
-});
-
-export const spidersMachine = interpret(spidersBlueprint);
+export { spidersMachine };
