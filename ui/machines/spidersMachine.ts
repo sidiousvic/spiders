@@ -29,7 +29,10 @@ const spidersBlueprint = Machine(
         initial: location.pathname,
         on: {
           "/": { target: "router./" },
-          "/weaver": { target: "router./weaver" },
+          "/weaver": {
+            target: "router./weaver",
+            actions: [() => console.log("weaver action")],
+          },
           "/signin": { target: "router./signin" },
           "/post": { target: "router./post" },
         },
@@ -46,8 +49,11 @@ const spidersBlueprint = Machine(
           unauthed: {
             invoke: {
               src: "tryLocalStorage",
-              onDone: { target: "authed", actions: "onSuccess" },
-              onError: { actions: "onWarning" },
+              onDone: {
+                target: "authed",
+                actions: ["onSuccess", send("/weaver")],
+              },
+              onError: { actions: ["onWarning", send("/signin")] },
             },
           },
           authing: {
