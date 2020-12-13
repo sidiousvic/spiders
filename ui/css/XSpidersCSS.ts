@@ -112,7 +112,6 @@ const XSpidersCSS = css`
 
   #footer {
     font-size: 1rem;
-    border-top: 1px var(--accent-2) solid;
     height: 4rem;
     display: flex;
     align-items: center;
