@@ -54,7 +54,7 @@ export class XSpiders extends X {
     switch (route) {
       case "/":
         return html`<x-post-cards .auth=${this.auth} theme=${this.theme}></x-posts>`;
-      case "/signin":
+      case "/admin":
         return html`<x-signin .auth=${this.auth}></x-signin>`;
       case "/weaver":
         return html`<x-weaver

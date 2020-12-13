@@ -70,7 +70,7 @@ export default class XNavbar extends X {
               class="menu-dropdown-link"
               id="signin-link"
               @click=${() => {
-                spidersMachine.send("/signin");
+                spidersMachine.send("/admin");
               }}
             >
               Sign in

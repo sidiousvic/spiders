@@ -33,12 +33,12 @@ const spidersBlueprint = Machine(
             target: "router./weaver",
             actions: [() => console.log("weaver action")],
           },
-          "/signin": { target: "router./signin" },
+          "/admin": { target: "router./admin" },
           "/post": { target: "router./post" },
         },
         states: {
           "/": {},
-          "/signin": {},
+          "/admin": {},
           "/weaver": { entry: "guarded" },
           "/post": {},
         },
@@ -53,7 +53,7 @@ const spidersBlueprint = Machine(
                 target: "authed",
                 actions: ["onSuccess", send("/")],
               },
-              onError: { actions: ["onWarning", send("/signin")] },
+              onError: { actions: ["onWarning", send("/admin")] },
             },
           },
           authing: {
@@ -327,7 +327,7 @@ const spidersBlueprint = Machine(
     actions: {
       guarded: send((ctx) => {
         if (ctx.user.role === "DARKLORD") return { type: "ACCESS_GRANTED" };
-        return { type: "/signin" };
+        return { type: "/admin" };
       }),
       onSuccess: assign((X, { data }: any) => {
         return { ...data };
