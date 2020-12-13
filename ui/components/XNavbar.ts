@@ -90,9 +90,9 @@ export default class XNavbar extends X {
 
   renderUserGreeting() {
     if (this.auth.user.username) {
-      return html`Howdy, ${this.auth.user.username}! 👽`;
+      return html`Howdy, dark lord! 🏴‍☠️`;
     }
-    return html`A web journal.`;
+    return html``;
   }
 
   render() {
