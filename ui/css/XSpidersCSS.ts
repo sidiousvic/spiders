@@ -103,7 +103,7 @@ const XSpidersCSS = css`
     background: var(--background);
     color: var(--foreground);
     transition: ease-in-out 0.3s;
-    height: calc(100vh - 4rem);
+    height: calc(100vh);
     overflow: none;
     position: relative;
     overflow: scroll;
@@ -116,34 +116,6 @@ const XSpidersCSS = css`
 
   *::-moz-selection {
     background: var(--spiders-mint-light);
-  }
-
-  #footer {
-    font-size: 1rem;
-    height: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--foreground);
-    background: var(--background);
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    text-align: center;
-    transition: ease-in-out 200ms;
-  }
-
-  #github-link {
-    text-decoration: none;
-    color: inherit;
-    text-transform: uppercase;
-    font-style: italic;
-    transition: 200ms ease-in-out;
-  }
-
-  #github-link:hover {
-    letter-spacing: 0.5rem;
-    animation: metalColor 800ms ease-in-out infinite;
   }
 
   @keyframes metalColor {

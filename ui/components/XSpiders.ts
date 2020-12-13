@@ -51,7 +51,6 @@ export class XSpiders extends X {
   }
 
   renderRoute(route: StateValue) {
-    console.log("Fasdfaf");
     switch (route) {
       case "/":
         return html`<x-post-cards .auth=${this.auth}></x-post-cards>`;
@@ -67,18 +66,11 @@ export class XSpiders extends X {
   render() {
     return html` <div
       id="spiders"
-      data-theme=${this.theme} 
+      data-theme=${this.theme}
       data-skin=${this.skin}
     >
-      <x-navbar 
-      .auth=${this.auth} 
-      
-      .skin=${this.skin}
-      >
-      </x-navbar>
+      <x-navbar .auth=${this.auth} .skin=${this.skin}> </x-navbar>
       ${this.renderRoute(this.route)}
-      <div id="footer"><a href="https://www.github.com/sidiousvic" target="_blank" id="github-link">🏴‍☠️ by sidiousvic</a></div>
-      </div>
     </div>`;
   }
 }

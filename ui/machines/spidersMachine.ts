@@ -48,7 +48,7 @@ const spidersBlueprint = Machine(
                 target: "authed",
                 actions: ["onSuccess", send("/")],
               },
-              onError: { actions: ["onWarning", send("/admin")] },
+              onError: { actions: ["onWarning"] },
             },
           },
           authing: {
