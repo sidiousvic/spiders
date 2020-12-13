@@ -64,36 +64,26 @@ export default class XNavbar extends X {
           Spiders
         </div>
 
-        ${!this.auth.token
-          ? /** @TODO consistent event sending */
-            html`<div
-              class="menu-dropdown-link"
-              id="signin-link"
-              @click=${() => {
-                spidersMachine.send("/admin");
-              }}
-            >
-              Sign in
-            </div>`
-          : html` <div
-                class="menu-dropdown-link"
-                id="weaver-link"
-                @click=${() => {
-                  spidersMachine.send("/weaver", { auth: this.auth });
-                }}
-              >
-                Weave
-              </div>
-              <div
-                class="menu-dropdown-link"
-                id="signout-link"
-                @click=${() => {
-                  spidersMachine.send("SIGNOUT");
-                  spidersMachine.send("/");
-                }}
-              >
-                Sign out
-              </div>`}
+        ${this.auth.token /** @TODO consistent event sending */ &&
+        html` <div
+            class="menu-dropdown-link"
+            id="weaver-link"
+            @click=${() => {
+              spidersMachine.send("/weaver", { auth: this.auth });
+            }}
+          >
+            Weave
+          </div>
+          <div
+            class="menu-dropdown-link"
+            id="signout-link"
+            @click=${() => {
+              spidersMachine.send("SIGNOUT");
+              spidersMachine.send("/");
+            }}
+          >
+            Sign out
+          </div>`}
       </div>
     </div>`;
   }
