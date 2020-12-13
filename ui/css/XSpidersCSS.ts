@@ -126,10 +126,6 @@ const XSpidersCSS = css`
     transition: ease-in-out 200ms;
   }
 
-  .lights {
-    box-shadow: 0px -20px 200px var(--floodlights);
-  }
-
   #github-link {
     text-decoration: none;
     color: inherit;

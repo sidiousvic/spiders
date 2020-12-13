@@ -86,21 +86,6 @@ const spidersBlueprint = Machine(
           },
         },
       },
-      light: {
-        initial: "offline",
-        states: {
-          online: {
-            on: {
-              LIGHTS_OFF: { target: "offline" },
-            },
-          },
-          offline: {
-            on: {
-              LIGHTS_ON: { target: "online" },
-            },
-          },
-        },
-      },
       theme: {
         initial: "dark",
         states: {
