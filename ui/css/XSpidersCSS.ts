@@ -22,6 +22,14 @@ const XSpidersCSS = css`
     --spiders-gray-dark: rgb(4, 4, 4);
   }
 
+  [data-skin="editorial"] {
+    --title-type: "Blacker Pro Trial", serif;
+  }
+
+  [data-skin="spiders"] {
+    --title-type: GhastlyPixe;
+  }
+
   [data-theme="dark"] {
     --background: var(--spiders-gray);
     --background-2: var(--spiders-gray-light);

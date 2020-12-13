@@ -13,7 +13,6 @@ const XPostCardsCSS = css`
     justify-content: center;
     padding: 2rem;
     padding: 8rem;
-    /* margin: 0 2rem 0 0; */
   }
 
   @keyframes fadeUp {
