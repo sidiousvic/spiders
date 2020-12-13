@@ -6,34 +6,21 @@ import { spidersMachine } from "../machines/spidersMachine";
 
 @customElement("x-navbar")
 export default class XNavbar extends X {
+  @property() skin: StateValue = "spiders";
   @property() theme: StateValue = "dark";
-  @property() lights: StateValue = "online";
   @property() auth: UserAuth;
   @property() showDropdown: boolean = false;
 
   static styles = [XNavbarCSS];
 
-  renderLightSwitch() {
-    switch (this.theme) {
-      case "dark":
+  renderSkinSwitch() {
+    switch (this.skin) {
+      case "spiders":
         return "🦠";
-      case "light":
+      case "editorial":
         return "🍑";
       default:
         return "⤬";
-    }
-  }
-
-  renderNavLights() {
-    switch (this.lights) {
-      case "online":
-        return "lights";
-      case "offline":
-        return "";
-      case "defused":
-        return "";
-      default:
-        return "lights";
     }
   }
 
@@ -97,24 +84,20 @@ export default class XNavbar extends X {
 
   render() {
     return html`
-      <nav
-        class=${this.renderNavLights()}
-        @mouseenter=${() => spidersMachine.send("LIGHTS_ON")}
-        @mouseleave=${() => spidersMachine.send("LIGHTS_OFF")}
-      >
+      <nav>
         <div
           id="title"
           @click=${() => {
             spidersMachine.send("/");
           }}
         >
-          <h1>sidious.pizza</h1>
+          <h1>SIDIOUS</h1>
         </div>
         <span
           id="light-switch"
-          @click=${() => spidersMachine.send("SWITCH_THEME")}
+          @click=${() => spidersMachine.send("SWITCH_SKIN")}
         >
-          ${this.renderLightSwitch()}
+          ${this.renderSkinSwitch()}
         </span>
         ${this.renderDropdownMenu()}
       </nav>

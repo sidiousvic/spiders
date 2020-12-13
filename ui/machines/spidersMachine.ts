@@ -29,18 +29,13 @@ const spidersBlueprint = Machine(
         initial: location.pathname,
         on: {
           "/": { target: "router./" },
-          "/weaver": {
-            target: "router./weaver",
-            actions: [() => console.log("weaver action")],
-          },
+          "/weaver": { target: "router./weaver" },
           "/admin": { target: "router./admin" },
-          "/post": { target: "router./post" },
         },
         states: {
           "/": {},
           "/admin": {},
           "/weaver": { entry: "guarded" },
-          "/post": {},
         },
       },
       auth: {
@@ -95,10 +90,20 @@ const spidersBlueprint = Machine(
             },
           },
           light: {
-            entry: ["LIGHTS_OFF"],
             on: {
               SWITCH_THEME: { target: "dark" },
             },
+          },
+        },
+      },
+      skin: {
+        initial: "spiders",
+        states: {
+          spiders: {
+            on: { SWITCH_SKIN: { target: "editorial" } },
+          },
+          editorial: {
+            on: { SWITCH_SKIN: { target: "spiders" } },
           },
         },
       },
