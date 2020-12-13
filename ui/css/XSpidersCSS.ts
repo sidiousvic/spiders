@@ -92,7 +92,7 @@ const XSpidersCSS = css`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background: var(--background-pattern);
+    background: var(--background);
     color: var(--foreground);
     transition: ease-in-out 0.3s;
     height: calc(100vh - 4rem);
