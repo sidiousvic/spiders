@@ -53,7 +53,7 @@ export default class XWeaver extends X {
   static styles = [XWeaverCSS, SpidersCodeCSS];
 
   weave(value: string) {
-    this.rendered = md.render(`# ${this.weaverPostInput.title} \n ${value}`);
+    this.rendered = md.render(value);
   }
 
   stagePost() {
@@ -81,7 +81,7 @@ export default class XWeaver extends X {
     const { innerText } = e.target as HTMLInputElement;
     this.weaverPostInput = {
       ...this.weaverPostInput,
-      body: this.rendered.split("</h1>")[1],
+      body: this.rendered,
       raw: innerText,
     };
     this.weave(this.weaverPostInput.raw);

@@ -34,7 +34,7 @@ const XWeaverCSS = css`
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
       3rem
-      5rem
+      7rem
       minmax(25rem, 1fr)
       5rem
       5rem
@@ -58,31 +58,39 @@ const XWeaverCSS = css`
   #title-input {
     padding: 2rem 2rem;
     grid-area: ti;
-    font-size: 1.2rem;
+    font-family: var(--title-type);
+    font-size: 4rem;
     border-radius: 5px;
     resize: none;
     outline: none;
-    color: var(--foreground);
-    background: var(--background-2);
     overflow-x: scroll;
     transition: ease-in-out 200ms;
+    /* spiders gradient */
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   #title-input:empty:before {
     content: attr(data-placeholder);
-    color: gray;
     white-space: nowrap;
+    /* spiders gradient */
+    background: gray;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   #body-editor {
     padding: 2rem 2rem;
     grid-area: bo;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     border-radius: 5px;
     resize: none;
     outline: none;
     color: var(--foreground);
-    background: var(--background-2);
+    background: var(--background);
   }
 
   #body-editor:empty:before {
@@ -98,7 +106,7 @@ const XWeaverCSS = css`
     resize: none;
     outline: none;
     color: var(--foreground);
-    background: var(--background-2);
+    background: var(--background);
     overflow-x: scroll;
     transition: ease-in-out 200ms;
   }
@@ -126,7 +134,7 @@ const XWeaverCSS = css`
     user-select: none;
     border-radius: 5px;
     overflow-wrap: anywhere;
-    background: var(--background-2);
+    background: var(--background);
     cursor: pointer;
   }
 
@@ -141,7 +149,7 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    /* background: var(--background-2); */
+    /* background: var(--background); */
     display: grid;
     gap: 1rem;
     grid-template-columns: 2fr 2fr 10fr;

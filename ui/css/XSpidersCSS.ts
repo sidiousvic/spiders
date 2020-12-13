@@ -20,6 +20,11 @@ const XSpidersCSS = css`
     --spiders-gray: rgb(8, 8, 8);
     --spiders-gray-light: rgb(15, 15, 15);
     --spiders-gray-dark: rgb(4, 4, 4);
+    --spiders-gradient: -webkit-linear-gradient(
+      90deg,
+      var(--accent-2),
+      var(--accent)
+    );
   }
 
   [data-skin="editorial"] {

@@ -53,11 +53,20 @@ export class XSpiders extends X {
   renderRoute(route: StateValue) {
     switch (route) {
       case "/":
-        return html`<x-post-cards .auth=${this.auth}></x-post-cards>`;
+        return html`<x-post-cards
+          .auth=${this.auth}
+          theme=${this.theme}
+        ></x-post-cards>`;
       case "/admin":
-        return html`<x-signin .auth=${this.auth}></x-signin>`;
+        return html`<x-signin
+          .auth=${this.auth}
+          theme=${this.theme}
+        ></x-signin>`;
       case "/weaver":
-        return html`<x-weaver .auth=${this.auth}></x-weaver>`;
+        return html`<x-weaver
+          .auth=${this.auth}
+          theme=${this.theme}
+        ></x-weaver>`;
       default:
         return html``;
     }

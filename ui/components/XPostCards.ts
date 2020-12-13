@@ -1,5 +1,6 @@
 import { UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
+import Prism from "prismjs";
 import "./XPostCard";
 import { XPostCardsCSS } from "../css/XPostCardsCSS";
 
@@ -15,6 +16,7 @@ export default class XPostCards extends X {
     if (!this.posts.length) {
       this.fetchPosts();
     }
+    Prism.highlightAllUnder(this.shadowRoot);
   }
 
   async fetchPosts() {
