@@ -13,8 +13,7 @@ export default class XPostCards extends X {
   connectedCallback() {
     super.connectedCallback();
     if (!this.posts.length) {
-      // spidersMachine.send("OFF");
-      // this.fetchPosts();
+      this.fetchPosts();
     }
   }
 

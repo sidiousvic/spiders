@@ -30,26 +30,23 @@ const XWeaverCSS = css`
     animation: fadeUp 500ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
-    width: 100%;
-    min-height: 90vh;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
       3rem
       5rem
-      1fr
+      minmax(25rem, 1fr)
       5rem
       5rem
-      10rem;
+      3rem;
     gap: 1rem;
     grid-template-areas:
-      ". .   . "
-      ". ti  ."
-      ". bo  ."
-      ". ta  ."
-      ". co  ."
-      ". .   . ";
-    overflow: scroll;
+      ". . . "
+      ". ti ."
+      ". bo ."
+      ". ta ."
+      ". co ."
+      ". . . ";
   }
 
   @media only screen and (orientation: portrait) {
@@ -102,11 +99,14 @@ const XWeaverCSS = css`
     outline: none;
     color: var(--foreground);
     background: var(--background-2);
+    overflow-x: scroll;
+    transition: ease-in-out 200ms;
   }
 
   #tags-input:empty:before {
     content: attr(data-placeholder);
     color: gray;
+    white-space: nowrap;
   }
 
   #tags-input,

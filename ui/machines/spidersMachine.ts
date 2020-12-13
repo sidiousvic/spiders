@@ -51,7 +51,7 @@ const spidersBlueprint = Machine(
               src: "tryLocalStorage",
               onDone: {
                 target: "authed",
-                actions: ["onSuccess", send("/weaver")],
+                actions: ["onSuccess", send("/")],
               },
               onError: { actions: ["onWarning", send("/signin")] },
             },
@@ -72,6 +72,7 @@ const spidersBlueprint = Machine(
             ],
           },
           authed: {
+            entry: [send("/")],
             on: {
               SIGNOUT: { target: "unauthing" },
             },
@@ -185,7 +186,7 @@ const spidersBlueprint = Machine(
           deletingPost: {
             invoke: {
               src: "deletePost",
-              onDone: { target: "boot", actions: ["/"] },
+              onDone: { target: "boot", actions: "onSuccess" },
               onError: { target: "boot", actions: "onError" },
             },
           },
@@ -262,11 +263,7 @@ const spidersBlueprint = Machine(
         return { ...addPost };
       },
       async clearPost() {
-        return {
-          user: { username: undefined, role: Role.GUEST },
-          token: undefined,
-          message: undefined,
-        };
+        return { post: {} };
       },
       async stagePostDeletion(X, { postToBeDeleted }) {
         return postToBeDeleted;
@@ -344,7 +341,6 @@ const spidersBlueprint = Machine(
     },
     actions: {
       guarded: send((ctx) => {
-        console.log("🔥🔥🔥🔥CTX", ctx);
         if (ctx.user.role === "DARKLORD") return { type: "ACCESS_GRANTED" };
         return { type: "/signin" };
       }),

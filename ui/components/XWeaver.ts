@@ -42,7 +42,7 @@ export default class XWeaver extends X {
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
   firstUpdated() {
-    //@ts-ignore
+    // @ts-ignore
     spidersMachine.onTransition(({ value: { weaver }, event }) => {
       this.state = weaver;
       if (event.type === "UPDATE_WEAVER_POST")
@@ -261,11 +261,11 @@ export default class XWeaver extends X {
         ${unsafeHTML(this.rendered)}
       </div>
       <div
-        contenteditable
         id="tags-input"
         data-placeholder=${this.renderTagsPlaceholder(this.state)}
         @keyup=${this.handleWeaverTagsInput}
         @keydown=${this.preventMultilineInput}
+        contenteditable
       ></div>
       <div id="controls">
         <div

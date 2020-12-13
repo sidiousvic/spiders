@@ -23,7 +23,7 @@ export class XSpiders extends X {
   connectedCallback() {
     super.connectedCallback();
     spidersMachine.onTransition(
-      //@ts-ignore
+      // @ts-ignore
       ({ value: { router, auth, theme, light }, event, context }) => {
         // const authState = auth;
 
