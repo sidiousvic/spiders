@@ -19,7 +19,6 @@ const XNavbarCSS = css`
     grid-template-areas: "spiders light-switch menu .";
     user-select: none;
     padding: 1rem;
-    border-bottom: 1px var(--accent-2) solid;
     transition: ease-in-out 100ms;
   }
 
