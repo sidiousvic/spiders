@@ -4,10 +4,10 @@ const XPostCardCSS = css`
   .post-card {
     background: var(--background-2);
     border: 1px solid transparent;
-    border-radius: 0px;
+    border-radius: 10px;
     padding: 2rem;
     user-select: none;
-    box-shadow: var(--shadows) 5px 5px;
+    /* box-shadow: var(--shadows) 5px 5px; */
   }
 
   .post-card:hover {
