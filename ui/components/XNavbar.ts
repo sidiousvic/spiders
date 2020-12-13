@@ -108,7 +108,7 @@ export default class XNavbar extends X {
             spidersMachine.send("/");
           }}
         >
-          <h1>Spiders</h1>
+          <h1>sidious.pizza</h1>
         </div>
         <span
           id="light-switch"
