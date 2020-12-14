@@ -13,6 +13,7 @@ import MarkdownIt from "markdown-it";
 import prism from "markdown-it-prism";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-typescript";
+import { SpidersCSS } from "../css/SpidersCSS";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
 import { spidersMachine } from "../machines/spidersMachine";
@@ -53,7 +54,7 @@ export default class XWeaver extends X {
     });
   }
 
-  static styles = [XWeaverCSS, SpidersCodeCSS];
+  static styles = [SpidersCSS, XWeaverCSS, SpidersCodeCSS];
 
   weave(value: string) {
     this.rendered = md.render(value);

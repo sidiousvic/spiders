@@ -1,6 +1,7 @@
 import { UserAuth } from "@spiders";
 import { StateValue } from "xstate";
 import { LitElement as X, html, property, customElement } from "lit-element";
+import { SpidersCSS } from "../css/SpidersCSS";
 import { XNavbarCSS } from "../css/XNavbarCSS";
 import { spidersMachine } from "../machines/spidersMachine";
 
@@ -11,7 +12,7 @@ export default class XNavbar extends X {
   @property() auth: UserAuth;
   @property() showDropdown: boolean = false;
 
-  static styles = [XNavbarCSS];
+  static styles = [SpidersCSS, XNavbarCSS];
 
   renderSkinSwitch() {
     switch (this.skin) {

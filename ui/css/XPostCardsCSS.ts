@@ -8,7 +8,7 @@ const XPostCardsCSS = css`
   .posts {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, 26rem);
+    grid-template-columns: repeat(auto-fit, 23rem);
     align-items: center;
     justify-content: center;
     padding: 2rem;

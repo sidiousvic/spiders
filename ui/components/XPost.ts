@@ -3,6 +3,7 @@ import { LitElement as X, html, property, customElement } from "lit-element";
 import "./XPostCard";
 import truncateHTML from "truncate-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import { SpidersCSS } from "../css/SpidersCSS";
 import { XPostCSS } from "../css/XPostCSS";
 import { getHumanReadableDate } from "../utils";
 
@@ -15,7 +16,7 @@ export default class XPostCards extends X {
 
   connectedCallback() {}
 
-  static styles = [XPostCSS];
+  static styles = [SpidersCSS, XPostCSS];
 
   render() {
     const postBodyVisual = unsafeHTML(this.post.body.split("</pre>")[0]);

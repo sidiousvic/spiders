@@ -8,6 +8,7 @@ import {
 } from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import Prism from "prismjs";
+import { SpidersCSS } from "../css/SpidersCSS";
 import { spidersMachine } from "../machines/spidersMachine";
 import { XPostCardCSS } from "../css/XPostCardCSS";
 import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
@@ -23,7 +24,7 @@ export default class XPostCard extends X {
   @property() stagedDelete = false;
   @query("#delete-post-button") deletePostButton: HTMLDivElement;
 
-  static styles = [XPostCardCSS, SpidersCodeCSS];
+  static styles = [SpidersCSS, XPostCardCSS, SpidersCodeCSS];
 
   connectedCallback() {
     super.connectedCallback();

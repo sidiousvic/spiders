@@ -21,7 +21,6 @@ const XWeaverCSS = css`
     animation: fadeUp 400ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
-    font-family: ShareTechMono, monospace;
     caret-color: var(--accent);
     border: var(--theme-borders);
   }
@@ -44,13 +43,7 @@ const XWeaverCSS = css`
     animation-fill-mode: backwards;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows:
-      3rem
-      7rem
-      minmax(25rem, 1fr)
-      5rem
-      5rem
-      3rem;
+    grid-template-rows: 3rem 9rem minmax(25rem, 1fr) 5rem 5rem 1rem;
     gap: 1rem;
     grid-template-areas:
       ". . . "
@@ -68,9 +61,9 @@ const XWeaverCSS = css`
   }
 
   #title-input {
+    font-family: var(--heading-type);
     padding: 2rem 2rem;
     grid-area: ti;
-    font-family: var(--title-type);
     font-size: 4rem;
     border-radius: 5px;
     resize: none;

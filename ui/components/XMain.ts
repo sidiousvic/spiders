@@ -14,7 +14,7 @@
 
 //   connectedCallback() {}
 
-//   //   static styles = [XMain];
+//   //   static styles = [SpidersCSS,XMain];
 
 //   render() {
 //     const postBodyVisual = unsafeHTML(this.post.body.split("</pre>")[0]);

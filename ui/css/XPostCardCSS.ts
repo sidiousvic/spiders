@@ -24,7 +24,6 @@ const XPostCardCSS = css`
   }
 
   .post-card-title {
-    font-family: GhastlyPixe;
     font-weight: 500;
     overflow-wrap: break-word;
     margin: 1rem 0rem;
@@ -44,7 +43,6 @@ const XPostCardCSS = css`
   }
 
   .post-card-body > p {
-    font-family: Wired Mono;
     text-align: left;
     font-size: 1.5rem;
     color: var(--foreground);

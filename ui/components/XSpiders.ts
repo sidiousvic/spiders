@@ -2,11 +2,11 @@ import { UserAuth, Role } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import { StateValue } from "xstate";
 import { spidersMachine } from "../machines/spidersMachine";
-import { XSpidersCSS } from "../css/XSpidersCSS";
+import { SpidersCSS } from "../css/SpidersCSS";
 
 @customElement("x-spiders")
 export class XSpiders extends X {
-  static styles = XSpidersCSS;
+  static styles = SpidersCSS;
   @property() auth: UserAuth = {
     user: { username: "", role: Role.GUEST },
     token: "",

@@ -2,6 +2,7 @@ import { UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import Prism from "prismjs";
 import "./XPostCard";
+import { SpidersCSS } from "../css/SpidersCSS";
 import { XPostCardsCSS } from "../css/XPostCardsCSS";
 
 @customElement("x-post-cards")
@@ -50,7 +51,7 @@ export default class XPostCards extends X {
     }, 700);
   }
 
-  static styles = [XPostCardsCSS];
+  static styles = [SpidersCSS, XPostCardsCSS];
 
   renderPosts() {
     return this.posts.map(

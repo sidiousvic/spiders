@@ -14,12 +14,12 @@ const SpidersCodeCSS = css`
   }
 
   code {
-    font-family: Wired Mono, monospace;
+    font-family: Share Tech Mono, monospace;
     color: var(--accent-2);
   }
 
   pre > code {
-    font-family: Wired Mono, monospace;
+    font-family: Share Tech Mono, monospace;
     font-weight: 100;
     border-radius: 0px;
     font-size: 1rem;
