@@ -27,7 +27,8 @@ const XPostCardCSS = css`
     font-weight: 500;
     overflow-wrap: break-word;
     margin: 1rem 0rem;
-    font-size: 5rem;
+    font-size: 4rem;
+    line-height: 4rem;
     /* spiders gradient */
     background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;
