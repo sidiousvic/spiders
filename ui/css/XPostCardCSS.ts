@@ -7,7 +7,8 @@ const XPostCardCSS = css`
     border-radius: 10px;
     padding: 2rem;
     user-select: none;
-    /* box-shadow: var(--shadows) 5px 5px; */
+    word-wrap: break-word;
+    box-shadow: var(--shadows) 5px 5px;
   }
 
   .post-card:hover {
@@ -43,12 +44,25 @@ const XPostCardCSS = css`
   }
 
   .post-card-body > p {
+    font-family: Wired Mono;
     text-align: left;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: var(--foreground);
     line-height: 2.5rem;
     font-weight: lighter;
     font-stretch: 20px;
+  }
+
+  .embed-responsive {
+    position: relative;
+    padding-top: 56.25%; /*16:9 */
+  }
+
+  .youtube-player {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
   }
 
   #links {

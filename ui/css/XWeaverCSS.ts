@@ -26,6 +26,18 @@ const XWeaverCSS = css`
     border: var(--theme-borders);
   }
 
+  .embed-responsive {
+    position: relative;
+    padding-top: 56.25%; /*16:9 */
+  }
+
+  .youtube-player {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+
   #weaver {
     animation: fadeUp 500ms ease-out;
     animation-delay: 0s;
@@ -101,20 +113,26 @@ const XWeaverCSS = css`
   #tags-input {
     padding: 2rem 2rem;
     grid-area: ta;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 5px;
     resize: none;
     outline: none;
-    color: var(--foreground);
-    background: var(--background);
-    overflow-x: scroll;
-    transition: ease-in-out 200ms;
+    /* spiders gradient */
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   #tags-input:empty:before {
     content: attr(data-placeholder);
-    color: gray;
+    /* color: gray; */
     white-space: nowrap;
+    /* spiders gradient */
+    background: gray;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   #tags-input,

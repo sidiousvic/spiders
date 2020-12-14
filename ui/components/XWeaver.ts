@@ -19,6 +19,9 @@ import { spidersMachine } from "../machines/spidersMachine";
 
 const md = new MarkdownIt();
 md.use(prism, { defaultLanguage: "typescript" });
+md.use(require("markdown-it-video"), {
+  youtube: { width: "100%", height: "100%" },
+});
 
 type WeaverPost = Pick<Post, "postId" | "title" | "body" | "raw" | "tags">;
 
