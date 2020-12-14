@@ -141,7 +141,7 @@ const spidersBlueprint = Machine(
               onDone: { target: "weave", actions: "onSuccess" },
               onError: { target: "weave", actions: "onError" },
             },
-            entry: ["/"],
+            entry: [send("/")],
             on: { WEAVE: "weave" },
           },
           postError: {

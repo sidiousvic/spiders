@@ -53,7 +53,6 @@ export default class XPostCards extends X {
   static styles = [XPostCardsCSS];
 
   renderPosts() {
-    // spidersMachine.send("LIGHTS_ON");
     return this.posts.map(
       (post) => html` <x-post-card
         theme=${this.theme}

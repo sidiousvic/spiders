@@ -14,7 +14,6 @@ export class XSpiders extends X {
   @property() name = "";
   @property() theme: StateValue = "dark";
   @property() skin: StateValue = "spiders";
-  @property() lights: StateValue = "online";
   @property() route = "";
 
   firstUpdated() {

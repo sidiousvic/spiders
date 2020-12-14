@@ -104,12 +104,7 @@ export default class XPostCard extends X {
 
   render() {
     return html`
-      <div
-        class="post-card"
-        data-theme=${this.theme}
-        @mouseenter=${() => spidersMachine.send("LIGHTS_OFF")}
-        @mouseleave=${() => spidersMachine.send("LIGHTS_ON")}
-      >
+      <div class="post-card" data-theme=${this.theme}>
         <h1 class="post-card-title">${this.post.title}</h1>
         <h2 class="post-card-subtitle">
           ${getHumanReadableDate(new Date(this.post.createdAt))}
