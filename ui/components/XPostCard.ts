@@ -28,7 +28,7 @@ export default class XPostCard extends X {
   connectedCallback() {
     super.connectedCallback();
     Prism.highlightAllUnder(this.shadowRoot);
-    //@ts-ignore
+    // @ts-ignore
     spidersMachine.onTransition(({ value: { postCard } }) => {
       this.state = postCard;
     });
@@ -103,7 +103,6 @@ export default class XPostCard extends X {
   }
 
   render() {
-    const postBodyVisual = unsafeHTML(this.post.body.split("</pre>")[0]);
     return html`
       <div
         class="post-card"
@@ -115,7 +114,7 @@ export default class XPostCard extends X {
         <h2 class="post-card-subtitle">
           ${getHumanReadableDate(new Date(this.post.createdAt))}
         </h2>
-        <div class="post-card-body">${postBodyVisual}</div>
+        <div class="post-card-body">${unsafeHTML(this.post.body)}</div>
         <sub class="post-card-tags">${this.post.tags}</sub>
         <div id="post-buttons">
           ${this.renderDeletePostButton()} ${this.renderUpdatePostButton()}
