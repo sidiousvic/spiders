@@ -22,7 +22,7 @@ const SpidersCSS = css`
   }
 
   [data-skin="spiders"] {
-    --logo-type: Swamp Witch, monospace;
+    --logo-type: Liquido, monospace;
     --heading-type: Liquido, monospace;
     --main-type: Share Tech Mono, monospace;
     --code-type: Share Tech Mono, monospace;
