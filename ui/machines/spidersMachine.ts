@@ -109,6 +109,7 @@ const spidersBlueprint = Machine(
       },
       weaver: {
         initial: "weave",
+        on: { WEAVE: "weaver.weave" },
         states: {
           weave: {
             on: {
@@ -141,21 +142,12 @@ const spidersBlueprint = Machine(
               onDone: { target: "weave", actions: "onSuccess" },
               onError: { target: "weave", actions: "onError" },
             },
-            entry: [send("/")],
-            on: { WEAVE: "weave" },
+            entry: [send({ type: "/", delay: 1000 })],
           },
-          postError: {
-            entry: ["WEAVE"],
-          },
-          emptyTitleError: {
-            entry: ["WEAVE"],
-          },
-          emptyBodyError: {
-            entry: ["WEAVE"],
-          },
-          emptyTagsError: {
-            entry: ["WEAVE"],
-          },
+          postError: { after: { 1000: { target: "weave" } } },
+          emptyTitleError: { after: { 1000: { target: "weave" } } },
+          emptyBodyError: { after: { 1000: { target: "weave" } } },
+          emptyTagsError: { after: { 1000: { target: "weave" } } },
         },
       },
       postCard: {
@@ -337,7 +329,6 @@ const spidersBlueprint = Machine(
       onSuccess: assign((X, { data }: any) => {
         return { ...data };
       }),
-      /** @ts-ignore @TODO */
       onError: assign((X, { data }: any) => {
         const message = data;
         console.error(message);
