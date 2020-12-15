@@ -8,11 +8,11 @@ const XPostCardsCSS = css`
   .posts {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, 23rem);
+    grid-template-columns: repeat(auto-fit, 30rem);
+    grid-template-rows: auto;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    padding: 8rem;
+    padding: 5rem;
   }
 
   @keyframes fadeUp {

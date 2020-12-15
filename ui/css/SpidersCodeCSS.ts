@@ -13,13 +13,17 @@ const SpidersCodeCSS = css`
     --string: var(--accent-2);
   }
 
+  code > * {
+    font-family: var(--code-type);
+  }
+
   code {
-    font-family: Share Tech Mono, monospace;
+    font-family: var(--code-type);
     color: var(--accent-2);
   }
 
   pre > code {
-    font-family: Share Tech Mono, monospace;
+    font-family: var(--code-type);
     font-weight: 100;
     border-radius: 0px;
     font-size: 1rem;
@@ -42,6 +46,7 @@ const SpidersCodeCSS = css`
   }
 
   pre > code[class*="language-"] {
+    font-family: var(--code-type);
   }
 
   pre[class*="language-"],

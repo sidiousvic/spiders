@@ -8,11 +8,11 @@ const XPostCardCSS = css`
     padding: 2rem;
     user-select: none;
     word-wrap: break-word;
-    box-shadow: var(--shadows) 5px 5px;
+    /* box-shadow: var(--shadows) 5px 5px; */
   }
 
   .post-card:hover {
-    transform: scale(0.98) translateY(-5px);
+    transform: scale(0.97) translateY(-5px);
     border: 1px solid var(--accent-2);
     cursor: pointer;
     transition: 200ms ease-in-out;
@@ -23,12 +23,16 @@ const XPostCardCSS = css`
     text-align: left;
   }
 
+  .post-card-body pre {
+    font-size: 10%;
+  }
+
   .post-card-title {
     font-weight: 500;
     overflow-wrap: break-word;
     margin: 1rem 0rem;
     font-size: 4rem;
-    line-height: 4rem;
+    line-height: 6rem;
     /* spiders gradient */
     background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;

@@ -89,6 +89,7 @@ const XWeaverCSS = css`
 
   #body-editor {
     padding: 2rem 2rem;
+    word-break: break-word;
     grid-area: bo;
     font-size: 1.5rem;
     border-radius: 5px;

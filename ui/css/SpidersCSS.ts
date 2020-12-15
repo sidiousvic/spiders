@@ -15,13 +15,17 @@ const SpidersCSS = css`
   }
 
   [data-skin="editorial"] {
-    --heading-type: "Adobe Fangsong Std R", serif;
+    --logo-type: "Blacker", serif;
+    --heading-type: Foglihten, serif;
     --main-type: "Adobe Fangsong Std R", serif;
+    --code-type: GoMonoForPowerline, monospace;
   }
 
   [data-skin="spiders"] {
+    --logo-type: Swamp Witch, monospace;
     --heading-type: GhastlyPixe, monospace;
     --main-type: Share Tech Mono, monospace;
+    --code-type: Wired Mono, monospace;
   }
 
   [data-theme="dark"] {
@@ -112,11 +116,11 @@ const SpidersCSS = css`
   }
 
   *::selection {
-    background: var(--mint-light);
+    background: var(--accent-2);
   }
 
   *::-moz-selection {
-    background: var(--mint-light);
+    background: var(--accent-2);
   }
 `;
 

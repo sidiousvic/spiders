@@ -50,6 +50,7 @@ const XNavbarCSS = css`
   }
 
   nav > #title > h1 {
+    font-family: var(--logo-type);
     font-size: 4.5rem;
     font-weight: lighter;
     background: -webkit-linear-gradient(
