@@ -22,11 +22,13 @@ const XPostsCSS = css`
   .what-s-hot {
     height: 100%;
     overflow: scroll;
+    /* faded border start */
     border: solid 2px;
     border-image: radial-gradient(var(--accent-2), transparent) 1;
     border-bottom: 0;
     border-top: 0;
     border-left: 0;
+    /* faded border end */
     grid-area: wh;
     animation: fadeUp 0.5s ease-in-out;
     padding: 1rem;
@@ -50,6 +52,7 @@ const XPostsCSS = css`
       justify-content: center;
       padding: 2rem;
     }
+
     .post {
       display: none;
     }

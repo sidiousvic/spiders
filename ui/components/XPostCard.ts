@@ -18,6 +18,7 @@ import "prismjs/components/prism-typescript";
 export default class XPostCard extends X {
   @property() state = { value: "" };
   @property() theme = "";
+  @property() selection = "unselected";
   @property() auth: UserAuth;
   @property() post: Partial<Post>;
   @property() stagedDelete = false;
@@ -104,7 +105,23 @@ export default class XPostCard extends X {
 
   render() {
     return html`
-      <div class="post-card" data-theme=${this.theme}>
+      <div
+        class="post-card"
+        data-theme=${this.theme}
+        data-selection=${this.selection}
+        @click=${() => {
+          /**
+           * @TODO
+           * send selected post to machine context
+           * */
+        }}
+        @mouseenter=${() => {
+          this.selection = "selected";
+        }}
+        @mouseleave=${() => {
+          this.selection = "unselected";
+        }}
+      >
         <h1 class="post-card-title">${this.post.title}</h1>
         <p class="post-card-date">
           ${getHumanReadableDate(new Date(this.post.createdAt))}

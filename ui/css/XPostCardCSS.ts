@@ -2,15 +2,23 @@ import { css } from "lit-element";
 
 const XPostCardCSS = css`
   .post-card {
+    transform: translate(-3px);
     background: var(--background-2);
-    border-radius: 5px;
+    border: 1px solid transparent;
+    border-right-color: black;
+    border-top-right-radius: 4px 80px;
+    border-bottom-right-radius: 4px 80px;
     box-shadow: 0.2rem 0.2rem 1rem black;
     padding: 1rem;
     margin: 1rem;
     margin-left: 0;
+    transition: 0.2s ease-in-out;
   }
 
-  .post-card:hover {
+  [data-selection="selected"] {
+    transform: translate(0);
+    border-right-color: var(--accent-2);
+    cursor: pointer;
   }
 
   .post-card-title {
