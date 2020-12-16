@@ -1,6 +1,6 @@
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
-import { SpidersCSS } from "../css/SpidersCSS";
+import { UniversalCSS } from "../css/UniversalCSS";
 import { XSigninCSS } from "../css/XSigninCSS";
 import { spidersMachine } from "../machines/spidersMachine";
 
@@ -16,7 +16,7 @@ export default class XSignIn extends X {
     password: "",
   };
 
-  static styles = [SpidersCSS, XSigninCSS];
+  static styles = [UniversalCSS, XSigninCSS];
 
   handleSignIn(e: MouseEvent & KeyboardEvent) {
     switch (e.type) {

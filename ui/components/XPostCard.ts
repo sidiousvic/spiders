@@ -6,9 +6,8 @@ import {
   customElement,
   query,
 } from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import Prism from "prismjs";
-import { SpidersCSS } from "../css/SpidersCSS";
+import { UniversalCSS } from "../css/UniversalCSS";
 import { spidersMachine } from "../machines/spidersMachine";
 import { XPostCardCSS } from "../css/XPostCardCSS";
 import { SpidersCodeCSS } from "../css/SpidersCodeCSS";
@@ -24,7 +23,7 @@ export default class XPostCard extends X {
   @property() stagedDelete = false;
   @query("#delete-post-button") deletePostButton: HTMLDivElement;
 
-  static styles = [SpidersCSS, XPostCardCSS, SpidersCodeCSS];
+  static styles = [UniversalCSS, SpidersCodeCSS, XPostCardCSS];
 
   connectedCallback() {
     super.connectedCallback();
@@ -107,10 +106,9 @@ export default class XPostCard extends X {
     return html`
       <div class="post-card" data-theme=${this.theme}>
         <h1 class="post-card-title">${this.post.title}</h1>
-        <h2 class="post-card-subtitle">
+        <p class="post-card-date">
           ${getHumanReadableDate(new Date(this.post.createdAt))}
-        </h2>
-        <div class="post-card-body">${unsafeHTML(this.post.body)}</div>
+        </p>
         <sub class="post-card-tags">${this.post.tags}</sub>
         <div id="post-buttons">
           ${this.renderDeletePostButton()} ${this.renderUpdatePostButton()}

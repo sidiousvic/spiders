@@ -3,7 +3,7 @@ import { LitElement as X, html, property, customElement } from "lit-element";
 import Prism from "prismjs";
 import "./XPostCard";
 import { XPostsCSS } from "../css/XPostsCSS";
-import { SpidersCSS } from "../css/SpidersCSS";
+import { UniversalCSS } from "../css/UniversalCSS";
 
 @customElement("x-posts")
 export default class XPosts extends X {
@@ -51,7 +51,7 @@ export default class XPosts extends X {
     }, 700);
   }
 
-  static styles = [SpidersCSS, XPostsCSS];
+  static styles = [UniversalCSS, XPostsCSS];
 
   renderPosts() {
     return this.posts.map(
