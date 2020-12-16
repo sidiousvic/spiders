@@ -4,6 +4,7 @@ const XPostCardCSS = css`
   .post-card {
     transform: translate(-3px);
     background: var(--background-2);
+    background: var(--gradient-dark-inverted);
     border: 1px solid transparent;
     border-right-color: black;
     border-top-right-radius: 4px 80px;

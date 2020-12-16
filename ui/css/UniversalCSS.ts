@@ -35,6 +35,12 @@ const UniversalCSS = css`
     );
     --gradient-dark: -webkit-linear-gradient(
       90deg,
+      black,
+      var(--background-2),
+      black
+    );
+    --gradient-dark-inverted: -webkit-linear-gradient(
+      90deg,
       var(--background-2),
       black,
       var(--background-2)
