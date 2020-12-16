@@ -2,6 +2,12 @@ import { css } from "lit-element";
 
 const XPostCardCSS = css`
   .post-card {
+    background: var(--background-2);
+    border-radius: 5px;
+    box-shadow: 0.2rem 0.2rem 1rem black;
+    padding: 1rem;
+    margin: 1rem;
+    margin-left: 0;
   }
 
   .post-card:hover {

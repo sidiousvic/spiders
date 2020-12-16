@@ -9,13 +9,14 @@ const XPostsCSS = css`
     /* offset footer height */
     height: calc(100% - 6rem);
     display: grid;
-    grid-template-columns: 20rem 1fr;
+    grid-template-columns: 30rem 1fr;
     grid-template-rows: auto;
     align-items: flex-start;
     justify-content: center;
     grid-template-areas: "wh po";
     gap: 2rem;
     padding: 5rem;
+    padding-left: 0;
   }
 
   .what-s-hot {
@@ -29,6 +30,7 @@ const XPostsCSS = css`
     grid-area: wh;
     animation: fadeUp 0.5s ease-in-out;
     padding: 1rem;
+    padding-left: 0;
   }
 
   .post {
@@ -36,6 +38,21 @@ const XPostsCSS = css`
     border: var(--accent-2) 1px dotted;
     animation: fadeUp 1s ease-in-out;
     padding: 1rem;
+  }
+
+  @media (max-width: 800px) {
+    .posts {
+      /* offset footer height */
+      height: calc(100% - 6rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .post {
+      display: none;
+    }
   }
 `;
 
