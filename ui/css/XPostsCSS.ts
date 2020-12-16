@@ -9,7 +9,7 @@ const XPostsCSS = css`
     /* offset footer height */
     height: calc(100% - 6rem);
     display: grid;
-    grid-template-columns: 30rem 1fr;
+    grid-template-columns: 35rem 1fr;
     grid-template-rows: auto;
     align-items: flex-start;
     justify-content: center;
