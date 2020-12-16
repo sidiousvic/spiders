@@ -96,6 +96,29 @@ const UniversalCSS = css`
   *::-moz-selection {
     background: var(--accent-2);
   }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes bounceBackAndForth {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.98);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
 export { UniversalCSS };

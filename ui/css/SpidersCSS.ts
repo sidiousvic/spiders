@@ -35,6 +35,12 @@ const SpidersCSS = css`
   main {
     grid-area: m;
     overflow: hidden;
+    animation: fadeUp 1s ease-in-out;
+  }
+
+  main > * {
+    animation: fadeUp 1s ease-in-out;
+    height: 100%;
   }
 
   footer {
