@@ -7,13 +7,20 @@ const XPostCardCSS = css`
   .post-card:hover {
   }
 
-  .post-card-title,
-  .post-card-subtitle {
-  }
-
   .post-card-title {
+    font-size: 3rem;
+    /* spiders gradient */
+    background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
+  .post-card-date {
+    font-size: 1rem;
+  }
+
+  .post-card-title,
   .post-card-subtitle {
   }
 
