@@ -101,18 +101,18 @@ const SpidersCSS = css`
   }
 
   #spiders {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     background: var(--background);
     color: var(--foreground);
     transition: ease-in-out 0.3s;
-    height: calc(100vh);
-    overflow: none;
-    position: relative;
+    display: grid;
+    grid-template-areas:
+      "h"
+      "m"
+      "f";
+    grid-template-rows: 5rem 1fr 5rem;
+    grid-gap: 1rem;
+    height: 100vh;
     overflow: scroll;
-    scroll-padding-bottom: 18rem;
   }
 
   *::selection {
@@ -121,6 +121,18 @@ const SpidersCSS = css`
 
   *::-moz-selection {
     background: var(--accent-2);
+  }
+
+  header {
+    grid-area: h;
+  }
+
+  main {
+    grid-area: m;
+  }
+
+  footer {
+    grid-area: f;
   }
 `;
 

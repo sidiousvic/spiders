@@ -52,10 +52,7 @@ export class XSpiders extends X {
   renderRoute(route: StateValue) {
     switch (route) {
       case "/":
-        return html`<x-post-cards
-          .auth=${this.auth}
-          theme=${this.theme}
-        ></x-post-cards>`;
+        return html`<x-posts .auth=${this.auth} theme=${this.theme}></x-posts>`;
       case "/admin":
         return html`<x-signin
           .auth=${this.auth}
@@ -77,8 +74,11 @@ export class XSpiders extends X {
       data-theme=${this.theme}
       data-skin=${this.skin}
     >
-      <x-navbar .auth=${this.auth} .skin=${this.skin}> </x-navbar>
-      ${this.renderRoute(this.route)}
+      <header>
+        <x-navbar .auth=${this.auth} .skin=${this.skin}> </x-navbar>
+      </header>
+      <main class="main">${this.renderRoute(this.route)}</main>
+      <footer> sidiousvic</footer>
     </div>`;
   }
 }

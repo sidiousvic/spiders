@@ -2,11 +2,11 @@ import { UserAuth } from "@spiders";
 import { LitElement as X, html, property, customElement } from "lit-element";
 import Prism from "prismjs";
 import "./XPostCard";
+import { XPostsCSS } from "../css/XPostsCSS";
 import { SpidersCSS } from "../css/SpidersCSS";
-import { XPostCardsCSS } from "../css/XPostCardsCSS";
 
-@customElement("x-post-cards")
-export default class XPostCards extends X {
+@customElement("x-posts")
+export default class XPosts extends X {
   @property() theme = "";
   @property() loadingMessage = "Weaving webs...";
   @property() auth: UserAuth;
@@ -51,7 +51,7 @@ export default class XPostCards extends X {
     }, 700);
   }
 
-  static styles = [SpidersCSS, XPostCardsCSS];
+  static styles = [SpidersCSS, XPostsCSS];
 
   renderPosts() {
     return this.posts.map(
@@ -72,8 +72,13 @@ export default class XPostCards extends X {
 
   render() {
     return html`
-      <div class="posts" @onPostDelete=${this.fetchPosts}>
-        ${this.posts.length ? this.renderPosts() : this.renderLoadingMessage()}
+      <div class="posts">
+        ${this.posts.length
+          ? html`<div class="what-s-hot" @onPostDelete=${this.fetchPosts}>
+                ${this.renderPosts()}
+              </div>
+              <div class="post">This is a post.</div>`
+          : this.renderLoadingMessage()}
       </div>
     `;
   }
