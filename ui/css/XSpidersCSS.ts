@@ -7,7 +7,7 @@ const XSpidersCSS = css`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: var(--sidious);
+    background-color: black;
   }
 
   main {
@@ -16,7 +16,12 @@ const XSpidersCSS = css`
     justify-content: center;
     width: 90%;
     height: 90%;
-    background-color: var(--sidious);
+    mix-blend-mode: difference;
+  }
+
+  canvas {
+    position: absolute;
+    mix-blend-mode: difference;
   }
 
   main h1 {
@@ -24,7 +29,6 @@ const XSpidersCSS = css`
     font-family: var(--notANikeFont);
     font-size: 130px;
     color: var(--sidious);
-    mix-blend-mode: difference;
   }
 
   @media only screen and (orientation: portrait) {
