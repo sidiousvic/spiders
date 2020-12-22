@@ -20,6 +20,8 @@ class XSpiders extends X {
     switch (route) {
       case "/":
         return html`<x-main></x-main>`;
+      case "/weaver":
+        return html`<x-weaver></x-weaver>`;
       default:
         return html``;
     }
