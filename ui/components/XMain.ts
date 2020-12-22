@@ -1,6 +1,5 @@
 import { LitElement as X, html, property, customElement } from "lit-element";
 import * as THREE from "three";
-// @ts-ignore
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 // @ts-ignore
 import SidiousSkullModel from "./skull.obj";
