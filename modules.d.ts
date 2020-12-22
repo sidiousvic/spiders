@@ -1,2 +1,2 @@
-declare module "showdown";
-declare module "await-spawn";
+declare module "*.obj";
+declare module "markdown-it-prism";
