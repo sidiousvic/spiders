@@ -4,9 +4,7 @@ const UniversalCSS = css`
   :host {
     --sidious: #ff1d53;
     --notANikeFont: "Gotham XNarrow";
-  }
-
-  [data-theme="dark"] {
+    --foreground: #f0f0f0;
   }
 
   [data-theme="light"] {
