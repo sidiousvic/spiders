@@ -2,20 +2,27 @@ import { css } from "lit-element";
 
 const XWeaverCSS = css`
   :host {
+    --accent: #2fe099;
+  }
+
+  :host {
+    font-family: BlackerProDisplayTrial-Medium, serif;
+    line-height: 2.2rem;
     display: flex;
     width: 100%;
+    min-height: 100%;
     animation: fadeUp 500ms ease-out;
     animation-delay: 0s;
     animation-fill-mode: backwards;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
-      3rem
-      minmax(1fr)
+      9rem
+      6rem
       minmax(25rem, 1fr)
+      6rem
       5rem
-      5rem
-      3rem;
+      10rem;
     gap: 1rem;
     grid-template-areas:
       ". . . "
@@ -24,6 +31,7 @@ const XWeaverCSS = css`
       ". ta ."
       ". co ."
       ". . . ";
+    scroll-padding-bottom: 40rem;
   }
 
   :host > * {
@@ -55,12 +63,11 @@ const XWeaverCSS = css`
   #body-editor {
     padding: 2rem 2rem;
     grid-area: bo;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     border-radius: 5px;
     resize: none;
     outline: none;
     color: var(--foreground);
-    background: var(--background);
   }
 
   #body-editor:empty:before {
@@ -69,14 +76,14 @@ const XWeaverCSS = css`
   }
 
   #tags-input {
+    font-family: BlackerProDisplayTrial-Medium, serif;
     padding: 2rem 2rem;
     grid-area: ta;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 5px;
     resize: none;
     outline: none;
-    color: var(--foreground);
-    background: var(--background);
+    color: gray;
     overflow-x: scroll;
     transition: ease-in-out 200ms;
   }

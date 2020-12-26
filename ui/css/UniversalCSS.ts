@@ -5,6 +5,8 @@ const UniversalCSS = css`
     --sidious: #ff1d53;
     --notANikeFont: "Gotham XNarrow";
     --foreground: #f0f0f0;
+    --background: #060606;
+    --inputBackground: #090909;
   }
 
   [data-theme="light"] {

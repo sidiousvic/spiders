@@ -7,7 +7,7 @@ const XSpidersCSS = css`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: var(--background);
   }
 
   @media only screen and (orientation: portrait) {

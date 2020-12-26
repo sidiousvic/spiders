@@ -22,7 +22,7 @@ type WeaverPost = Pick<Post, "postId" | "title" | "body" | "raw" | "tags">;
 export default class XWeaver extends X {
   @property() auth: UserAuth;
   @property() theme = "";
-  @property() state: StateValue = "read";
+  @property() state: StateValue = "weave";
   @property() weaverPostInput: WeaverPost = {
     postId: "",
     title: "",
@@ -196,6 +196,8 @@ export default class XWeaver extends X {
     switch (state) {
       case "emptyBodyError":
         return "Nothing to weave!";
+      case "weave":
+        return "Weave your web...";
       default:
         return this.weaverPostInput.raw;
     }
