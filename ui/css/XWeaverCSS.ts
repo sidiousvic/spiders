@@ -17,12 +17,12 @@ const XWeaverCSS = css`
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows:
-      9rem
-      6rem
+      7rem
+      fit-content(99rem)
       minmax(25rem, 1fr)
       6rem
-      5rem
-      10rem;
+      6rem
+      7rem;
     gap: 1rem;
     grid-template-areas:
       ". . . "
@@ -53,6 +53,7 @@ const XWeaverCSS = css`
     resize: none;
     outline: none;
     transition: ease-in-out 200ms;
+    line-height: 4rem;
   }
 
   #title-input:empty:before {
@@ -76,7 +77,7 @@ const XWeaverCSS = css`
   }
 
   #tags-input {
-    font-family: BlackerProDisplayTrial-Medium, serif;
+    font-family: BlackerProDisplayTrial-light, serif;
     padding: 2rem 2rem;
     grid-area: ta;
     font-size: 1.5rem;
