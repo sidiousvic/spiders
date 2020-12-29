@@ -124,11 +124,11 @@ export default class XWeaver extends X {
   renderModeIcon(state: StateValue) {
     switch (state) {
       case "read":
-        return html`<div class="control">🏴‍☠️&nbspVIEW</div>`;
+        return html`<div class="control">View</div>`;
       case "weave":
-        return html`<div class="control">🏴&nbspVIEW</div>`;
+        return html`<div class="control">Read</div>`;
       default:
-        return html`<div class="control">🏴‍☠️&nbspVIEW</div>`;
+        return html`<div class="control">View</div>`;
     }
   }
 
@@ -137,47 +137,37 @@ export default class XWeaver extends X {
       case "staged":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon>
-            <div class="control" id="commit-post-button">
-              ⚡️&nbspPOST&nbsp;
-            </div>
+            <div class="control" id="commit-post-button">Post</div>
           </icon>
         </div>`;
       case "posting":
         return html`<div id="post-button">
           <icon>
-            <div class="control" id="posted-post-indicator">
-              ✅&nbspDONE&nbsp;
-            </div>
+            <div class="control" id="posted-post-indicator">Done</div>
           </icon>
         </div>`;
       case "emptyTitleError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-title-indicator">
-              🚨&nbspERROR
-            </div></icon
+            ><div class="control" id="empty-title-indicator">Error</div></icon
           >
         </div>`;
       case "emptyBodyError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-body-indicator">
-              🚨&nbspERROR
-            </div></icon
+            ><div class="control" id="empty-body-indicator">Error</div></icon
           >
         </div>`;
       case "emptyTagsError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-tags-indicator">
-              🚨&nbspERROR
-            </div></icon
+            ><div class="control" id="empty-tags-indicator">Error</div></icon
           >
         </div>`;
       default:
         return html`<div id="post-button" @click=${this.stagePost}>
           <icon>
-            <div class="control" id="stage-post-button">🔋&nbspSTAGE</div>
+            <div class="control" id="stage-post-button">Stage</div>
           </icon>
         </div>`;
     }

@@ -84,7 +84,8 @@ const XWeaverCSS = css`
     border-radius: 5px;
     resize: none;
     outline: none;
-    color: gray;
+    color: var(--foreground);
+    font-style: italic;
     overflow-x: scroll;
     transition: ease-in-out 200ms;
   }
@@ -126,24 +127,30 @@ const XWeaverCSS = css`
     outline: none;
     border: none;
     color: var(--foreground);
-    /* background: var(--background); */
     display: grid;
     gap: 1rem;
     grid-template-columns: 2fr 2fr 10fr;
     grid-template-rows: auto;
     justify-items: center;
     align-items: center;
-    /* gap: 20px 20px; */
     grid-template-areas: "w s .";
   }
 
   .control {
-    padding: 0.5rem;
-    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.6rem 2rem;
+    border-radius: 3px;
     background: var(--gradient);
-    color: var(--background);
     transition: ease-in-out 100ms;
-    border: var(--theme-borders);
+    border: black 1px solid;
+    box-shadow: 5px 5px black;
+  }
+
+  .control:hover {
+    transform: scale(0.95);
+    /* transform-origin: bottom right; */
+    border: var(--accent) 1px solid;
+    box-shadow: 4px 4px var(--accent);
   }
 
   [data-display="true"] {
