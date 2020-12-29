@@ -1,6 +1,6 @@
 import { css } from "lit-element";
 
-const XSpidersCSS = css`
+const XSidiousCSS = css`
   :host {
     display: flex;
     align-items: center;
@@ -14,4 +14,4 @@ const XSpidersCSS = css`
   }
 `;
 
-export { XSpidersCSS };
+export { XSidiousCSS };

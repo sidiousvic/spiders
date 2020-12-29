@@ -6,15 +6,15 @@ import {
   query,
 } from "lit-element";
 import { StateValue } from "xstate";
-import { XSpidersCSS } from "../css/XSpidersCSS";
+import { XSidiousCSS } from "../css/XSidiousCSS";
 import { UniversalCSS } from "../css/UniversalCSS";
 
-@customElement("x-spiders")
+@customElement("x-sidious")
 class XSpiders extends X {
   @property() title: string = "JUST DO SH*T.";
   @property() route: string = location.pathname;
   @query("#main") main;
-  static styles = [UniversalCSS, XSpidersCSS];
+  static styles = [UniversalCSS, XSidiousCSS];
 
   renderRoute(route: StateValue) {
     switch (route) {
@@ -22,6 +22,8 @@ class XSpiders extends X {
         return html`<x-main></x-main>`;
       case "/weaver":
         return html`<x-weaver></x-weaver>`;
+      case "/spiders":
+        return html`<x-spiders></x-spiders>`;
       default:
         return html``;
     }
