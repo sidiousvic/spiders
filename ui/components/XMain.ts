@@ -84,7 +84,7 @@ class XMain extends X {
 
     camera.position.z = 5;
 
-    const light1 = new THREE.PointLight(0x4934eb, 2.5);
+    const light1 = new THREE.PointLight(0x4934eb, 4);
     scene.add(light1);
 
     function animate() {
