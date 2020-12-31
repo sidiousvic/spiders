@@ -5,7 +5,7 @@ const UniversalCSS = css`
     --sidious: #ff1d53;
     --notANikeFont: "Gotham XNarrow";
     --foreground: #f0f0f0;
-    --background: #090909;
+    --background: #0b0b0b;
     --inputBackground: #1f1f1f;
   }
 

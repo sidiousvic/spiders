@@ -150,7 +150,7 @@ const XWeaverCSS = css`
     transform: scale(0.95);
     /* transform-origin: bottom right; */
     border: var(--accent) 1px solid;
-    box-shadow: 4px 4px var(--accent);
+    /* box-shadow: 4px 4px var(--accent); */
   }
 
   [data-display="true"] {
