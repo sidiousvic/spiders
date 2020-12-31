@@ -39,10 +39,11 @@ export default class XWeaver extends X {
 
   firstUpdated() {
     // @ts-ignore
-    spidersMachine.onTransition(({ value: { weaver }, event }) => {
-      this.state = weaver;
-      if (event.type === "UPDATE_WEAVER_POST")
-        this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
+    spidersMachine.onTransition((state, event) => {
+      this.state = state.value;
+      console.log(state, event);
+      // if (event.type === "UPDATE_WEAVER_POST")
+      //   this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
     });
   }
 
@@ -53,13 +54,13 @@ export default class XWeaver extends X {
   }
 
   stagePost() {
-    spidersMachine.send("weaver/STAGE");
+    spidersMachine.send("STAGE");
   }
 
   async handlePost() {
     if (this.someInputsAreEmpty()) return;
 
-    spidersMachine.send("weaver/POST", {
+    spidersMachine.send("POST", {
       auth: this.auth,
       weaverPostInput: this.weaverPostInput,
     });
@@ -205,6 +206,10 @@ export default class XWeaver extends X {
   displayEditorOrRendered(state: StateValue, isEditor: boolean) {
     switch (state) {
       case "weave":
+        return css`
+          display: ${isEditor ? css`block` : css`none`};
+        `;
+      case "emptyBodyError":
         return css`
           display: ${isEditor ? css`block` : css`none`};
         `;
