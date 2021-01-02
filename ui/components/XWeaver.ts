@@ -12,7 +12,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import MarkdownIt from "markdown-it";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { CodeCSS } from "../css/CodeCSS";
-import { spidersMachine } from "../machines/spidersMachine";
+import { weaverMachine } from "../machines/weaverMachine";
 
 const md = new MarkdownIt();
 
@@ -54,13 +54,13 @@ export default class XWeaver extends X {
   }
 
   stagePost() {
-    spidersMachine.send("STAGE");
+    weaverMachine.send("STAGE");
   }
 
   async handlePost() {
     if (this.someInputsAreEmpty()) return;
 
-    spidersMachine.send("POST", {
+    weaverMachine.send("POST", {
       auth: this.auth,
       weaverPostInput: this.weaverPostInput,
     });
@@ -108,15 +108,15 @@ export default class XWeaver extends X {
 
   someInputsAreEmpty() {
     if (!this.weaverPostInput.title) {
-      spidersMachine.send("EMPTY_TITLE_ERROR");
+      weaverMachine.send("EMPTY_TITLE_ERROR");
       return true;
     }
     if (!this.weaverPostInput.body) {
-      spidersMachine.send("EMPTY_BODY_ERROR");
+      weaverMachine.send("EMPTY_BODY_ERROR");
       return true;
     }
     if (!this.weaverPostInput.tags) {
-      spidersMachine.send("EMPTY_TAGS_ERROR");
+      weaverMachine.send("EMPTY_TAGS_ERROR");
       return true;
     }
     return false;
@@ -150,19 +150,25 @@ export default class XWeaver extends X {
       case "emptyTitleError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-title-indicator">Error</div></icon
+            ><div class="control control-error" id="empty-title-indicator">
+              Error
+            </div></icon
           >
         </div>`;
       case "emptyBodyError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-body-indicator">Error</div></icon
+            ><div class="control control-error" id="empty-body-indicator">
+              Error
+            </div></icon
           >
         </div>`;
       case "emptyTagsError":
         return html`<div id="post-button" @click=${this.handlePost}>
           <icon
-            ><div class="control" id="empty-tags-indicator">Error</div></icon
+            ><div class="control control-error" id="empty-tags-indicator">
+              Error
+            </div></icon
           >
         </div>`;
       default:
@@ -248,7 +254,7 @@ export default class XWeaver extends X {
         style=${this.displayEditorOrRendered(this.state, false)}
         @click=${() => {
           this.bodyEditorElement.focus();
-          spidersMachine.send("TOGGLE_MODE");
+          weaverMachine.send("TOGGLE_MODE");
         }}
       >
         ${unsafeHTML(this.rendered)}
@@ -263,7 +269,7 @@ export default class XWeaver extends X {
       <div id="controls">
         <div
           id="weaver-mode-indicator"
-          @click=${() => spidersMachine.send("TOGGLE_MODE")}
+          @click=${() => weaverMachine.send("TOGGLE_MODE")}
         >
           <icon> ${this.renderModeIcon(this.state)}</icon>
         </div>

@@ -7,6 +7,7 @@ const UniversalCSS = css`
     --foreground: #f0f0f0;
     --background: #0b0b0b;
     --inputBackground: #1f1f1f;
+    --error: orangered;
   }
 
   [data-theme="light"] {

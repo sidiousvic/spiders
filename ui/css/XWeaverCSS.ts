@@ -138,19 +138,23 @@ const XWeaverCSS = css`
 
   .control {
     cursor: pointer;
+    width: 4rem;
+    text-align: center;
     padding: 0.6rem 2rem;
     border-radius: 3px;
     background: var(--gradient);
-    transition: ease-in-out 100ms;
+    transition: ease-in-out 300ms;
     border: black 1px solid;
     box-shadow: 5px 5px black;
   }
 
   .control:hover {
     transform: scale(0.95);
-    /* transform-origin: bottom right; */
     border: var(--accent) 1px solid;
-    /* box-shadow: 4px 4px var(--accent); */
+  }
+
+  .control-error {
+    border: var(--error) 1px solid !important;
   }
 
   [data-display="true"] {

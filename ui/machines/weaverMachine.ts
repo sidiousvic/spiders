@@ -1,10 +1,14 @@
 import { Role } from "@spiders";
-import { Machine, interpret, assign } from "xstate";
+import { Machine, interpret } from "xstate";
 import { Warning, fireGraphQLQuery } from "../utils";
 
-const spidersBlueprint = Machine(
+const weaverBlueprint = Machine(
   {
     initial: "weave",
+    context: {
+      post: {},
+      message: "",
+    },
     on: {
       WEAVE: "weave",
       UPDATE_WEAVER_POST: { target: "weave" },
@@ -206,24 +210,9 @@ const spidersBlueprint = Machine(
         return auth;
       },
     },
-    actions: {
-      onSuccess: assign((X, { data }: any) => {
-        return { ...data };
-      }),
-      onError: assign((X, { data }: any) => {
-        const message = data;
-        console.error(message);
-        return { message };
-      }),
-      onWarning: assign((X, { data }: any) => {
-        const message = data;
-        console.warn(message);
-        return { message };
-      }),
-    },
   }
 );
 
-const spidersMachine = interpret(spidersBlueprint).start();
+const weaverMachine = interpret(weaverBlueprint).start();
 
-export { spidersMachine };
+export { weaverMachine };
