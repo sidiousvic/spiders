@@ -13,6 +13,9 @@ const authBlueprint = Machine(
       token: "",
       message: "",
     },
+    on: {
+      SIGNIN: "authing",
+    },
     states: {
       unauthed: {
         invoke: {
