@@ -14,6 +14,20 @@ export default class XSignIn extends X {
     username: "",
     password: "",
   };
+  @property() authed;
+
+  firstUpdated() {
+    authMachine.onTransition(({ context: { user } }) => {
+      if (user.role === "DARKLORD") {
+        const authed = new CustomEvent("authed", {
+          detail: { message: `User is ${user.role}.`, routeTo: "/weaver" },
+          bubbles: true,
+          composed: true,
+        });
+        this.dispatchEvent(authed);
+      }
+    });
+  }
 
   static styles = [XSigninCSS];
 

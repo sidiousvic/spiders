@@ -16,6 +16,18 @@ class XSpiders extends X {
   @query("#main") main;
   static styles = [UniversalCSS, XSidiousCSS];
 
+  async firstUpdated() {
+    await new Promise((r) => setTimeout(r, 0));
+    this.addEventListener("authed", this.router);
+  }
+
+  router(e: CustomEvent) {
+    // @ts-ignore add typing later
+    this.route = e.detail.routeTo;
+    // @ts-ignore add typing later
+    console.log(e.detail.routeTo);
+  }
+
   renderRoute(route: StateValue) {
     switch (route) {
       case "/":
@@ -32,7 +44,7 @@ class XSpiders extends X {
   }
 
   render() {
-    return html`${this.renderRoute(this.route)}`;
+    return html`${this.renderRoute(this.route)} `;
   }
 }
 
