@@ -39,7 +39,7 @@ export default class XWeaver extends X {
 
   firstUpdated() {
     // @ts-ignore
-    spidersMachine.onTransition((state, event) => {
+    weaverMachine.onTransition((state, event) => {
       this.state = state.value;
       console.log(state, event);
       // if (event.type === "UPDATE_WEAVER_POST")
