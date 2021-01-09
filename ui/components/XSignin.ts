@@ -2,6 +2,7 @@ import { Role } from "@spiders";
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
 import { XSigninCSS } from "../css/XSigninCSS";
+import { UniversalCSS } from "../css/UniversalCSS";
 import { authMachine } from "../machines/authMachine";
 
 interface SignInInput {
@@ -30,7 +31,7 @@ export default class XSignIn extends X {
     });
   }
 
-  static styles = [XSigninCSS];
+  static styles = [UniversalCSS, XSigninCSS];
 
   handleSignIn(e: MouseEvent & KeyboardEvent) {
     switch (e.type) {
@@ -70,7 +71,7 @@ export default class XSignIn extends X {
 
   render() {
     return html`<div id="signin">
-      <h1 id="signin-heading">WHO ARE YOU ?</h1>
+      <h1 id="signin-heading">Who are you?</h1>
       <div
         contenteditable
         tabindex="1"
@@ -79,7 +80,7 @@ export default class XSignIn extends X {
         data-name="username"
         @keyup=${this.handleSignInInput}
         @keydown=${this.preventMultilineInput}
-        data-placeholder="username"
+        data-placeholder="Username"
       ></div>
       <div
         contenteditable
@@ -89,7 +90,7 @@ export default class XSignIn extends X {
         data-name="password"
         @keyup=${this.handleSignInInput}
         @keydown=${this.preventMultilineInput}
-        data-placeholder="password"
+        data-placeholder="Password"
       ></div>
       <div
         tabindex="3"
