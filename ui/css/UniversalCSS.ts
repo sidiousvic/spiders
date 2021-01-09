@@ -8,6 +8,8 @@ const UniversalCSS = css`
     --background: #0b0b0b;
     --inputBackground: #1f1f1f;
     --error: orangered;
+    --accent: var(--sidious);
+    --accent-2: orangered;
   }
 
   [data-theme="light"] {

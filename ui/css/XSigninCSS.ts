@@ -5,6 +5,7 @@ const XSigninCSS = css`
     width: 100%;
   }
   #signin {
+    font-family: BlackerProDisplayTrial-Medium, serif;
     display: grid;
     grid-template-columns: 1fr 23rem 1fr;
     grid-template-rows:
@@ -37,10 +38,11 @@ const XSigninCSS = css`
     caret-color: var(--accent);
   }
   #signin-heading {
+    font-family: BlackerProDisplayTrial-ExtraBold, serif;
     grid-area: he;
     text-align: center;
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 3rem;
     background: -webkit-linear-gradient(90deg, var(--accent-2), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
