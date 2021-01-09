@@ -1,5 +1,5 @@
 import { Role } from "@spiders";
-import { Machine, interpret } from "xstate";
+import { Machine, interpret, assign } from "xstate";
 import { Warning, fireGraphQLQuery } from "../utils";
 
 const weaverBlueprint = Machine(
@@ -48,7 +48,6 @@ const weaverBlueprint = Machine(
           onDone: { target: "weave", actions: "onSuccess" },
           onError: { target: "weave", actions: "onError" },
         },
-        entry: ["/"],
         on: { WEAVE: "weave" },
       },
       postError: {
@@ -209,6 +208,21 @@ const weaverBlueprint = Machine(
         if (!auth) throw new Warning("No auth found on local storage.");
         return auth;
       },
+    },
+    actions: {
+      onSuccess: assign((X, { data }: any) => {
+        return { ...data };
+      }),
+      onError: assign((X, { data }: any) => {
+        const message = data;
+        console.error(message);
+        return { message };
+      }),
+      onWarning: assign((X, { data }: any) => {
+        const message = data;
+        console.warn(message);
+        return { message };
+      }),
     },
   }
 );
