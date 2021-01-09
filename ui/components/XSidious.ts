@@ -20,6 +20,7 @@ class XSpiders extends X {
     await new Promise((r) => setTimeout(r, 0));
     this.addEventListener("authed", this.router);
     this.addEventListener("unauthed", this.router);
+    this.addEventListener("posted", this.router);
   }
 
   router(e: CustomEvent) {
