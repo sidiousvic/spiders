@@ -43,8 +43,6 @@ class XMain extends X {
       function load(obj) {
         // eslint-disable-next-line array-callback-return
         obj.children.map((child): void => {
-          console.log(child);
-
           // eslint-disable-next-line no-param-reassign
           (child as THREE.Mesh).material = new THREE.MeshPhongMaterial({
             color: 0x000000,
