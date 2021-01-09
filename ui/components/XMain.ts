@@ -75,7 +75,7 @@ class XMain extends X {
     renderer.setClearColor(0xff1d53, 1);
     this.shadowRoot.appendChild(renderer.domElement);
 
-    const directionalLight = new THREE.DirectionalLight(0x432342, 1);
+    const directionalLight = new THREE.DirectionalLight(0xff1d53, 1);
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
 
@@ -84,7 +84,7 @@ class XMain extends X {
 
     camera.position.z = 5;
 
-    const light1 = new THREE.PointLight(0x4934eb, 4);
+    const light1 = new THREE.PointLight(0xff1d53, 4);
     scene.add(light1);
 
     function animate() {
