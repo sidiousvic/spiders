@@ -21,7 +21,13 @@ type WeaverPost = Pick<Post, "postId" | "title" | "body" | "raw" | "tags">;
 
 @customElement("x-weaver")
 export default class XWeaver extends X {
-  @property() auth: UserAuth;
+  @property() auth: UserAuth = {
+    user: {
+      username: "",
+      role: Role.GUEST,
+    },
+    token: "",
+  };
   @property() theme = "";
   @property() state: StateValue = "weave";
   @property() weaverPostInput: WeaverPost = {
@@ -40,7 +46,9 @@ export default class XWeaver extends X {
 
   async firstUpdated() {
     await new Promise((r) => setTimeout(r, 0));
-    authMachine.onTransition(({ context: { user } }) => {
+    authMachine.onTransition(({ context: { user, token } }) => {
+      this.auth.user = user;
+      this.auth.token = token;
       if (user.role !== Role.DARKLORD) {
         const unauthed = new CustomEvent("unauthed", {
           detail: { message: `User is ${user.role}.`, routeTo: "/signin" },
@@ -53,6 +61,15 @@ export default class XWeaver extends X {
     // @ts-ignore
     weaverMachine.onTransition((state) => {
       this.state = state.value;
+      if (state.value === "posted") {
+        console.log("fdashfkj");
+        const posted = new CustomEvent("posted", {
+          detail: { message: "Post created!", routeTo: "/" },
+          bubbles: true,
+          composed: true,
+        });
+        this.dispatchEvent(posted);
+      }
       // if (event.type === "UPDATE_WEAVER_POST")
       //   this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
     });
@@ -70,7 +87,6 @@ export default class XWeaver extends X {
 
   async handlePost() {
     if (this.someInputsAreEmpty()) return;
-
     weaverMachine.send("POST", {
       auth: this.auth,
       weaverPostInput: this.weaverPostInput,
