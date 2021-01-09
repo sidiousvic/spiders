@@ -82,7 +82,6 @@ export function states(service) {
     /** @ts-ignore @TODO */
     childStates[k] = v.state;
   });
-  console.log(childStates);
   return childStates as any;
 }
 

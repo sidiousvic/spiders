@@ -1,3 +1,4 @@
+import { Role } from "@spiders";
 import { LitElement as X, customElement, property } from "lit-element";
 import { html } from "lit-html";
 import { XSigninCSS } from "../css/XSigninCSS";
@@ -18,7 +19,7 @@ export default class XSignIn extends X {
 
   firstUpdated() {
     authMachine.onTransition(({ context: { user } }) => {
-      if (user.role === "DARKLORD") {
+      if (user.role === Role.DARKLORD) {
         const authed = new CustomEvent("authed", {
           detail: { message: `User is ${user.role}.`, routeTo: "/weaver" },
           bubbles: true,

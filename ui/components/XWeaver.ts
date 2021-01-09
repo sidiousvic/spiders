@@ -1,5 +1,5 @@
 import { StateValue } from "xstate";
-import { Post, UserAuth } from "@spiders";
+import { Post, UserAuth, Role } from "@spiders";
 import {
   LitElement as X,
   html,
@@ -13,6 +13,7 @@ import MarkdownIt from "markdown-it";
 import { XWeaverCSS } from "../css/XWeaverCSS";
 import { CodeCSS } from "../css/CodeCSS";
 import { weaverMachine } from "../machines/weaverMachine";
+import { authMachine } from "../machines/authMachine";
 
 const md = new MarkdownIt();
 
@@ -37,11 +38,21 @@ export default class XWeaver extends X {
   @query("#rendered") renderedElement: HTMLDivElement;
   @query("#tags-input") tagsInputElement: HTMLDivElement;
 
-  firstUpdated() {
+  async firstUpdated() {
+    await new Promise((r) => setTimeout(r, 0));
+    authMachine.onTransition(({ context: { user } }) => {
+      if (user.role !== Role.DARKLORD) {
+        const unauthed = new CustomEvent("unauthed", {
+          detail: { message: `User is ${user.role}.`, routeTo: "/signin" },
+          bubbles: true,
+          composed: true,
+        });
+        this.dispatchEvent(unauthed);
+      }
+    });
     // @ts-ignore
-    weaverMachine.onTransition((state, event) => {
+    weaverMachine.onTransition((state) => {
       this.state = state.value;
-      console.log(state, event);
       // if (event.type === "UPDATE_WEAVER_POST")
       //   this.fillWeaverWithUpdateePost(event.postToUpdate as WeaverPost);
     });
