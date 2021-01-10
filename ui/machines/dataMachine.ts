@@ -5,7 +5,7 @@ const dataBlueprint = Machine(
   {
     initial: "idle",
     context: {
-      posts: {},
+      posts: [],
       message: "",
     },
     on: {
@@ -59,7 +59,7 @@ const dataBlueprint = Machine(
           data: { findPosts },
         } = await res.json();
 
-        return { posts: { ...findPosts } };
+        return { posts: [...findPosts] };
       },
     },
     actions: {
