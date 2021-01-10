@@ -10,6 +10,7 @@ const UniversalCSS = css`
     --error: orangered;
     --accent: var(--sidious);
     --accent-2: orangered;
+    --accent-3: deepskyblue;
   }
 
   [data-theme="light"] {

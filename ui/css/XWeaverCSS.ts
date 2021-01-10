@@ -143,14 +143,15 @@ const XWeaverCSS = css`
     padding: 0.6rem 2rem;
     border-radius: 3px;
     background: var(--gradient);
-    transition: ease-in-out 300ms;
-    border: black 1px solid;
-    box-shadow: 5px 5px black;
+    transition: all 200ms ease-in-out 0s;
+    border: 1px solid var(--accent);
+    box-shadow: var(--accent) 3px 3px;
   }
 
   .control:hover {
     transform: scale(0.95);
-    border: var(--accent) 1px solid;
+    border: var(--accent-2) 1px solid;
+    box-shadow: var(--accent-2) 3px 3px;
   }
 
   .control-error {
@@ -167,6 +168,18 @@ const XWeaverCSS = css`
   @media only screen and (orientation: portrait) {
     :host {
       grid-template-columns: 1fr 25fr 1fr;
+    }
+  }
+
+  @keyframes bounceBackAndForth {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.98);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 `;
